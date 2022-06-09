@@ -1,0 +1,106 @@
+<html lang="ko"
+		  xmlns="http://www.w3.org/1999/xhtml"
+		  xmlns:th="http://www.thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  layout:decorate="~{layout/main_layout}">
+  	<head>
+	    <link rel="stylesheet" type="text/css" href="./css/survForm.css">
+	    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	    <script type="text/javascript" src="./js/RegSurv.js"></script>
+		<title>설문 만들기</title>
+  </head>
+  <th:block layout:fragment="contents">
+	
+	
+	<body>
+	    <!-- 설문 기본정보 START -->
+		<div class="form-table-title-continer">
+		   <table class="form-tbl">
+		   <caption class="form-tbl-caption">설문 기본정보</caption>
+		       <tr>
+		           <td class="form-tbl-col">제목</td>
+		           <td><input placeholder="제목을 입력해주세요(최대20자)" /></td>
+		           <td class="form-tbl-col">등록자</td>
+		           <td><span id="reg_Id">Esther</span></td>
+		       </tr>
+		       <tr>
+	               <td class="form-tbl-col">등록일자</td>
+	               <td>2022-05-30</td>
+	               <td class="form-tbl-col">수정일자</td>
+	               <td>2022-05-30</td>
+	           </tr>
+		   </table>
+		</div>
+		<!-- 설문 기본정보 END -->
+
+		<!-- 설문지 소개 START -->
+		<div class="form-table-intro-container">
+		<table id="quest-table" class="form-tbl">
+		   <caption class="form-tbl-caption">설문지 소개</caption>
+		   <tr>
+		       <td class="form-tbl-col">소개</td>
+		       <td><textarea style="width:100%;"></textarea></td>
+		   </tr>
+		</table>
+		</div>
+		<!-- 설문지 소개 END -->
+		<!-- 설문지 질문 START -->
+		<div>
+		<table id="surv_quests_tbl" class="form-tbl">
+	       <caption class="form-tbl-caption">설문지 질문</caption>
+	       <button id="addQuestRow">추가</button>
+	       <thead>
+	            <th class="form-tbl-col"></th>
+	            <th class="form-tbl-col">질문번호</th>
+	            <th class="form-tbl-col">질문유형</th>
+	            <th class="form-tbl-col">질문내용</th>
+	       </thead>
+	       <tbody>
+	         <tr class="item1">
+	            <td style="text-align:center;">
+	                <button id="delQuestRow" onclick="delQuest(this);">삭제</button>
+	            </td>
+	            <td class="questNo">질문1</td>
+	            <td>
+	                <select name="q_type" id="q_type" onchange="showQuest(this)">
+	                    <option value="q_short">단답형</option>
+	                    <option value="q_long">장문형</option>
+	                    <option value="q_select">드롭다운형</option>
+	                    <option value="q_radio">라디오버튼형</option>
+	                    <option value="q_check">체크박스형</option>
+	                </select>
+	            </td>
+	            <td>
+	                <div class="surv_opt_box">
+	                    <input id="q_short" placeholder="질문을 입력해주세요">
+	                </div>
+	            </td>
+	         </tr>
+	         <tr class="item2">
+	            <td style="text-align:center;">
+	                <button id="delQuestRow" onclick="delQuest(this);">삭제</button>
+	            </td>
+	            <td class="questNo">질문2</td>
+	            <td>
+	                <select name="q_type" id="q_type" onchange="showQuest(this)">
+	                    <option value="q_short">단답형</option>
+	                    <option value="q_long">장문형</option>
+	                    <option value="q_select">드롭다운형</option>
+	                    <option value="q_radio">라디오버튼형</option>
+	                    <option value="q_check">체크박스형</option>
+	                </select>
+	            </td>
+	            <td>
+	                <div class="surv_opt_box">
+	                    <input id="q_short" placeholder="질문을 입력해주세요">
+	                </div>
+	            </td>
+	         </tr>
+	       </tbody>
+	    </table>
+	    </div>
+		</div>
+		<!-- 설문지 질문 END -->
+	</body>
+  </th:block>
+</html>

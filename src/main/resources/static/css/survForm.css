@@ -1,1 +1,49 @@
-@charset "UTF-8";
+/*설문 기본정보 테이블의 div
+.form-table-title-continer {
+
+}*/
+/*설문 기본정보 테이블 caption*/
+body{
+	font-size:90%;
+}
+.form-tbl-caption {
+	caption-side: top;
+    text-align: left;
+    font-size:13px;
+}
+/*설문 기본정보 테이블*/
+.form-tbl {
+	width:90%;
+	border: 1px solid;
+	border-collapse: collapse;
+}
+/*설문 기본정보 테이블 td*/
+.form-tbl td {
+    border: 1px solid;
+}
+/*설문 기본정보 테이블 컬럼*/
+.form-tbl-col {
+    text-align: center;
+    background-color:#bebebe;
+    font-weight:bold;
+    font-size:90%;
+    border: 2px solid;
+}
+/*질문내용 td 안 내용*/
+.surv_opt_box {
+	vertical-align: middle;
+	padding: 5px;
+	width: 200;
+}
+/*질문번호 컬럼*/
+.questNo {
+	text-align:center;
+}
+button {
+	border-width: 1px;
+}
+/*설문 소개보 테이블의 div
+.form-table-intro-container{
+
+}*/
+
