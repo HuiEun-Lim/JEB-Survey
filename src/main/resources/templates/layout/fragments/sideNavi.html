@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <div th:fragment="sideNaviFragment">
+    
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-3 bd-sidebar">
+      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+     <img src="img/logo_black.png" style="width:150px;">
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="#" class="nav-link  text-dark" aria-current="page">
+          홈
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-dark">
+          설문 리스트
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-dark">
+         	설문 만들기
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-dark">
+          My Survey
+        </a>
+      </li>
+    </ul>
+      <br>
+    </div>
+    <main class="col-9 py-md-3 pl-md-5 bd-content" role="main">
+          <!-- 본문-->
+                 <th:block layout:fragment="contents"></th:block> 
+    </main>
+  </div>
+</div>
+</div>
+
+</html>

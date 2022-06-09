@@ -2,9 +2,16 @@
 <html lang="ko"
 		  xmlns="http://www.w3.org/1999/xhtml"
 		  xmlns:th="http://www.thymeleaf.org"
-		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<body>
-	<span>home</span>
-</body>
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  layout:decorate="~{layout/main_layout}">
+		   
+ <th:block layout:fragment="contents">
+	<!-- <img src="img/logo_name_black.png"> -->
+	<body>
+	<h4>안녕하세요. JEB 설문조사를 방문해주셔서 감사합니다.</h4>
+	</body>
+	
+  </th:block>
+
 </html>
 
