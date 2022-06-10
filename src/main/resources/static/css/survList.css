@@ -22,3 +22,166 @@ th {
 	background-color: #6C757D;
 	color:white;
 }
+
+.right {
+	float:right;
+}
+
+.right select {
+	width: 100px;
+}
+
+
+/* paginate */
+.paginate {
+    padding: 0;
+    line-height: normal;
+    text-align: center;
+    position: relative;
+    margin: 20px 0 20px 0;
+    z-index: 1;
+}
+ 
+.paginate .paging {
+    text-align: center;
+}
+ 
+.paginate .paging a, .paginate .paging strong {
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #848484;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 12px;
+}
+ 
+.paginate .paging a:hover, .paginate .paging strong {
+    color: #DAA520;
+    font-weight: 600;
+    font-weight: normal;
+}
+ 
+.paginate .paging .direction {
+    z-index: 3;
+    vertical-align: middle;
+    background-color: none;
+    margin: 0 2px;
+    border: 1px solid #777;
+    border-radius: 2px;
+    width: 28px;
+}
+ 
+.paginate .paging .direction:hover {
+    border: 1px solid #C40639;
+}
+ 
+.paginate .paging .direction.prev {
+    margin-right: 4px;
+}
+ 
+.paginate .paging .direction.next {
+    margin-left: 4px;
+    cursor: pointer;
+}
+ 
+.paginate .paging img {
+    vertical-align: middle;
+}
+ 
+.paginate .right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+ 
+.bottom-left, .bottom-right {
+    position: relative;
+    z-index: 5;
+}
+ 
+.paginate ~ .bottom {
+    margin-top: -50px;
+}
+ 
+ 
+.bottom select {
+    background: transparent;
+    color: #aaa;
+    cursor: pointer;
+}
+ 
+ 
+/* paginate */
+.paginate {
+    padding: 0;
+    line-height: normal;
+    text-align: center;
+    position: relative;
+    margin: 20px 0 20px 0;
+    width:80%;
+}
+ 
+.paginate .paging {
+    text-align: center;
+}
+ 
+.paginate .paging a, .paginate .paging strong {
+    margin: 0;
+    padding: 5px;
+    width: 20px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    color: #999;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 14px;
+}
+ 
+.paginate .paging a:hover, .paginate .paging strong {
+    color: black;
+    font-weight: 600;
+    font-weight: normal;
+}
+ 
+.paginate .paging .direction {
+    z-index: 3;
+    vertical-align: middle;
+    background-color: none;
+    margin: 0 2px;
+}
+ 
+.paginate .paging .direction:hover {
+    background-color: transparent;
+}
+ 
+.paginate .paging .direction.prev {
+    margin-right: 4px;
+}
+ 
+.paginate .paging .direction.next {
+    margin-left: 4px;
+}
+ 
+.paginate .paging img {
+    vertical-align: middle;
+}
+ 
+.paginate .right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.paginate a:hover {
+	/* background-color:#EEEEEE; */
+	color: black;
+	font-size: large;
+	text-decoration: none;
+}

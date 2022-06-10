@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.JEB.survey.model.Pagination;
 import com.JEB.survey.model.SurveyDto;
 import com.JEB.survey.repository.SurvListMapper;
 
@@ -15,8 +16,8 @@ public class SurvListServiceImpl implements SurvListService{
 	private SurvListMapper survListMapper;
 	
 	@Override
-	public List<SurveyDto> getSurvList() {
-		return survListMapper.getSurvList();
+	public List<SurveyDto> getSurvList(Pagination pagination) {
+		return survListMapper.getSurvList(pagination);
 	}
 
 	@Override

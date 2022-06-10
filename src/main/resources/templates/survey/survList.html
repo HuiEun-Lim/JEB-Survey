@@ -7,9 +7,7 @@
   		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 	    <link rel="stylesheet" type="text/css" href="./css/survList.css">
-	    <!-- 
-	    <script type="text/javascript" src="./js/RegSurv.js"></script>
-	     -->
+	    <script type="text/javascript" src="./js/survList.js"></script>
 		<title>설문 리스트</title>
   </head>
   <th:block layout:fragment="contents">
@@ -17,7 +15,17 @@
 	<h2>📃 설문 리스트</h2>
 	<br>
 	
-	<span style="font-weight:bold;">총 설문 수 : <span th:text="${total}"/></span>
+	<span style="font-weight:bold;">총 설문 수 : <span th:text="${total}"></span></span>
+	<div class="right">
+	<select id="cntSelectBox" name="cntSelectBox"
+		th:onchange="changeSelectBox([[${pagination.currentPage}]],[[${pagination.cntPerPage}]],[[${pagination.pageSize}]]);"
+		th:value="${pagination.cntPerPage}" th:field="${pagination.cntPerPage}">
+		<option th:value="10">10개씩</option>
+		<option th:value="20">20개씩</option>
+		<option th:value="30">30개씩</option>
+	</select>
+	</div>
+	
 	<div class="table">
 		<table>
 			<thead>
@@ -47,6 +55,44 @@
 			</tbody>
 		</table>
 	</div>
+	
+	<!--paginate -->
+	<th:block th:if="${survList} != null">
+    <div class="paginate">
+        <div class="paging">
+        <!-- 이전 표시 -->
+        <th:block th:if="${pagination.currentPage != 1}">
+        <a class="direction prev" href="#"
+        	th:attr="onclick=|movePage(1, '${pagination.cntPerPage}', '${pagination.pageSize}')|">&lt;&lt;</a>
+        <a class="direction prev" href="#"
+        	th:attr="onclick=|movePage('${pagination.currentPage - 1}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&lt;</a>
+        </th:block>
+        
+        <!-- 페이지 번호 -->
+        <th:block th:each="idx : ${#numbers.sequence(pagination.firstPage, pagination.lastPage)}">
+       		<th:block th:if="${pagination.currentPage == idx}">
+		        <a href="#"
+		        	style="background-color:#EEEEEE; font-weight:700; color:black; font-size: large;"
+		        	th:text="${idx}"></a>
+	        </th:block>
+	        <th:block th:unless="${pagination.currentPage == idx}">
+		        <a href="#"
+		        	th:attr="onclick=|movePage('${idx}', '${pagination.cntPerPage}', '${pagination.pageSize}')|"
+		        	th:text="${idx}"></a>
+	        </th:block>
+        </th:block>
+        
+        <!-- 다음 표시 -->
+        <th:block th:if="${pagination?.currentPage != pagination?.lastPage}">
+        <a class="direction next" href="#"
+        	th:attr="onclick=|movePage('${pagination.currentPage + 1}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&gt;</a>
+        <a class="direction next" href="#"
+        	th:attr="onclick=|movePage('${pagination.lastPage}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&gt;&gt;</a>
+        </th:block>
+        </div>
+    </div>
+	</th:block>
+	<!-- /paginate -->
 	
 	
 	</body>
