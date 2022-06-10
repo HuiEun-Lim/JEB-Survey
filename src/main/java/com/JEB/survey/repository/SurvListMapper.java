@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.JEB.survey.model.Pagination;
+import com.JEB.survey.model.SearchVo;
 import com.JEB.survey.model.SurveyDto;
 
 @Mapper
 public interface SurvListMapper {
-	public List<SurveyDto> getSurvList(Pagination pagination);
-	public int getListCnt();
+	public List<SurveyDto> getSurvList(SearchVo searchVo);
+	public int getListCnt(SearchVo searchVo);
 
 }

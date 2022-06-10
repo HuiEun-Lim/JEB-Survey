@@ -2,7 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.JEB.survey.repository.SurvListMapper">
 
-	<select id="getSurvList" parameterType="com.JEB.survey.model.Pagination" resultType="com.JEB.survey.model.SurveyDto">
+	<sql id="search">
+		<if test="keyword != null and keyword != ''">
+		AND
+			<choose>
+				<when test="'all'.equals(srchTyp)">
+					(
+						surv_title LIKE CONCAT('%', #{keyword}, '%')
+						OR reg_id LIKE CONCAT('%', #{keyword}, '%')
+					)
+				</when>
+				<when test="'title'.equals(srchTyp)">
+					surv_title LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test="'regid'.equals(srchTyp)">
+					reg_id LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+			</choose>
+		</if>
+	</sql>
+
+	<select id="getSurvList" parameterType="com.JEB.survey.model.SearchVo" resultType="com.JEB.survey.model.SurveyDto">
 		SELECT
 			survNo, survTitle, regId, regDate, modDate, rownum
 		FROM
@@ -12,12 +32,13 @@
 				reg_id as regId,
 				reg_date as regDate,
 				mod_date as modDate,
-				ROW_NUMBER() OVER (ORDER BY mod_date desc) as rownum
+				ROW_NUMBER() OVER (ORDER BY mod_date desc, surv_no desc) as rownum
 			FROM	
 				Survey
 			WHERE 	
 				useYn = 'Y'
 				AND delYn = 'N'
+			<include refid="search" />
 			) A
 		<if test="firstRecordIndex != null and lastRecordIndex != null">
 		WHERE
@@ -26,7 +47,7 @@
 		;	
 	</select>
 	
-	<select id="getListCnt" resultType="Integer">
+	<select id="getListCnt" parameterType="com.JEB.survey.model.SearchVo" resultType="Integer">
 		SELECT 	
 			count(*)
 		FROM	
@@ -34,6 +55,7 @@
 		WHERE 	
 			useYn = 'Y'
 			AND delYn = 'N'
+		<include refid="search" />
 		;	
 	</select>
 

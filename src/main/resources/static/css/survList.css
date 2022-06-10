@@ -185,3 +185,56 @@ th {
 	font-size: large;
 	text-decoration: none;
 }
+
+/* Page Css 끝*/
+
+#searchForm {
+	margin-bottom:20px;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  margin:10px;
+  padding: 0.5rem 1rem;
+
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  text-decoration: none;
+
+  display: inline-block;
+  width: auto;
+
+  border: none;
+  border-radius: 4px;
+  
+}
+  
+ button:hover {
+	background-color:black;
+	color:white;
+}
+
+#search_list select {
+	padding : 10px;
+	font-size: 15px;
+}
+
+#search_list input {
+	padding : 10px;
+	font-size: 15px;
+}
+
+#srchBtn {
+	background-color:#6C757D;
+	color: white;
+	height: 40px;
+}
+
+#srchBtn:hover {
+	background-color: black;
+	
+}

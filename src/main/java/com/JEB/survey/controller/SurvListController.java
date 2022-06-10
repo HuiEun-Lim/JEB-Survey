@@ -1,5 +1,7 @@
 package com.JEB.survey.controller;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.JEB.survey.model.Pagination;
+import com.JEB.survey.model.SearchVo;
 import com.JEB.survey.service.SurvListService;
 
 @Controller
@@ -23,19 +25,28 @@ public class SurvListController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-            HttpServletRequest request) {
+            HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView mv = new ModelAndView();
 		
-		int total = survListService.getListCnt();
+		SearchVo searchVo = new SearchVo(currentPage, cntPerPage, pageSize);
+		
+		request.setCharacterEncoding("utf-8");
+	    String keyword = request.getParameter("keyword");
+	    
+		if(keyword != null) {
+			searchVo.setKeyword(keyword);
+			searchVo.setSrchTyp(request.getParameter("srchTyp"));
+		}
+		
+		int total = survListService.getListCnt(searchVo);
 		
 		mv.addObject("total", total);
 		
-		Pagination pagination = new Pagination(currentPage, cntPerPage, pageSize);
-        pagination.setTotalRecordCount(total);
+		searchVo.setTotalRecordCount(total);
 		
 		if(total != 0) {
-			mv.addObject("survList", survListService.getSurvList(pagination));
-			mv.addObject("pagination", pagination);
+			mv.addObject("survList", survListService.getSurvList(searchVo));
+			mv.addObject("pagination", searchVo);
 		}
 		else {
 			mv.addObject("survList", null);

@@ -15,6 +15,20 @@
 	<h2>📃 설문 리스트</h2>
 	<br>
 	
+	<!-- SearchForm -->
+    <form id="searchForm">
+	    <div id="search_list">
+            <select id="srchTyp" style="border:2px solid #6C757D" th:value="${pagination.srchTyp}" th:field="${pagination.srchTyp}">
+                <option th:value="'all'">전체</option>
+                <option th:value="'title'">제목</option>
+                <option th:value="'regid'">등록자</option>
+            </select>
+            <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" th:value="${pagination.keyword}" style="width: 300px; border:2px solid #6C757D">
+            <button type="button" id="srchBtn" onclick="searchKw();">검색 🔍</button>
+            <button type="button" id="reset" onclick="searchReset();">초기화 ♻️</button>
+		</div>
+    </form>
+	
 	<span style="font-weight:bold;">총 설문 수 : <span th:text="${total}"></span></span>
 	<div class="right">
 	<select id="cntSelectBox" name="cntSelectBox"

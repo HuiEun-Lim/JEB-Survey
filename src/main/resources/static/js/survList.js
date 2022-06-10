@@ -7,10 +7,35 @@ function changeSelectBox(currentPage, cntPerPage, pageSize){
 //페이지 이동
 function movePage(currentPage, cntPerPage, pageSize){
     
-    var url = "/survList";
+    let url = "/survList";
     url = url + "?currentPage="+currentPage;
     url = url + "&cntPerPage="+cntPerPage;
     url = url + "&pageSize="+pageSize;
     
+    let srchTyp = $('#srchTyp').val();
+	let keyword = $('#keyword').val();
+ 
+    if(keyword != null) {
+    	url = url + "&srchTyp=" + srchTyp;
+   	 	url = url + "&keyword=" + keyword;
+    }
+    
     location.href=url;
+}
+
+function searchKw() {
+	let srchTyp = $('#srchTyp').val();
+	let keyword = $('#keyword').val();
+	let selectValue = $("#cntSelectBox").children("option:selected").val();
+	
+	 let url = "/survList";
+	 url = url + "?srchTyp=" + srchTyp;
+	 url = url + "&keyword=" + keyword;
+	 url = url + "&cntPerPage=" + selectValue;
+	 
+	 location.href=url;
+}
+
+function searchReset() {
+	location.href="/survList";
 }
