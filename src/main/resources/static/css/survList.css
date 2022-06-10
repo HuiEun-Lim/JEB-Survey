@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+h2 {
+	margin:5px;
+}
+
 table {
 	width: 100%;
 }

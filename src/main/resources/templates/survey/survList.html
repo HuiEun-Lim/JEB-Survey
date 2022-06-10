@@ -14,6 +14,8 @@
   </head>
   <th:block layout:fragment="contents">
 	<body>
+	<h2>📃 설문 리스트</h2>
+	<br>
 	<div class="table">
 		<table>
 			<thead>
@@ -26,7 +28,20 @@
 				</tr>
 			</thead>
 			<tbody>
-			
+			<th:block th:if="${survList} != null">
+			<tr th:each="surv : ${survList}">
+					<td class="survno" th:text="${surv.survNo}"></td>
+					<td class="survtitle" th:text="${surv.survTitle}"></td>
+					<td class="regid" th:text="${surv.regId}"></td>
+					<td class="regdate" th:text="${#dates.format(surv.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+					<td class="moddate" th:text="${#dates.format(surv.modDate, 'yyyy-MM-dd HH:mm')}"></td>
+				</tr>
+			</th:block>
+			<th:block th:unless="${survList} != null">
+				<tr>
+					<td colspan="5" style="text-align:center;">조회된 설문이 없습니다.</td>
+				</tr>
+			</th:block>
 			</tbody>
 		</table>
 	</div>
