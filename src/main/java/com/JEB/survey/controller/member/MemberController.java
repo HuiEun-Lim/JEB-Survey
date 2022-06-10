@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MemberController {
 	
-	@GetMapping(value="/member")
-	  public String blogForm(){
-		  	 return "/member/login";
+	@GetMapping(value="/loginForm")
+	  public String login(){
+		  	 return "member/login";
 	 } 
+	
+	@GetMapping(value="/joinForm")
+	  public String join(){
+		  	 return "member/join";
+	 } 
+	
 }

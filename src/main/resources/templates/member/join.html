@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko"
+		  xmlns="http://www.w3.org/1999/xhtml"
+		  xmlns:th="http://www.thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  layout:decorate="~{layout/main_layout}">
+		   
+<th:block layout:fragment="contents">
+	
+    <div class="login_wrapper text-center">
+        <form >
+            <input type="text" name="email" class="form-control" placeholder="아이디" autocomplete="off" />
+            <input type="text" name="name" class="form-control" placeholder="이름" autocomplete="off" />
+            <input type="password" name="password" class="form-control" placeholder="비밀번호" autocomplete="off" />
+            <input type="password" name="password" class="form-control" placeholder="비밀번호 확인" autocomplete="off" />
+            <div class="col-12">
+            	<div class="btn-group">
+                <a th:href="@{/}"><button type="button" class="btn btn-dark btn-large form-control">Join</button></a>
+                <a th:href="@{/loginForm}"><button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button></a>
+            </div>
+            </div>
+        </form>
+    </div>
+  </th:block>
+</html>
+

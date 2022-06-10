@@ -7,11 +7,22 @@
 		   
 <th:block layout:fragment="contents">
 	
-	<body>
-	<input name="" id="" size="80" maxlength="100">
-	<input name="" id="" size="80" maxlength="100">
-	</body>	
-  </th:block>
+	 <body class="text-center">
+ 		<form> <!-- 요청 보내기-->
+     		<img src="img/logo_name_black.png" style="width:400px; height:150px;">
+     		
+     		<input type="text" id="username" name="username" class="form-control" placeholder="id"  autofocus>
+
+     		<input type="password" id="password" name="password" class="form-control" placeholder="password" >    
+	
+			<div class="col-12">
+				<div class="btn-group btn-group-lg">
+         			<a th:href="@{/}"><button type="button" class="btn btn-dark btn-large form-control">로그인</button></a>
+         			<a th:href="@{/joinForm}"><button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">회원가입</button></a>
+ 				</div> 	    
+			</div>
+ 	</form>
+</th:block>
 
 </html>
 
