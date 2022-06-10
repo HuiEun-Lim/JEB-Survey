@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ex_controller {
-
-	@RequestMapping(value = "/hello", method=RequestMethod.GET)
+public class SurvListController {
+	
+	@RequestMapping(value = "/survList", method=RequestMethod.GET)
 	public ModelAndView hello(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		
-		mv.setViewName("ex_list");
+		mv.setViewName("survey/survList");
 		
 		return mv;
 	}
 	
-	
+
 }
