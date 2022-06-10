@@ -1,5 +1,8 @@
 package com.JEB.survey.model;
 
+import lombok.Data;
+
+@Data
 public class SurveyDto extends BaseVo {
 	// 설문 조사 번호
 	private int survNo;
