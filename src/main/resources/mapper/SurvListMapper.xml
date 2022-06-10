@@ -17,6 +17,17 @@
 		ORDER BY mod_date desc
 		;	
 	</select>
+	
+	<select id="getListCnt" resultType="Integer">
+		SELECT 	
+			count(*)
+		FROM	
+			Survey
+		WHERE 	
+			useYn = 'Y'
+			AND delYn = 'N'
+		;	
+	</select>
 
 
 

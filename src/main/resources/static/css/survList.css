@@ -1,13 +1,24 @@
 @charset "UTF-8";
 
 h2 {
-	margin:5px;
+	margin-top:5px;
+	margin-bottom:20px;
 }
 
 table {
 	width: 100%;
+	margin-top: 20px;
 }
 
 th, .survno, .regdate, .moddate  {
 	text-align: center;
+}
+
+.survno {
+	width:100px;
+}
+
+th {
+	background-color: #6C757D;
+	color:white;
 }

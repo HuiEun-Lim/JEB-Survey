@@ -23,9 +23,11 @@ public class SurvListController {
 	public ModelAndView hello(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		
-		List<SurveyDto> survList = survListService.getSurvList();
+		int total = survListService.getListCnt();
 		
-		if(!survList.isEmpty()) mv.addObject("survList", survList);
+		mv.addObject("total", total);
+		
+		if(total != 0) mv.addObject("survList", survListService.getSurvList());
 		else mv.addObject("survList", null);
 		
 		mv.setViewName("survey/survList");

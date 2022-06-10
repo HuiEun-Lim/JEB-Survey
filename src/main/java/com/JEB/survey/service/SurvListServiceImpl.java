@@ -12,11 +12,16 @@ import com.JEB.survey.repository.SurvListMapper;
 public class SurvListServiceImpl implements SurvListService{
 	
 	@Autowired
-	private SurvListMapper survListmapper;
+	private SurvListMapper survListMapper;
 	
 	@Override
 	public List<SurveyDto> getSurvList() {
-		return survListmapper.getSurvList();
+		return survListMapper.getSurvList();
+	}
+
+	@Override
+	public int getListCnt() {
+		return survListMapper.getListCnt();
 	}
 
 }
