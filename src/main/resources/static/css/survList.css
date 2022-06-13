@@ -10,7 +10,7 @@ table {
 	margin-top: 20px;
 }
 
-th, .survno, .regdate, .moddate, .useYn {
+th, .survno, .regdate, .moddate, .useYn, .result {
 	text-align: center;
 }
 
@@ -18,6 +18,12 @@ th, .survno, .regdate, .moddate, .useYn {
 	width:100px;
 }
 
+.result button {
+	margin:0;
+	padding: 3px;
+
+	font-size: small;
+}
 
 th {
 	background-color: #6C757D;

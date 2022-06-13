@@ -43,6 +43,7 @@
 					<th>사용 여부</th>
 					<th>등록 날짜</th>
 					<th>최종 수정 날짜</th>
+					<th>결과</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -53,11 +54,12 @@
 					<td class="useYn" th:text="${surv.useYn}"></td>
 					<td class="regdate" th:text="${#dates.format(surv.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td class="moddate" th:text="${#dates.format(surv.modDate, 'yyyy-MM-dd HH:mm')}"></td>
+					<td class="result"><button>결과 보기</button></td>
 				</tr>
 			</th:block>
 			<th:block th:unless="${survList} != null">
 				<tr>
-					<td colspan="5" style="text-align:center;">조회된 설문이 없습니다.</td>
+					<td colspan="5" style="text-align:center;">회원님이 생성한 설문이 없습니다.</td>
 				</tr>
 			</th:block>
 			</tbody>
