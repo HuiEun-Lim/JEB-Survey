@@ -24,17 +24,20 @@
 
 	<select id="getSurvList" parameterType="com.JEB.survey.model.SearchVo" resultType="com.JEB.survey.model.SurveyDto">
 		SELECT
-			survNo, survTitle, regId, regDate, modDate, rownum
+			survNo, survTitle, regDate, modDate, memNick, rownum
 		FROM
 			(SELECT 	
-				surv_no as survNo,
-				surv_title as survTitle,
-				reg_id as regId,
-				reg_date as regDate,
-				mod_date as modDate,
-				ROW_NUMBER() OVER (ORDER BY mod_date desc, surv_no desc) as rownum
+				s.surv_no as survNo,
+				s.surv_title as survTitle,
+				s.reg_id as regId,
+				s.reg_date as regDate,
+				s.mod_date as modDate,
+				m.mem_nick as memNick,
+				ROW_NUMBER() OVER (ORDER BY s.mod_date desc, s.surv_no desc) as rownum
 			FROM	
-				Survey
+				Survey as s
+				LEFT JOIN MEMBER as m
+				ON s.reg_id = m.mem_id
 			WHERE 	
 				useYn = 'Y'
 				AND delYn = 'N'
