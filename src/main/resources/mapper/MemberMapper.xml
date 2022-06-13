@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JEB.survey.repository.MemberMapper">
+
+
+	<!-- 로그인 -->
+	<select id="loginMem" parameterType="com.JEB.survey.model.MemberDto" resultType="int">
+		select 
+			mem_id as memId,
+			mem_pw as memPw,
+			mem_nick as memNick
+		from member
+		where 
+			mem_id = #{memId} and
+			mem_pw = #{memPw} 
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertMem" parameterType="com.JEB.survey.model.MemberDto">
+		insert into member(				
+				mem_id,			
+				mem_pw,			
+				mem_nick
+			) values(
+				#{memId},
+				#{memPw}, 
+				#{memNick}
+			)			
+	</insert>
+
+
+</mapper>

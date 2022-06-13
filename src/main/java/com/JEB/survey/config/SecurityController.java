@@ -6,7 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class SecurityController {
-	 @RequestMapping("/")
+	
+	 @RequestMapping("/main")
 	  public String home(ModelAndView mav) {
 	    return "/member/home";  
 	  }
