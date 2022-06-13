@@ -17,13 +17,13 @@
 	<!-- SearchForm -->
     <form id="searchForm">
 	    <div id="search_list">
-            <input type="text" id="keyword" name="keyword" placeholder="설문 제목을 입력하세요" th:value="${pagination.keyword}" style="width: 300px; border:2px solid #6C757D">
+            <input type="text" id="keyword" name="keyword" placeholder="설문 제목을 입력하세요" th:value="${pagination?.keyword}" style="width: 300px; border:2px solid #6C757D">
             <button type="button" id="srchBtn" onclick="searchKw();">검색 🔍</button>
             <button type="button" id="reset" onclick="searchReset();">초기화 ♻️</button>
 		</div>
     </form>
 	
-	<span style="font-weight:bold;">총 설문 수 : <span th:text="${total}"></span></span>
+	<span style="font-weight:bold;">나의 설문 수 : <span th:text="${total}"></span></span>
 	<div class="right">
 	<select id="cntSelectBox" name="cntSelectBox"
 		th:onchange="changeSelectBox([[${pagination.currentPage}]],[[${pagination.cntPerPage}]],[[${pagination.pageSize}]]);"

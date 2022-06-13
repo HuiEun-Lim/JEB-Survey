@@ -46,12 +46,11 @@ public class SurvListController {
 		
 		if(total != 0) {
 			mv.addObject("survList", survListService.getSurvList(searchVo));
-			mv.addObject("pagination", searchVo);
 		}
 		else {
 			mv.addObject("survList", null);
-			mv.addObject("pagination", null);
 		}
+		mv.addObject("pagination", searchVo);
 		
 		mv.setViewName("survey/survList");
 		
@@ -87,12 +86,11 @@ public class SurvListController {
 		
 		if(total != 0) {
 			mv.addObject("survList", survListService.getMyList(searchVo));
-			mv.addObject("pagination", searchVo);
 		}
 		else {
 			mv.addObject("survList", null);
-			mv.addObject("pagination", null);
 		}
+		mv.addObject("pagination", searchVo);
 		
 		mv.setViewName("survey/myList");
 		

@@ -12,7 +12,7 @@ function movePage(currentPage, cntPerPage, pageSize){
     url = url + "&cntPerPage="+cntPerPage;
     url = url + "&pageSize="+pageSize;
     
-	let keyword = $('#keyword').val();
+	let keyword = $('#keyword').val().trim();
  
     if(keyword != null) {
    	 	url = url + "&keyword=" + keyword;
@@ -22,7 +22,7 @@ function movePage(currentPage, cntPerPage, pageSize){
 }
 
 function searchKw() {
-	let keyword = $('#keyword').val();
+	let keyword = $('#keyword').val().trim();
 	let selectValue = $("#cntSelectBox").children("option:selected").val();
 	
 	 let url = "/myList";

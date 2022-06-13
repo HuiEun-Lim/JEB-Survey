@@ -13,7 +13,7 @@ function movePage(currentPage, cntPerPage, pageSize){
     url = url + "&pageSize="+pageSize;
     
     let srchTyp = $('#srchTyp').val();
-	let keyword = $('#keyword').val();
+	let keyword = $('#keyword').val().trim();
  
     if(keyword != null) {
     	url = url + "&srchTyp=" + srchTyp;
@@ -25,7 +25,7 @@ function movePage(currentPage, cntPerPage, pageSize){
 
 function searchKw() {
 	let srchTyp = $('#srchTyp').val();
-	let keyword = $('#keyword').val();
+	let keyword = $('#keyword').val().trim();
 	let selectValue = $("#cntSelectBox").children("option:selected").val();
 	
 	 let url = "/survList";
