@@ -61,6 +61,43 @@
 		<include refid="search" />
 		;	
 	</select>
+	
+	<select id="getMyList" parameterType="com.JEB.survey.model.SearchVo" resultType="com.JEB.survey.model.SurveyDto">
+		SELECT
+			survNo, survTitle, regDate, modDate, useYn, rownum
+		FROM
+			(SELECT 	
+				surv_no as survNo,
+				surv_title as survTitle,
+				useYn,
+				reg_date as regDate,
+				mod_date as modDate,
+				ROW_NUMBER() OVER (ORDER BY mod_date desc, surv_no desc) as rownum
+			FROM	
+				Survey
+			WHERE 	
+				reg_id = #{regId}
+				AND delYn = 'N'
+			<include refid="search" />
+			) A
+		<if test="firstRecordIndex != null and lastRecordIndex != null">
+		WHERE
+			rownum BETWEEN #{firstRecordIndex} AND #{lastRecordIndex}
+		</if>
+		;	
+	</select>
+	
+	<select id="getMyCnt" parameterType="com.JEB.survey.model.SearchVo" resultType="Integer">
+		SELECT 	
+			count(*)
+		FROM	
+			Survey
+		WHERE 	
+			reg_id = #{regId}
+			AND delYn = 'N'
+		<include refid="search" />
+		;	
+	</select>
 
 
 

@@ -58,5 +58,46 @@ public class SurvListController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "/myList", method=RequestMethod.GET)
+	public ModelAndView myList(
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+            HttpServletRequest request) throws UnsupportedEncodingException {
+		ModelAndView mv = new ModelAndView();
+		
+		SearchVo searchVo = new SearchVo(currentPage, cntPerPage, pageSize);
+		
+		// Id 세팅
+		searchVo.setRegId("Jetty");
+		
+		request.setCharacterEncoding("utf-8");
+	    String keyword = request.getParameter("keyword");
+	    
+		if(keyword != null) {
+			searchVo.setKeyword(keyword);
+			searchVo.setSrchTyp("title");
+		}
+		
+		int total = survListService.getMyCnt(searchVo);
+		
+		mv.addObject("total", total);
+		
+		searchVo.setTotalRecordCount(total);
+		
+		if(total != 0) {
+			mv.addObject("survList", survListService.getMyList(searchVo));
+			mv.addObject("pagination", searchVo);
+		}
+		else {
+			mv.addObject("survList", null);
+			mv.addObject("pagination", null);
+		}
+		
+		mv.setViewName("survey/myList");
+		
+		return mv;
+	}
+	
 
 }

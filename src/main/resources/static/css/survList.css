@@ -10,13 +10,14 @@ table {
 	margin-top: 20px;
 }
 
-th, .survno, .regdate, .moddate  {
+th, .survno, .regdate, .moddate, .useYn {
 	text-align: center;
 }
 
 .survno {
 	width:100px;
 }
+
 
 th {
 	background-color: #6C757D;

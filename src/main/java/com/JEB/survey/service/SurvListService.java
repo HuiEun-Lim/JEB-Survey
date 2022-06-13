@@ -7,5 +7,10 @@ import com.JEB.survey.model.SurveyDto;
 
 public interface SurvListService {
 	public List<SurveyDto> getSurvList(SearchVo searchVo);
+	
 	public int getListCnt(SearchVo searchVo);
+	
+	public List<SurveyDto> getMyList(SearchVo searchVo);
+	
+	public int getMyCnt(SearchVo searchVo);
 }

@@ -25,4 +25,14 @@ public class SurvListServiceImpl implements SurvListService{
 		return survListMapper.getListCnt(searchVo);
 	}
 
+	@Override
+	public List<SurveyDto> getMyList(SearchVo searchVo) {
+		return survListMapper.getMyList(searchVo);
+	}
+
+	@Override
+	public int getMyCnt(SearchVo searchVo) {
+		return survListMapper.getMyCnt(searchVo);
+	}
+
 }
