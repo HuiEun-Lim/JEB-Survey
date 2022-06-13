@@ -23,6 +23,15 @@ th {
 	color:white;
 }
 
+.survtitle a {
+	color:black;
+}
+
+.survtitle a:hover {
+	text-decoration:none;
+	color:pink;
+}
+
 .right {
 	float:right;
 }
