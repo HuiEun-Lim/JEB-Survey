@@ -10,8 +10,6 @@ public class QustoptDto {
 	private int qustNo;
 	//답변내용
 	private String optCont;
-	//삭제여부
-	private String delYn;
 	//표기순서
 	private int optSeq;
 }
