@@ -1,5 +1,7 @@
 package com.JEB.survey.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -14,4 +16,6 @@ public class SurveyDto extends BaseVo {
 	private String useYn;
 	// 삭제 여부
 	private String delYn;
+	// 질문내용
+	private List<SurvqustDto> survqustList;
 }

@@ -1,5 +1,7 @@
 package com.JEB.survey.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -14,4 +16,6 @@ public class SurvqustDto {
 	private String qustType;
 	//표기순서
 	private int qustSeq;
+	//옵션내용
+	private List<QustoptDto> qustoptList;
 }
