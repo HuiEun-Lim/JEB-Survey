@@ -27,6 +27,15 @@
 				#{memNick}
 			)			
 	</insert>
-
+	
+	<!-- 아이디에 따른 회원정보 -->
+	<select id="getUserInfo" parameterType="String" resultType="com.JEB.survey.model.MemberDto">
+		select
+			mem_id as memId,
+			mem_pw as memPw,
+			mem_nick as memNick
+		from member
+		where mem_id = #{memId}
+	</select>
 
 </mapper>

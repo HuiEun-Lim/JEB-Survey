@@ -8,4 +8,5 @@ public interface MemberService {
 		
 	//회원가입
 	void insertMem(MemberDto member);
+	
 }

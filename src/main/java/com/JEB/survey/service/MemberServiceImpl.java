@@ -42,4 +42,7 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("서비스에서 암호화하구 나와"+member);
 	}
 
+
+
+
 }

@@ -23,12 +23,16 @@
     		loginForm.submit();
     	}
     	
+    	function showJoin(){
+    		
+    	}
+    	
 
     </script>
 
 
 	 <body class="text-center">
- 		<form name="loginForm" id="loginForm" action="/member/login" th:object="${MemberDto}" method="post"> <!-- 요청 보내기-->
+ 		<form name="loginForm" id="loginForm" action="/loginForm" th:object="${MemberDto}" method="post"> <!-- 요청 보내기-->
      		<img src="img/logo_name_black.png" style="width:400px; height:150px;">
      		<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
      		<input type="text" id="memId" name="memId" class="form-control" placeholder="id"  autofocus>
