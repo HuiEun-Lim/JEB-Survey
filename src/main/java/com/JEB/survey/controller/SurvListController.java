@@ -71,12 +71,9 @@ public class SurvListController {
 		searchVo.setRegId("Jetty");
 		
 		request.setCharacterEncoding("utf-8");
-	    String keyword = request.getParameter("keyword");
 	    
-		if(keyword != null) {
-			searchVo.setKeyword(keyword);
-			searchVo.setSrchTyp("title");
-		}
+		searchVo.setKeyword(request.getParameter("keyword"));
+		searchVo.setSrchTyp(request.getParameter("srchTyp"));
 		
 		int total = survListService.getMyCnt(searchVo);
 		

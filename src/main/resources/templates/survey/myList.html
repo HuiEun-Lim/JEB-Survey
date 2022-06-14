@@ -17,6 +17,11 @@
 	<!-- SearchForm -->
     <form id="searchForm">
 	    <div id="search_list">
+	    <select id="srchTyp" style="border:2px solid #6C757D" th:value="${pagination.srchTyp}" th:field="${pagination.srchTyp}">
+                <option th:value="'useYN'">전체</option>
+                <option th:value="'useY'">사용중</option>
+                <option th:value="'useN'">사용 안함</option>
+            </select>
             <input type="text" id="keyword" name="keyword" placeholder="설문 제목을 입력하세요" th:value="${pagination?.keyword}" style="width: 300px; border:2px solid #6C757D">
             <button type="button" id="srchBtn" onclick="searchKw();">검색 🔍</button>
             <button type="button" id="reset" onclick="searchReset();">초기화 ♻️</button>
@@ -51,7 +56,10 @@
 			<tr th:each="surv : ${survList}">
 					<td class="survno" th:text="${surv.survNo}"></td>
 					<td class="survtitle"><a th:text="${surv.survTitle}" href="#"></a></td>
-					<td class="useYn" th:text="${surv.useYn}"></td>
+					<td class="useYn">
+						<span th:if="${#strings.equals(surv.useYn, 'Y')}">사용중</span>
+						<span th:unless="${#strings.equals(surv.useYn, 'Y')}">사용 안함</span>
+					</td>
 					<td class="regdate" th:text="${#dates.format(surv.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td class="moddate" th:text="${#dates.format(surv.modDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td class="result"><button>결과 보기</button></td>

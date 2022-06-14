@@ -13,8 +13,10 @@ function movePage(currentPage, cntPerPage, pageSize){
     url = url + "&pageSize="+pageSize;
     
 	let keyword = $('#keyword').val().trim();
+	let srchTyp = $('#srchTyp').val();
  
     if(keyword != null) {
+    	url = url + "&srchTyp=" + srchTyp;
    	 	url = url + "&keyword=" + keyword;
     }
     
@@ -22,11 +24,13 @@ function movePage(currentPage, cntPerPage, pageSize){
 }
 
 function searchKw() {
+	let srchTyp = $('#srchTyp').val();
 	let keyword = $('#keyword').val().trim();
 	let selectValue = $("#cntSelectBox").children("option:selected").val();
 	
 	 let url = "/myList";
-	 url = url + "?keyword=" + keyword;
+	 url = url + "?srchTyp=" + srchTyp;
+	 url = url + "&keyword=" + keyword;
 	 url = url + "&cntPerPage=" + selectValue;
 	 
 	 location.href=url;

@@ -21,6 +21,21 @@
 			</choose>
 		</if>
 	</sql>
+	
+	<sql id="mySearch">
+		<if test="keyword != null and keyword != ''">
+		AND
+			surv_title LIKE CONCAT('%', #{keyword}, '%')
+		</if>
+		<choose>
+				<when test="'useY'.equals(srchTyp)">
+					AND useYn = 'Y'
+				</when>
+				<when test="'useN'.equals(srchTyp)">
+					AND useYn = 'N'
+				</when>
+		</choose>
+	</sql>
 
 	<select id="getSurvList" parameterType="com.JEB.survey.model.SearchVo" resultType="com.JEB.survey.model.SurveyDto">
 		SELECT
@@ -78,7 +93,7 @@
 			WHERE 	
 				reg_id = #{regId}
 				AND delYn = 'N'
-			<include refid="search" />
+			<include refid="mySearch" />
 			) A
 		<if test="firstRecordIndex != null and lastRecordIndex != null">
 		WHERE
@@ -95,7 +110,7 @@
 		WHERE 	
 			reg_id = #{regId}
 			AND delYn = 'N'
-		<include refid="search" />
+		<include refid="mySearch" />
 		;	
 	</select>
 
