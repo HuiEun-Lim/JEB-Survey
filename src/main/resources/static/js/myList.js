@@ -39,3 +39,10 @@ function searchKw() {
 function searchReset() {
 	location.href="/myList";
 }
+
+function viewRslt(survNo) {
+	let url = "/survRslt";
+	url = url + "?survNo=" + survNo;
+	
+	location.href = url;
+}

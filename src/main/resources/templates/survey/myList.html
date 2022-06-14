@@ -62,7 +62,7 @@
 					</td>
 					<td class="regdate" th:text="${#dates.format(surv.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td class="moddate" th:text="${#dates.format(surv.modDate, 'yyyy-MM-dd HH:mm')}"></td>
-					<td class="result"><button>결과 보기</button></td>
+					<td class="result"><button th:onclick="viewRslt([[${surv.survNo}]]);">결과 보기</button></td>
 				</tr>
 			</th:block>
 			<th:block th:unless="${survList} != null">

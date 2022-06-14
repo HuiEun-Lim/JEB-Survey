@@ -1,0 +1,19 @@
+<html lang="ko"
+		  xmlns="http://www.w3.org/1999/xhtml"
+		  xmlns:th="http://www.thymeleaf.org"
+		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+		  layout:decorate="~{layout/main_layout}">
+  	<head>
+  		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  		<link rel="stylesheet" type="text/css" href="./css/survRslt.css">
+		<title>설문 결과</title>
+  </head>
+  <th:block layout:fragment="contents">
+	<body>
+	<h2>📊 설문 결과</h2>
+	<br>
+	설문 조사 번호 : <span th:text="${survNo}"></span>
+
+	</body>
+  </th:block>
+</html>

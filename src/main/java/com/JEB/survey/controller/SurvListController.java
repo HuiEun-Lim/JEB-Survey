@@ -94,5 +94,15 @@ public class SurvListController {
 		return mv;
 	}
 	
+	@RequestMapping("/survRslt")
+	public ModelAndView survRslt(@RequestParam(value = "survNo") int survNo) {	
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("survey/survRslt");
+		
+		mv.addObject("survNo", survNo);
+		
+		return mv;
+	}
+	
 
 }
