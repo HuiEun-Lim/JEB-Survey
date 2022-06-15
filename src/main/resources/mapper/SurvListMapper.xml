@@ -113,6 +113,37 @@
 		<include refid="mySearch" />
 		;	
 	</select>
+	
+	<select id="getOneSurv" parameterType="int" resultType="com.JEB.survey.model.SurveyDto">
+		SELECT 	
+			surv_no as survNo,
+			surv_title as survTitle,
+			surv_desc as survDesc,
+			useYn,
+			delYn,
+			reg_date as regDate,
+			mod_date as modDate
+		FROM	
+			Survey
+		WHERE 	
+			surv_no = #{survNo}
+		;	
+	</select>
+	
+	<select id="getOneSurvQust" parameterType="com.JEB.survey.model.SurveyDto" resultType="com.JEB.survey.model.SurveyDto">
+		SELECT 	
+			surv_no as survNo,
+			surv_title as survTitle,
+			surv_desc as survDesc,
+			useYn,
+			reg_date as regDate,
+			mod_date as modDate
+		FROM	
+			Survey
+		WHERE 	
+			surv_no = #{survNo}
+		;	
+	</select>
 
 
 

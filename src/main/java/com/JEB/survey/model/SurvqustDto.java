@@ -18,4 +18,6 @@ public class SurvqustDto {
 	private int qustSeq;
 	//옵션내용
 	private List<QustoptDto> qustoptList;
+	// 응답 리스트
+	private List<AnswerDto> answerList;
 }

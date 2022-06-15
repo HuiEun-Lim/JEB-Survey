@@ -34,8 +34,6 @@ public class LoginIdPwValidator implements UserDetailsService{
 		  
 		  String pw = user.getMemPw();
 		  String roles = "USER";
-		  String nick = user.getMemNick();
-		
 		  
 		  return User.builder()
 				  .username(memId)

@@ -13,4 +13,6 @@ public interface SurvListService {
 	public List<SurveyDto> getMyList(SearchVo searchVo);
 	
 	public int getMyCnt(SearchVo searchVo);
+	
+	public SurveyDto getSurvRslt(int survNo);
 }

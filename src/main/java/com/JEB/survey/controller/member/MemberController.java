@@ -21,7 +21,6 @@ public class MemberController {
 	//로그인 폼 보여주기
 	  @GetMapping(value="/loginForm") 
 	  public String login(@AuthenticationPrincipal  UserDetails userInfo, Model model) throws Exception{			 
-		   	  
 		  model.addAttribute("member",userInfo);
 		  return "member/login"; 
 	  }
@@ -39,7 +38,4 @@ public class MemberController {
 		memberService.insertMem(memberDto); 
 		return "redirect:/loginForm";
 	}
-	
-
-	
 }

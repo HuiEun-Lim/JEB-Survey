@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.JEB.survey.model.SearchVo;
+import com.JEB.survey.model.SurveyDto;
 import com.JEB.survey.service.SurvListService;
 
 @Controller
@@ -102,7 +103,14 @@ public class SurvListController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("survey/survRslt");
 		
-		mv.addObject("survNo", survNo);
+		SurveyDto surveyDto = survListService.getSurvRslt(survNo);
+		
+		// 개행 마크업 변경하여 출력
+		if(surveyDto.getSurvDesc() != null)
+			surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n", "<br>"));
+		
+		
+		mv.addObject("survey", surveyDto);
 		
 		return mv;
 	}

@@ -16,5 +16,7 @@ public interface SurvListMapper {
 	public List<SurveyDto> getMyList(SearchVo searchVo);
 	
 	public int getMyCnt(SearchVo searchVo);
+	
+	public SurveyDto getOneSurv(int survNo);
 
 }
