@@ -12,7 +12,13 @@
 		        </li>
       		</ul>
       	<form class="d-flex">
-        <a href="/loginForm"><button class="btn btn-dark" type="button" >로그인</button></a>
+      	<div sec:authorize="isAnonymous()">
+      		<a href="/loginForm"><button class="btn btn-dark" type="button" >로그인</button></a>
+      	</div>
+      	<div sec:authorize="isAuthenticated()">
+      		<a href="/member/logout"><button class="btn btn-dark" type="button" >로그아웃</button></a>
+      	</div>
+      	
       </form>
     </div>
   </div>

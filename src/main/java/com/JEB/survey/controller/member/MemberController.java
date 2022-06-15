@@ -21,7 +21,8 @@ public class MemberController {
 	//로그인 폼 보여주기
 	  @GetMapping(value="/loginForm") 
 	  public String login(@AuthenticationPrincipal  UserDetails userInfo, Model model) throws Exception{			 
-		  System.out.println("로그인컨트롤러야 "+userInfo); 	  
+		   	  
+		  model.addAttribute("member",userInfo);
 		  return "member/login"; 
 	  }
 	  

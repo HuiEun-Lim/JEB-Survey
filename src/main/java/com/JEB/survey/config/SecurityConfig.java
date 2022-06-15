@@ -20,8 +20,7 @@ public class SecurityConfig{
 	 */
 	//AuthenticationManager authenticationManager;
 	
-	@Autowired
-	private LoginIdPwValidator loginIdPwValidator;
+
 
 
 	//따라서 필터체인을 구성하는 방법으로 SecurityFilterCahin을 Bean으로 선언하고 이때 HttpSecurity를 주입받아 사용하는 것
@@ -46,7 +45,7 @@ public class SecurityConfig{
 				.defaultSuccessUrl("/main", true)
 				.permitAll().and() //로그인 성공시 이동
 			.logout()
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //로그아웃 경로
+				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) //로그아웃 경로
 				.logoutSuccessUrl("/loginForm") //로그아웃 성공시 이동 경로
 				.invalidateHttpSession(true).and() //로그아웃 성공시 세션 제거
 			.exceptionHandling()
