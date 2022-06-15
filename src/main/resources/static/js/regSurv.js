@@ -38,70 +38,74 @@ $(function () {
     
     
     $("#regSurvBtn").click(function() {
-		alert("등록클릭!");
 		
-		let survqustList=[]; //질문1개 1개 모아놓은 거
-		let qustOptDto=[];  //옵션 1개 1개 모아놓은 거
+		let chkValidate = chkFields()==true? true:false;
+	
+		if(chkValidate) {
 		
-		
-		$("#surv_quests_tbl>tbody tr").each(function() {
-			let survQustObj = new Object (); //질문1개
-			let qustOptArr = [];
+			let survqustList=[]; //질문1개 1개 모아놓은 거
 			
-			let q_type = $(this).find("td:eq(2) select option:selected").val();
-			survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
-			survQustObj.qustType = q_type;
-			
-			if(q_type=='q_short') {				
-			survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
-			} else if(q_type=="q_long") {
-			survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
-			} else {
-				survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+			$("#surv_quests_tbl>tbody tr").each(function() {
+				let survQustObj = new Object (); //질문1개
+				let qustOptArr = [];
 				
-				$(this).find('ol[name="multi-opt"] li').each(function(index, item) {
-					let optObj = new Object(); //옵션 1개의 객체
+				let q_type = $(this).find("td:eq(2) select option:selected").val();
+				survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
+				survQustObj.qustType = q_type;
+				
+				if(q_type=='q_short') {				
+				survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+				} else if(q_type=="q_long") {
+				survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
+				} else {
+					survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
 					
-					optObj.optSeq = index+1;
-					optObj.optCont = $(item).find("input").val();
-					qustOptArr.push(optObj);
-				});
-				survQustObj.qustoptList = qustOptArr;
-			}
-			survqustList.push(survQustObj);
+					$(this).find('ol[name="multi-opt"] li').each(function(index, item) {
+						let optObj = new Object(); //옵션 1개의 객체
+						
+						optObj.optSeq = index+1;
+						optObj.optCont = $(item).find("input").val();
+						qustOptArr.push(optObj);
+					});
+					survQustObj.qustoptList = qustOptArr;
+				}
+				survqustList.push(survQustObj);
+				
+			});
 			
-		});
+			 var param = {
+					"survTitle" : $("#survTitle").val(),
+					"regDate" : $("#regDate").text(),
+					"useYn" : $("#useYn").val(),		
+					"survDesc" : $("#survDesc").val(),
+					"survqustList" : survqustList,
+				};
+				
 		
-		 var param = {
-				"survTitle" : $("#survTitle").val(),
-				"regDate" : $("#regDate").text(),
-				"useYn" : $("#useYn").val(),		
-				"survDesc" : $("#survDesc").val(),
-				"survqustList" : survqustList,
-			};
+			console.log("param ==> " + JSON.stringify(param));
+		
+			var header = $("meta[name='_csrf_header']").attr('content');
+			var token = $("meta[name='_csrf']").attr('content');
 			
-	
-		console.log("param ==> " + JSON.stringify(param));
-	
-		var header = $("meta[name='_csrf_header']").attr('content');
-		var token = $("meta[name='_csrf']").attr('content');
-		
-	    $.ajax({
-			url:'/regSurv',
-			type: 'POST',
-			contentType : "application/json; charset=utf-8",
-			data: JSON.stringify(param),
-			beforeSend: function(xhr){
-	        xhr.setRequestHeader(header, token);
-	    },
-			success: function() {
-				alert('등록 완료');
-			},
-			error: function(e) {
-				alert("등록 실패!!");
-				console.log(e);
-			}
-		});
+		    $.ajax({
+				url:'/regSurv',
+				type: 'POST',
+				contentType : "application/json; charset=utf-8",
+				data: JSON.stringify(param),
+				beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		    },
+				success: function() {
+					alert('등록 완료');
+				},
+				error: function(e) {
+					alert("등록 실패!!");
+					console.log(e);
+				}
+			});
+		} else {
+			alert("값을 입력해주세요!!");
+		}
   });
    
     
@@ -132,15 +136,15 @@ function showQuest(type) {
 
   if (q_type=='q_short') {
     $('.surv_opt_box').eq(rownum).append(
-            '<input id="q_short" placeholder="질문을 입력해주세요">'
+            '<input id="q_short" type="text"  placeholder="질문을 입력해주세요">'
      );
   } else if (q_type=='q_long') {
     $('.surv_opt_box').eq(rownum).append(
-            '<textarea id="q_long" placeholder="질문을 입력해주세요"></textarea>'
+            '<textarea id="q_long" type="text"  placeholder="질문을 입력해주세요"></textarea>'
      );
   } else if (q_type=='q_select') {
     $('.surv_opt_box').eq(rownum).append(
-			 '<input id="qustCont" placeholder="질문을 입력해주세요">'
+			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
            + '<ol id="select-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
@@ -151,7 +155,7 @@ function showQuest(type) {
      );
   } else if (q_type=='q_radio') {
 	$('.surv_opt_box').eq(rownum).append(
-			 '<input id="qustCont" placeholder="질문을 입력해주세요">'
+			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
            + '<ol id="radio-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
@@ -162,7 +166,7 @@ function showQuest(type) {
      );
 	} else if (q_type=='q_check') {
 	$('.surv_opt_box').eq(rownum).append(
-			 '<input id="qustCont" placeholder="질문을 입력해주세요">'
+			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
            + '<ol id="check-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
@@ -181,14 +185,14 @@ function addOption(optType, data) {
   if (optType=='select') {
    $("#surv_quests_tbl>tbody").find("tr:eq("+idx+")").find("#select-multi-opt").append(
               '<li>'
-            + '<input name="multi-opt" placeholder="옵션" ></input>'
+            + '<input type="text"  name="multi-opt" placeholder="옵션" ></input>'
             + '<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'select\',this);">X<br></span>'
             + '</li>'
      );
   } else if (optType=='radio') {
 	$("#surv_quests_tbl>tbody").find("tr:eq("+idx+")").find("#radio-multi-opt").append(
               '<li>'
-            + '<input name="multi-opt" placeholder="옵션" ></input>'
+            + '<input type="text"  name="multi-opt" placeholder="옵션" ></input>'
             + '<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'radio\',this);">X<br></span>'
             + '</li>'
      );
@@ -196,7 +200,7 @@ function addOption(optType, data) {
 		
 	$("#surv_quests_tbl>tbody").find("tr:eq("+idx+")").find("#check-multi-opt").append(
               '<li>'
-            + '<input name="multi-opt" placeholder="옵션" ></input>'
+            + '<input type="text"  name="multi-opt" placeholder="옵션" ></input>'
             + '<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'check\',this);">X<br></span>'
             + '</li>'
      );	
@@ -246,4 +250,31 @@ function getToday() {
     var day = ("0" + date.getDate()).slice(-2);
 
     return year + "-" + month + "-" + day;
+}
+
+function chkFields() {
+	let result = true;
+	$('input[type=text]').each(function(index,item) {
+			let txt = $(item).val().trim();
+			
+			if (""==txt || null==txt) {
+				console.log("index: "+index+"  item: "+item);
+				result=false;
+				return false;
+			} 				
+			
+	});
+	$('textarea').each(function(index,item) {
+		let txt = $(item).val().trim();
+			
+			if (""==txt || null==txt) {
+				result=false;
+				return false;
+			}
+	});
+	if (result) {
+		return true;
+	} else {
+		return false;
+	}
 }
