@@ -9,4 +9,7 @@ public interface MemberService {
 	//회원가입
 	void insertMem(MemberDto member);
 	
+	// 아이디에 따른 회원정보 
+	MemberDto getUserInfo(String mem_id);
+	
 }

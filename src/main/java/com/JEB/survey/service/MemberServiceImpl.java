@@ -43,6 +43,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-
-
+	@Override
+	public MemberDto getUserInfo(String mem_id) {
+		MemberDto user = memberMapper.getUserInfo(mem_id);
+		System.out.println("로그인한 친구 정보야"+user);
+		return user;
+	}
 }
