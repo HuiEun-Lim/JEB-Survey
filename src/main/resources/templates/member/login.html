@@ -37,7 +37,11 @@
      		<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
      		<input type="text" id="memId" name="memId" class="form-control" placeholder="id"  autofocus>
      		<input type="password" id="memPw" name="memPw" class="form-control" placeholder="password" >    
-	
+	 		 <div th:if="${param.error}">
+        		<p th:text="${exception}" class="alert alert-danger"></p>
+    		</div>
+	 	
+	 	
 			<div class="col-12">
 				<div class="btn-group btn-group-lg">
          			<button type="submit" class="btn btn-dark btn-large form-control" >로그인</button>

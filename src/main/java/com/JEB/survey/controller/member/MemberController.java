@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.JEB.survey.model.MemberDto;
 import com.JEB.survey.service.MemberService;
@@ -20,8 +21,12 @@ public class MemberController {
 	
 	//로그인 폼 보여주기
 	  @GetMapping(value="/loginForm") 
-	  public String login(@AuthenticationPrincipal  UserDetails userInfo, Model model) throws Exception{			 
+	  public String login(@RequestParam(value="error", required = false) String error,
+			  						@RequestParam(value = "exception", required = false) String exception,
+			  						@AuthenticationPrincipal  UserDetails userInfo, Model model) throws Exception{			 
+		  System.out.println("오류발생"+exception+"\n"+"================================");
 		  model.addAttribute("member",userInfo);
+		  model.addAttribute("exception",exception);
 		  return "member/login"; 
 	  }
 	  

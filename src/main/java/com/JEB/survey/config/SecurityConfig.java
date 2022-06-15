@@ -7,10 +7,16 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import lombok.AllArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig{
 	//WebSecurityConfigurerAdapter에 오버로딩 되어있는 다양한 configure함수를  오버라이드해서 설정
 	//security 버전 5.7부터는 WebSecurityConfigurerAdapter가 deprecate됨
@@ -20,6 +26,19 @@ public class SecurityConfig{
 	 */
 	//AuthenticationManager authenticationManager;
 	
+	private final AuthenticationFailureHandler loginFailHandler;
+    
+	/*
+	 * @Autowired private LoginSuccessHandler loginSuccessHandler;
+	 */
+	
+	  // 로그인 성공 처리를 위한 Handler
+	  @Bean
+	  public AuthenticationSuccessHandler LoginSuccessHandler() {
+		  // loginIdname, defaultUrl
+	      return new LoginSuccessHandler("/main");
+	  }
+	  
 
 
 
@@ -29,11 +48,12 @@ public class SecurityConfig{
 		return web -> web.ignoring().antMatchers("/js/**","/css/**","/img/**"); //spring security filterchain제외
 	}
 	
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{	
 		return http
 				.authorizeRequests() //권한 검증 설정
-				  .antMatchers("/main","/joinForm","/survList").permitAll()
+				  .antMatchers("/main","/joinForm","/survList","/loginForm/**").permitAll()
 				  .antMatchers("/member/**").permitAll()
 				//.antMatchers("/**").permitAll()
 				.anyRequest().authenticated() //어떤 URL로 접근하던지 인증이 필요
@@ -42,12 +62,14 @@ public class SecurityConfig{
 				.loginPage("/loginForm")
 				.usernameParameter("memId")
 				.passwordParameter("memPw")
-				.defaultSuccessUrl("/main", true)
+				.failureHandler(loginFailHandler) //실패 핸들러
+				.successHandler(LoginSuccessHandler())//성공 핸들러
+				.defaultSuccessUrl("/main")
 				.permitAll().and() //로그인 성공시 이동
 			.logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) //로그아웃 경로
 				.logoutSuccessUrl("/loginForm") //로그아웃 성공시 이동 경로
-				.invalidateHttpSession(true).and() //로그아웃 성공시 세션 제거
+				.invalidateHttpSession(true).deleteCookies("JSESSIONID").and() //로그아웃 성공시 세션 제거
 			.exceptionHandling()
 				.accessDeniedPage("/denied").and() //권한이 없는 사용자가 접근했을 경우
 			.build();			

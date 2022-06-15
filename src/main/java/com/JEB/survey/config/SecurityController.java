@@ -19,8 +19,6 @@ public class SecurityController {
 		 if(userInfo!=null) {
 			 model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
 		 }
-		 		
-		 System.out.println("컨틀롤러 model"+model);
 	    return "/member/home";  
 	  }
 }
