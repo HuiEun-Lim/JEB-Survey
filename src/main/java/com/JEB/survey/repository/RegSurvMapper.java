@@ -10,6 +10,8 @@ import com.JEB.survey.model.SurvqustDto;
 
 @Mapper
 public interface RegSurvMapper {
+	//회원정보(닉네임) 가져오기
+	public String getUserInfo(String memId);
 
 	//설문만들기 Survey
 	public void insertSurv(SurveyDto surveyDto);

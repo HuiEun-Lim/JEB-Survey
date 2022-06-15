@@ -1,7 +1,10 @@
 package com.JEB.survey.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,15 +23,20 @@ public class SurvController {
 	private RegSurvService regSurvService;
 	
 	@RequestMapping("/regSurvForm")
-	public String regSurvForm() {
+	public String regSurvForm(@AuthenticationPrincipal UserDetails userInfo, Model model) {
+		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
+		System.out.println("==memNick ==> "+memNick);
+		model.addAttribute("memNick",memNick);
 		return "RegSurv";
 	}
 
 	@RequestMapping("/regSurv")
 	@ResponseBody
-	public String regSurv(@RequestBody SurveyDto surveyDto) throws Exception {	
+	public String regSurv(@RequestBody SurveyDto surveyDto
+			, @AuthenticationPrincipal UserDetails userInfo) throws Exception {	
 		System.out.println("===regSurv Controller START");
 		
+		surveyDto.setRegId(userInfo.getUsername());
 		System.out.println("surveyDto ==> "+surveyDto.toString());
 		regSurvService.insertSurv(surveyDto);
 		

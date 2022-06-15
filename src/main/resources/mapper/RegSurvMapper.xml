@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.JEB.survey.repository.RegSurvMapper">
+	<select id="getUserInfo" parameterType="String" resultType="String">
+		SELECT mem_nick
+		  FROM MEMBER
+		 WHERE mem_id = #{regId};
+	</select>
+
 	<insert id="insertSurv" parameterType="com.JEB.survey.model.SurveyDto">
 		INSERT INTO SURVEY( surv_title
                            ,surv_desc
@@ -11,7 +17,7 @@
                           )
                     VALUES( #{survTitle}
                     	, #{survDesc}
-                    	, #{memNick} <!-- 나중에 regId로 변경 -->
+                    	, #{regId} <!-- 나중에 regId로 변경 -->
                     	, GETDATE()
                     	, GETDATE()
                     	, #{useYn}

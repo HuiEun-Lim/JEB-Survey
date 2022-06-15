@@ -74,7 +74,6 @@ $(function () {
 		
 		 var param = {
 				"survTitle" : $("#survTitle").val(),
-				"memNick" : $("#memNick").text(),
 				"regDate" : $("#regDate").text(),
 				"useYn" : $("#useYn").val(),		
 				"survDesc" : $("#survDesc").val(),

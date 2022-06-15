@@ -16,6 +16,12 @@ public class RegSurvServiceImpl implements RegSurvService {
 	@Autowired
 	RegSurvMapper regSurvMapper;
 	
+	@Override
+	public String getUserInfo(String memId) {
+		
+		return regSurvMapper.getUserInfo(memId);
+	}
+	
 	//설문만들기
 	@Override
 	public void insertSurv(SurveyDto surveyDto) {
@@ -24,29 +30,28 @@ public class RegSurvServiceImpl implements RegSurvService {
 		regSurvMapper.insertSurv(surveyDto);
 		
 		List<SurvqustDto> survqustList = surveyDto.getSurvqustList();
-		System.out.println(surveyDto.getSurvqustList());
+		
+		
 		if (survqustList.isEmpty()) {
 			System.out.println("survqustList  EMPTY!!");
 		} else {
 			System.out.println("survqustList  NOT EMPTY!!");
 			
 			for(SurvqustDto vo : survqustList) {
-				System.out.println("SurvQust for문 vo ==> "+ vo);
 				regSurvMapper.insertSurvqust(vo);
 				
 				List<QustoptDto> qustoptList = vo.getQustoptList();
+				
 				if(qustoptList==null || qustoptList.isEmpty()) {
 					System.out.println("qustoptList EMPTY!!");
 				} else {
 					System.out.println("qustoptList NOT EMPTY!!");
 					
 					for(QustoptDto qo : qustoptList) {
-						System.out.println("QustOpt for문 qo ==> " + qo);
 						regSurvMapper.insertQustopt(qo);
-						System.out.println("QustOpt for문 END");
 					}
 				}
-				System.out.println("SurvQust for문 END");
+				
 			}
 			
 		}
