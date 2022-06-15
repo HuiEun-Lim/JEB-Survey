@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JEB.survey.repository.RegSurvMapper">
+	<insert id="insertSurv" parameterType="com.JEB.survey.model.SurveyDto">
+		INSERT INTO SURVEY( surv_title
+                           ,surv_desc
+                           ,reg_id
+                           ,reg_date
+                           ,mod_date
+                           ,useYn
+                          )
+                    VALUES( #{survTitle}
+                    	, #{survDesc}
+                    	, #{memNick} <!-- 나중에 regId로 변경 -->
+                    	, GETDATE()
+                    	, GETDATE()
+                    	, #{useYn}
+                    	);
+                    	
+    </insert>
+    
+    <insert id="insertSurvqust" parameterType="com.JEB.survey.model.SurvqustDto">
+    	<selectKey resultType="int" keyProperty="survNo" order="BEFORE">
+        	SELECT ISNULL(MAX(surv_no),0) 
+        	  FROM SURVEY;
+        </selectKey>
+    	 INSERT INTO SURVQUST( surv_no
+                           ,qust_seq
+                           ,qust_cont
+                           ,qust_type
+                          )
+                    VALUES ( #{survNo}
+                    		, #{qustSeq}
+                    		, #{qustCont}
+                    		, #{qustType}
+                    		)
+    </insert>
+
+	<insert id="insertQustopt" parameterType="com.JEB.survey.model.QustoptDto">
+		<selectKey resultType="int" keyProperty="qustNo" order="BEFORE">
+        	SELECT ISNULL(MAX(qust_no),0) FROM SURVQUST;
+        </selectKey>
+		INSERT INTO QUSTOPT( qust_no
+                           ,opt_seq
+                           ,opt_cont
+                          )
+                    VALUES ( #{qustNo}
+                    		, #{optSeq}
+                    		, #{optCont}
+                    		)
+	
+	</insert>
+</mapper>

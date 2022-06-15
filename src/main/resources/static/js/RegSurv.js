@@ -40,7 +40,7 @@ $(function () {
     $("#regSurvBtn").click(function() {
 		alert("등록클릭!");
 		
-		let survQustDto=[]; //질문1개 1개 모아놓은 거
+		let survqustList=[]; //질문1개 1개 모아놓은 거
 		let qustOptDto=[];  //옵션 1개 1개 모아놓은 거
 		
 		
@@ -66,25 +66,22 @@ $(function () {
 					optObj.optCont = $(item).find("input").val();
 					qustOptArr.push(optObj);
 				});
-				qustOptDto.push(qustOptArr);
+				survQustObj.qustoptList = qustOptArr;
 			}
-			survQustDto.push(survQustObj);
+			survqustList.push(survQustObj);
 			
 		});
 		
 		 var param = {
-			
-			"surveyDto" : {
 				"survTitle" : $("#survTitle").val(),
-				"regId" : $("#regId").text(),
+				"memNick" : $("#memNick").text(),
 				"regDate" : $("#regDate").text(),
 				"useYn" : $("#useYn").val(),		
-				"survDesc" : $("#survDesc").val(),		
-			},
-			"survqustDto" : survQustDto,
-			"qustoptDto" : qustOptDto
-		
-		}
+				"survDesc" : $("#survDesc").val(),
+				"survqustList" : survqustList,
+			};
+			
+	
 		console.log("param ==> " + JSON.stringify(param));
 	
 		var header = $("meta[name='_csrf_header']").attr('content');

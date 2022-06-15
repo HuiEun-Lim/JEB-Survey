@@ -10,14 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.JEB.survey.model.SurveyDto;
 import com.JEB.survey.model.SurvqustDto;
-//import com.JEB.survey.service.RegSurvService;
-//import com.JEB.survey.service.RegSurvServiceImpl;
+import com.JEB.survey.service.RegSurvService;
+import com.JEB.survey.service.RegSurvServiceImpl;
 
 @Controller
 public class SurvController {
 	
 	@Autowired
-	//private RegSurvService regSurvService;
+	private RegSurvService regSurvService;
 	
 	@RequestMapping("/regSurvForm")
 	public String regSurvForm() {
@@ -26,10 +26,11 @@ public class SurvController {
 
 	@RequestMapping("/regSurv")
 	@ResponseBody
-	public String regSurv(@RequestBody SurveyDto survFormDto) throws Exception {	
+	public String regSurv(@RequestBody SurveyDto surveyDto) throws Exception {	
 		System.out.println("===regSurv Controller START");
 		
-
+		System.out.println("surveyDto ==> "+surveyDto.toString());
+		regSurvService.insertSurv(surveyDto);
 		
 		System.out.println("===regSurv Controller END===");
 		return "RegSurv";
