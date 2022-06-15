@@ -22,14 +22,20 @@ public class SurvController {
 	@Autowired
 	private RegSurvService regSurvService;
 	
+	/*
+	 * 설문 만들기 View
+	 */
 	@RequestMapping("/regSurvForm")
 	public String regSurvForm(@AuthenticationPrincipal UserDetails userInfo, Model model) {
 		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
 		System.out.println("==memNick ==> "+memNick);
 		model.addAttribute("memNick",memNick);
-		return "RegSurv";
+		return "survey/regSurv";
 	}
 
+	/*
+	 * 설문 만들기 
+	*/
 	@RequestMapping("/regSurv")
 	@ResponseBody
 	public String regSurv(@RequestBody SurveyDto surveyDto
@@ -41,7 +47,15 @@ public class SurvController {
 		regSurvService.insertSurv(surveyDto);
 		
 		System.out.println("===regSurv Controller END===");
-		return "RegSurv";
+		return "survey/regSurv";
+	}
+	
+	/*
+	 * My Survey > 설문 수정하기 View
+	 */
+	@RequestMapping("/modSurvForm")
+	public String modSurv() {
+		return "survey/modSurv";
 	}
 
 }
