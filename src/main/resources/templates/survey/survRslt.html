@@ -10,7 +10,7 @@
   </head>
   <th:block layout:fragment="contents">
 	<body>
-	<h2>📊 설문 결과</h2>
+	<h2>📋 설문 결과</h2>
 	<br>
 	
 	<table id="survInfo">
@@ -33,9 +33,40 @@
 			<th colspan="6">설문 설명</th>
 		</tr>
 		<tr>
-			<td colspan="6" th:if="${survey.survDesc} != null" th:utext="${survey.survDesc}"></td>
+			<td colspan="6" th:if="${survey.survDesc} != null" >
+			<div class="survdesc">
+			<span th:utext="${survey.survDesc}"></span>
+			</div>
+			</td>
 			<td colspan="6" class="descNull" th:unless="${survey.survDesc} != null">[설문 설명 없음]</td>
 		</tr>
+	</table>
+	
+	<h3>📊 응답 결과</h3>
+	
+	<table id="rslt">
+		<th:block th:each="qust : ${survey.survqustList}">
+			<tr>
+				<th colspan="2" th:text="${qust.qustCont}"></th>
+			</tr>
+			<th:block th:if="${#strings.equals(qust.qustType, 'q_long')}">
+			<tr>
+				<td colspan="2" >
+				<div class="answLong">
+				<th:block th:each="answ : ${qust.answerList}">
+				<p th:utext="${answ?.answLong}"></p>
+				</th:block>
+				</div>
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${#strings.equals(qust.qustType, 'q_long')}">
+			<tr th:each="answ : ${qust.answerList}">
+				<td>응답 수 : <span th:text="${answ.count}"></span></td>
+				<td th:text="${answ.answCont}"></td>
+			</tr>
+			</th:block>
+		</th:block>
 	</table>
 
 	</body>

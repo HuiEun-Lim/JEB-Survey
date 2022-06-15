@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.JEB.survey.model.AnswerDto;
 import com.JEB.survey.model.SearchVo;
 import com.JEB.survey.model.SurveyDto;
+import com.JEB.survey.model.SurvqustDto;
 
 @Mapper
 public interface SurvListMapper {
@@ -18,5 +20,11 @@ public interface SurvListMapper {
 	public int getMyCnt(SearchVo searchVo);
 	
 	public SurveyDto getOneSurv(int survNo);
+	
+	public List<SurvqustDto> getSurvQust(int survNo);
+	
+	public List<AnswerDto> getAnswer(int qustNo);
+	
+	public List<AnswerDto> getLongAnswer(int qustNo);
 
 }

@@ -105,11 +105,6 @@ public class SurvListController {
 		
 		SurveyDto surveyDto = survListService.getSurvRslt(survNo);
 		
-		// 개행 마크업 변경하여 출력
-		if(surveyDto.getSurvDesc() != null)
-			surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n", "<br>"));
-		
-		
 		mv.addObject("survey", surveyDto);
 		
 		return mv;

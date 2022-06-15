@@ -130,18 +130,38 @@
 		;	
 	</select>
 	
-	<select id="getOneSurvQust" parameterType="com.JEB.survey.model.SurveyDto" resultType="com.JEB.survey.model.SurveyDto">
+	<select id="getSurvQust" parameterType="Integer" resultType="com.JEB.survey.model.SurvqustDto">
 		SELECT 	
-			surv_no as survNo,
-			surv_title as survTitle,
-			surv_desc as survDesc,
-			useYn,
-			reg_date as regDate,
-			mod_date as modDate
+			qust_no as qustNo,
+			qust_cont as qustCont,
+			qust_type as qustType,
+			qust_seq as qustSeq
 		FROM	
-			Survey
+			SurvQust
 		WHERE 	
 			surv_no = #{survNo}
+		;	
+	</select>
+	
+	<select id="getAnswer" parameterType="Integer" resultType="com.JEB.survey.model.AnswerDto">
+		SELECT 	
+			count(*) as count,
+			answ_cont as answCont
+		FROM	
+			Answer
+		WHERE 	
+			qust_no = #{qustNo}
+		GROUP BY answ_cont
+		;	
+	</select>
+	
+	<select id="getLongAnswer" parameterType="Integer" resultType="com.JEB.survey.model.AnswerDto">
+		SELECT 	
+			answ_long as answLong
+		FROM	
+			Answer
+		WHERE 	
+			qust_no = #{qustNo}
 		;	
 	</select>
 

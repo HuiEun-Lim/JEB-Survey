@@ -5,6 +5,11 @@ h2 {
 	margin-bottom:20px;
 }
 
+h3 {
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
 #survInfo {
 	width:100%;
 	padding: 20px;
@@ -12,7 +17,7 @@ h2 {
     border-collapse: collapse;
 }
 
-th, td {
+#survInfo th, #survInfo td {
     border-bottom: 2px solid #EEEEEE;
     padding: 10px;
 }
@@ -30,4 +35,35 @@ th, td {
 	color : grey;
 	text-align: center;
 	font-style: italic;
+}
+
+.survdesc {
+	overflow:auto;
+	max-height:100px;
+}
+
+.answLong {
+	overflow:auto;
+	max-height:300px;
+}
+
+#rslt {
+	width:100%;
+	padding: 20px;
+	border-top: 2px solid #EEEEEE;
+    border-collapse: collapse;
+}
+
+#rslt th {
+	width:100%;
+	border-top: 2px solid #EEEEEE;
+    padding: 10px;
+}
+
+#rslt td {
+    padding: 10px;
+}
+
+#rslt p {
+	border-top: 1px solid #EEEEEE;
 }
