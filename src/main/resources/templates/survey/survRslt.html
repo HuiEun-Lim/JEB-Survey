@@ -12,7 +12,31 @@
 	<body>
 	<h2>📊 설문 결과</h2>
 	<br>
-	설문 조사 번호 : <span th:text="${survNo}"></span>
+	
+	<table id="survInfo">
+		<tr>
+			<th>설문 제목</th>
+			<td colspan="5" class="survtitle" th:text="${survey.survTitle}"></td>
+		</tr>
+		<tr>
+			<th>등록 날짜</th>
+			<td class="regdate" th:text="${#dates.format(survey.regDate, 'yyyy-MM-dd HH:mm')}"></td>
+			<th>수정 날짜</th>
+			<td class="moddate" th:text="${#dates.format(survey.modDate, 'yyyy-MM-dd HH:mm')}"></td>
+			<th>사용 여부</th>
+			<td class="uesYn">
+				<span th:if="${#strings.equals(survey.useYn, 'Y')}">사용중</span>
+				<span th:unless="${#strings.equals(survey.useYn, 'Y')}">사용 안함</span>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="6">설문 설명</th>
+		</tr>
+		<tr>
+			<td colspan="6" th:if="${survey.survDesc} != null" th:utext="${survey.survDesc}"></td>
+			<td colspan="6" class="descNull" th:unless="${survey.survDesc} != null">[설문 설명 없음]</td>
+		</tr>
+	</table>
 
 	</body>
   </th:block>

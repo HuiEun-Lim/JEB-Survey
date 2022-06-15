@@ -4,3 +4,30 @@ h2 {
 	margin-top:5px;
 	margin-bottom:20px;
 }
+
+#survInfo {
+	width:100%;
+	padding: 20px;
+	border-top: 2px solid #EEEEEE;
+    border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 2px solid #EEEEEE;
+    padding: 10px;
+}
+
+#survInfo th {
+	text-align: center;
+	background-color: #EEEEEE;
+}
+
+.regdate, .moddate, .uesYn {
+	text-align: center;
+}
+
+.descNull {
+	color : grey;
+	text-align: center;
+	font-style: italic;
+}
