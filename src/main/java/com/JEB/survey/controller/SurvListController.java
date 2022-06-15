@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,13 +64,14 @@ public class SurvListController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+            @AuthenticationPrincipal  UserDetails userInfo,
             HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView mv = new ModelAndView();
 		
 		SearchVo searchVo = new SearchVo(currentPage, cntPerPage, pageSize);
 		
 		// Id 세팅
-		searchVo.setRegId("Jetty");
+		searchVo.setRegId(userInfo.getUsername());
 		
 		request.setCharacterEncoding("utf-8");
 	    
