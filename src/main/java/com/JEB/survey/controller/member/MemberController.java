@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.JEB.survey.model.MemberDto;
 import com.JEB.survey.service.MemberService;
@@ -24,7 +25,6 @@ public class MemberController {
 	  public String login(@RequestParam(value="error", required = false) String error,
 			  						@RequestParam(value = "exception", required = false) String exception,
 			  						@AuthenticationPrincipal  UserDetails userInfo, Model model) throws Exception{			 
-		  System.out.println("오류발생"+exception+"\n"+"================================");
 		  model.addAttribute("member",userInfo);
 		  model.addAttribute("exception",exception);
 		  return "member/login"; 
@@ -39,8 +39,19 @@ public class MemberController {
 	//회원가입 처리
 	@PostMapping(value="/member/join")
 	public String joinMember(MemberDto memberDto) {
-		System.out.println("memberDto >> " + memberDto);
 		memberService.insertMem(memberDto); 
 		return "redirect:/loginForm";
+	}
+	
+	//아이디 중복체크
+	@PostMapping(value="/joinForm/checkId")
+	@ResponseBody
+	public int checkId(@RequestParam("memId") String memId) {
+
+		  System.out.println("memId"+memId);
+		  
+		  int cnt = memberService.checkId(memId);
+		  
+		return cnt;
 	}
 }

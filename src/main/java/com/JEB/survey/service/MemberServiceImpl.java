@@ -14,17 +14,6 @@ public class MemberServiceImpl implements MemberService{
 	MemberMapper memberMapper;
 	
 	@Override
-	public int loginMem(MemberDto member) {
-		
-		
-		//비밀번호 암호화
-		
-		
-		return 0;
-	}
-
-	
-	@Override
 	public void insertMem(MemberDto member) {
 		MemberDto memberDto = new MemberDto();
 		memberDto.setMemId( member.getMemId());
@@ -48,5 +37,13 @@ public class MemberServiceImpl implements MemberService{
 		MemberDto user = memberMapper.getUserInfo(mem_id);
 		System.out.println("로그인한 친구 정보야"+user);
 		return user;
+	}
+
+
+	@Override
+	public int checkId(String memId) {
+		int cnt = memberMapper.checkId(memId);
+		System.out.println("serviceImpl >> " + cnt);
+		return cnt;
 	}
 }

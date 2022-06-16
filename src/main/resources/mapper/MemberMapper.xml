@@ -37,5 +37,10 @@
 		from member
 		where mem_id = #{memId}
 	</select>
+	
+	<!-- 아이디 중복 확인 -->
+	<select id="checkId" parameterType="String" resultType="int">
+		select count(*) from member where mem_id = #{memId}
+	</select>
 
 </mapper>
