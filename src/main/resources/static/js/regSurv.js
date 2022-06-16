@@ -1,7 +1,24 @@
 $(function () {
+	
+	var header = $("meta[name='_csrf_header']").attr('content');
+	var token = $("meta[name='_csrf']").attr('content');
+	
+	$(".surv_opt_box").each(function(index,item) {
+		let qustType = $(item).find("ol").attr("id");
+		
+		let optNum = $(item).find("li").length;
+		
+		if(qustType!=undefined && (qustType.startsWith("select") || qustType.startsWith("check")) && optNum > 1) {
+			$(item).find($("span[name=opt_delete]")).css("display","");
+		} else if (qustType!=undefined && qustType.startsWith("radio") && optNum > 2){
+			$(item).find($("span[name=opt_delete]")).css("display","");
+		}
+	})
+	
+	
 
 	$("#regDate").text(getToday());
-	$("#modDate").text(getToday());
+	
 
   $("#addQuestRow").click(function() {
     //var lastItemNo = $("#surv_quests_tbl tr:last").attr("class").replace("item","");
@@ -16,17 +33,17 @@ $(function () {
     defaultHtml +=		  newItemNo
     defaultHtml += '      </td>';
     defaultHtml += '      <td>';
-    defaultHtml += '          <select name="q_type" id="q_type" onchange="showQuest(this)">';
-    defaultHtml += '              <option value="q_short">단답형</option>';
-    defaultHtml += '              <option value="q_long">장문형</option>';
-    defaultHtml += '              <option value="q_select">드롭다운형</option>';
-    defaultHtml += '              <option value="q_radio">라디오버튼형</option>';
-    defaultHtml += '              <option value="q_check">체크박스형</option>';
+    defaultHtml += '          <select name="qustType" id="qustType" onchange="showQuest(this)">';
+    defaultHtml += '              <option value="short">단답형</option>';
+    defaultHtml += '              <option value="long">장문형</option>';
+    defaultHtml += '              <option value="select">드롭다운형</option>';
+    defaultHtml += '              <option value="radio">라디오버튼형</option>';
+    defaultHtml += '              <option value="check">체크박스형</option>';
     defaultHtml += '          </select>';
     defaultHtml += '      </td>';
     defaultHtml += '      <td>';
     defaultHtml += '          <div class="surv_opt_box">';
-    defaultHtml += '              <input id="q_short" placeholder="질문을 입력해주세요">';
+    defaultHtml += '              <input id="short" placeholder="질문을 입력해주세요">';
     defaultHtml += '          </div>';
     defaultHtml += '      </td>';
     defaultHtml += '  </tr>';
@@ -49,13 +66,13 @@ $(function () {
 				let survQustObj = new Object (); //질문1개
 				let qustOptArr = [];
 				
-				let q_type = $(this).find("td:eq(2) select option:selected").val();
+				let qustType = $(this).find("td:eq(2) select option:selected").val();
 				survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
-				survQustObj.qustType = q_type;
+				survQustObj.qustType = qustType;
 				
-				if(q_type=='q_short') {				
+				if(qustType=='short') {				
 				survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
-				} else if(q_type=="q_long") {
+				} else if(qustType=="long") {
 				survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
 				} else {
 					survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
@@ -81,11 +98,7 @@ $(function () {
 					"survqustList" : survqustList,
 				};
 				
-		
 			console.log("param ==> " + JSON.stringify(param));
-		
-			var header = $("meta[name='_csrf_header']").attr('content');
-			var token = $("meta[name='_csrf']").attr('content');
 			
 		    $.ajax({
 				url:'/regSurv',
@@ -105,6 +118,43 @@ $(function () {
 			});
 		} else {
 			alert("값을 입력해주세요!!");
+		}
+  });
+  
+   
+  
+  
+  $("#delSurvBtn").click(function() {
+		if(confirm("정말 삭제하시겠습니까?")) {
+			
+			let survNo = new URL(location.href).searchParams.get('survNo');
+			let currentPage = new URL(location.href).searchParams.get('currentPage');
+			console.log("삭제할 survNo : "+survNo, "  currentPage : "+currentPage);
+					
+			$.ajax({
+				url:'/delSurv',
+				type: 'POST',
+				data: {
+					"survNo" : survNo
+				},
+				beforeSend: function(xhr){
+		        xhr.setRequestHeader(header, token);
+		        },
+		        success: function() {
+					alert('삭제 완료');
+					 let query = window.location.search;
+  					 let param = new URLSearchParams(query);
+
+ 					 param.delete("survNo");
+  					 location.href = "myList?" + param;
+				},
+				error: function(e) {
+					alert("삭제 실패!!");
+					console.log(e);
+				}
+			});
+		} else {
+			return false;
 		}
   });
    
@@ -129,23 +179,23 @@ function delQuest(data) {
 }
 
 function showQuest(type) {
-  let q_type = type.value;
+  let qustType = type.value;
   let rownum = $(type).closest('tr').prevAll().length;
 
   $('.surv_opt_box').eq(rownum).empty();
 
-  if (q_type=='q_short') {
+  if (qustType=='short') {
     $('.surv_opt_box').eq(rownum).append(
-            '<input id="q_short" type="text"  placeholder="질문을 입력해주세요">'
+            '<input id="short" type="text"  placeholder="질문을 입력해주세요">'
      );
-  } else if (q_type=='q_long') {
+  } else if (qustType=='long') {
     $('.surv_opt_box').eq(rownum).append(
-            '<textarea id="q_long" type="text"  placeholder="질문을 입력해주세요"></textarea>'
+            '<textarea id="long" type="text"  placeholder="질문을 입력해주세요"></textarea>'
      );
-  } else if (q_type=='q_select') {
+  } else if (qustType=='select') {
     $('.surv_opt_box').eq(rownum).append(
 			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
-           + '<ol id="select-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
+           + '<ol id="select-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
            + '		<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'select\',this);">X<br></span>'
@@ -153,10 +203,10 @@ function showQuest(type) {
            + '</ol>'
            + '<span name="addOptionBtn" style="text-decoration:underline;" onclick="addOption(\'select\',this);">옵션추가</span>'
      );
-  } else if (q_type=='q_radio') {
+  } else if (qustType=='radio') {
 	$('.surv_opt_box').eq(rownum).append(
 			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
-           + '<ol id="radio-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
+           + '<ol id="radio-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
            + '		<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'radio\',this);">X<br></span>'
@@ -164,10 +214,10 @@ function showQuest(type) {
            + '</ol>'
            + '<span name="addOptionBtn" style="text-decoration:underline;" onclick="addOption(\'radio\',this);">옵션추가</span>'
      );
-	} else if (q_type=='q_check') {
+	} else if (qustType=='check') {
 	$('.surv_opt_box').eq(rownum).append(
 			 '<input id="qustCont" type="text"  placeholder="질문을 입력해주세요">'
-           + '<ol id="check-multi-opt" name="multi-opt" style="list-stlye-type:decimal" start="1">'
+           + '<ol id="check-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">'
            + '	<li id="opt1">'
            + '		<input name="multi-opt" placeholder="옵션" ></input>'
            + '		<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt(\'check\',this);">X<br></span>'

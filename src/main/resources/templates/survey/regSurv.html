@@ -23,7 +23,7 @@
 		   <input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 		       <tr>
 		           <td class="form-tbl-col">제목</td>
-		           <td><input id="survTitle" type="text"  placeholder="제목을 입력해주세요(최대20자)" /></td>
+		           <td><input id="survTitle" type="text" placeholder="제목을 입력해주세요(최대20자)" /></td>
 		           <td class="form-tbl-col">등록자</td>
 		           <td th:text="${memNick}"></td>
 		       </tr>
@@ -72,12 +72,12 @@
 	            </td>
 	            <td id="qustNo" class="questNo">질문1</td>
 	            <td>
-	                <select name="q_type" id="q_type" onchange="showQuest(this)">
-	                    <option value="q_short">단답형</option>
-	                    <option value="q_long">장문형</option>
-	                    <option value="q_select">드롭다운형</option>
-	                    <option value="q_radio">라디오버튼형</option>
-	                    <option value="q_check">체크박스형</option>
+	                <select name="qustType" id="qustType" onchange="showQuest(this)">
+	                    <option value="short">단답형</option>
+	                    <option value="long">장문형</option>
+	                    <option value="select">드롭다운형</option>
+	                    <option value="radio">라디오버튼형</option>
+	                    <option value="check">체크박스형</option>
 	                </select>
 	            </td>
 	            <td>
@@ -92,17 +92,17 @@
 	            </td>
 	            <td class="questNo">질문2</td>
 	            <td>
-	                <select name="q_type" id="q_type" onchange="showQuest(this)">
-	                    <option value="q_short">단답형</option>
-	                    <option value="q_long">장문형</option>
-	                    <option value="q_select">드롭다운형</option>
-	                    <option value="q_radio">라디오버튼형</option>
-	                    <option value="q_check">체크박스형</option>
+	                <select name="qustType" id="qustType" onchange="showQuest(this)">
+	                    <option value="short">단답형</option>
+	                    <option value="long">장문형</option>
+	                    <option value="select">드롭다운형</option>
+	                    <option value="radio">라디오버튼형</option>
+	                    <option value="check">체크박스형</option>
 	                </select>
 	            </td>
 	            <td>
 	                <div class="surv_opt_box">
-	                    <input id="q_short" type="text" placeholder="질문을 입력해주세요">
+	                    <input id="short" type="text" placeholder="질문을 입력해주세요">
 	                </div>
 	            </td>
 	         </tr>

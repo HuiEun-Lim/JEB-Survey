@@ -1,5 +1,7 @@
 package com.JEB.survey.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,5 +19,14 @@ public interface RegSurvMapper {
 	public void insertSurv(SurveyDto surveyDto);
 	public void insertSurvqust(SurvqustDto survqustDto);
 	public void insertQustopt(QustoptDto qustoptDto);
+	
+	//설문수정시 기존정보 가져오기
+	public SurveyDto getSurvey(int survNo);
+	public List<SurvqustDto> getSurvqustList(int survNo);
+	public List<QustoptDto> getQustoptList(int qustNo);
+
+	//설문 삭제하기
+	public void delSurvey(int survNo);
+	
 	
 }

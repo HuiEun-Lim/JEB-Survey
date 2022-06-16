@@ -1,5 +1,7 @@
 package com.JEB.survey.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,9 +57,45 @@ public class SurvController {
 	 * My Survey > 설문 수정하기 View
 	 */
 	@RequestMapping("/modSurvForm")
-	public String modSurv(@RequestParam(value="survNo") Integer survNo) {
-		System.out.println("수정할 suvNo  ==> "+survNo);
+	public String modSurv(@RequestParam(value="survNo") Integer survNo
+						 , @AuthenticationPrincipal UserDetails userInfo
+						 , Model model) {
+		System.out.println("===modSurv Controller START===");
+		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
+		
+		System.out.println("수정할 survNo : "+survNo+" memNick :"+memNick);
+		
+		SurveyDto surveyDto = regSurvService.getSurvey(survNo);
+		System.out.println("뿌려줄 surveyDto ==> "+surveyDto.toString());
+		
+		surveyDto.setMemNick(memNick);
+		
+		model.addAttribute("surveyDto",surveyDto);
+		
+		System.out.println("===modSurv Controller END===");
 		return "survey/modSurv";
+	}
+	
+	/*
+	 * 설문 삭제하기
+	 */
+	@RequestMapping("/delSurv")
+	public String delSurv(@AuthenticationPrincipal UserDetails userInfo
+						  ,@RequestParam Map<String,String> param) {
+		System.out.println("delSurv Controller START");
+		
+		int survNo = Integer.parseInt(param.get("survNo"));
+		
+		System.out.println("survNo ==> "+survNo);
+		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
+		System.out.println("==memNick ==> "+memNick);
+		
+		regSurvService.delSurvey(survNo);
+		
+		System.out.println("delSurv Controller END");
+		
+		return "redirect:myList";
+
 	}
 
 }

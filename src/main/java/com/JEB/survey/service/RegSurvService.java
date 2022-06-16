@@ -7,5 +7,9 @@ public interface RegSurvService {
 	public String getUserInfo(String memId);
 	//설문 만들기
 	public void insertSurv(SurveyDto surveyDto);
+	//설문 수정에서 기존정보 불러오기
+	public SurveyDto getSurvey(int survNo);
+	//설문 삭제하기
+	public void delSurvey(int survNo);
 
 }

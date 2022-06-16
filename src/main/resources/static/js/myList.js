@@ -46,3 +46,19 @@ function viewRslt(survNo) {
 	
 	location.href = url;
 }
+
+function editSurv(survNo, currentPage, pageSize) {
+	let srchTyp = $('#srchTyp').val();
+	let keyword = $('#keyword').val().trim();
+	let cntPerPage = $("#cntSelectBox").children("option:selected").val();
+	
+	 let url = "/modSurvForm";
+	 url = url + "?currentPage="+currentPage;
+     url = url + "&cntPerPage="+cntPerPage;
+     url = url + "&pageSize="+pageSize;
+	 url = url + "&srchTyp=" + srchTyp;
+	 url = url + "&keyword=" + keyword;
+	 url = url + "&survNo=" + survNo;
+	 
+	 location.href=url;
+}

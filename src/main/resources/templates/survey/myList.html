@@ -55,7 +55,7 @@
 			<th:block th:if="${survList} != null">
 			<tr th:each="surv : ${survList}">
 					<td class="survno" th:text="${surv.survNo}"></td>
-					<td class="survtitle"><a th:text="${surv.survTitle}" th:href="@{/modSurvForm?(survNo=${surv.survNo})}"></a></td>
+					<td class="survtitle"><a th:text="${surv.survTitle}" href="#" th:onclick="editSurv([[${surv.survNo}]], [[${pagination.currentPage}]], [[${pagination.pageSize}]]);"></a></td>
 					<td class="useYn">
 						<span th:if="${#strings.equals(surv.useYn, 'Y')}">사용중</span>
 						<span th:unless="${#strings.equals(surv.useYn, 'Y')}">사용 안함</span>

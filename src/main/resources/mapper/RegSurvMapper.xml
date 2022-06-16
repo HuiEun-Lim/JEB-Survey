@@ -56,4 +56,45 @@
                     		)
 	
 	</insert>
+	
+	<select id="getSurvey" parameterType="int" resultType="com.JEB.survey.model.SurveyDto">
+		SELECT surv_no AS survNo
+			 , surv_title AS survTitle
+			 , surv_desc AS survDesc
+			 , useYn
+			 , reg_date AS regDate
+			 , mod_date AS modDate
+		  FROM SURVEY
+		 WHERE surv_no=#{survNo}
+		 ;
+	</select>
+	
+	<select id="getSurvqustList" parameterType="int" resultType="com.JEB.survey.model.SurvqustDto">
+		SELECT surv_no AS survNo
+			 , qust_no AS qustNo
+			 , qust_seq AS qustSeq
+			 , qust_type AS qustType
+			 , qust_cont AS qustCont
+		  FROM SURVQUST
+		 WHERE surv_no=#{survNo}
+		 ;
+	</select>
+	
+	<select id="getQustoptList" parameterType="int" resultType="com.JEB.survey.model.QustoptDto">
+		SELECT qust_no AS qustNo
+			 , opt_no AS optNo
+			 , opt_seq AS optSeq
+			 , opt_cont AS optCont
+		  FROM QUSTOPT
+		 WHERE qust_no=#{qustNo}
+		 ;
+	</select>
+	
+	<update id="delSurvey" parameterType="int">
+		UPDATE SURVEY
+		   SET delYn = 'Y'
+		     , useYn = 'N'
+		 WHERE surv_no = #{survNo}
+		 ;
+	</update>
 </mapper>
