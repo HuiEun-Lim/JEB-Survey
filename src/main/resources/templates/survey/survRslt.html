@@ -46,7 +46,7 @@
 			<td colspan="6" class="descNull" th:unless="${survey.survDesc} != null">[설문 설명 없음]</td>
 		</tr>
 	</table>
-	
+	<br>
 	<h3>📊 응답 결과</h3>
 	
 	<table id="rslt">
@@ -65,18 +65,31 @@
 				</td>
 			</tr>
 			</th:block>
-			<th:block th:unless="${#strings.equals(qust.qustType, 'long')}">
+			<th:block th:if="${#strings.equals(qust.qustType, 'short')}">
+			<tr>
+				<td>
+					<div class="answShort">
+					<th:block th:each="answ : ${qust.answerList}">
+					<p>
+						<span th:text="${answ?.answCont}"></span>
+						<span class="count" th:text="${answ.count}"></span>
+					</p>
+					</th:block>
+					</div>
+				</td>
+			</tr>
+			</th:block>
+			<th:block th:unless="${#strings.equals(qust.qustType, 'long')} or ${#strings.equals(qust.qustType, 'short')} ">
 			<tr>
 				<td>
 					<div>
-						<canvas th:id="${qust.qustNo}"></canvas>
+						<canvas th:id="${qust.qustNo}" class="canvas"></canvas>
 					</div>
 				</td>
 			</tr>
 			</th:block>
 		</th:block>
 	</table>
-	<canvas id="myChart" width="400" height="400"></canvas>
 	</body>
   </th:block>
 </html>
