@@ -26,12 +26,29 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
     
+    
+    
+    
     function checkId(){
     	let memId = $('#memId').val();
     	console.log("memID >> " + memId);
     	
     	 var token = $("meta[name='_csrf']").attr("content");
     	 var header = $("meta[name='_csrf_header']").attr("content");
+    	 const target = document.getElementById('target_btn');
+    	 
+    	 var str_space = /\s/; 
+    	 
+    	 if(str_space.exec(memId) && memId != null) {
+			$('.id_space').css("display","inline-block"); 
+			target.disabled = true;
+			
+			return false;	 
+    	 }
+    	 
+    	 
+    	 
+    	 
 /*     	
     	let joinForm = document.joinForm;
     	let memId = joinForm.memId.value; */
@@ -46,9 +63,13 @@
 				 if(cnt != 1){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
 					 $('.id_ok').css("display","inline-block"); 
 	                    $('.id_already').css("display", "none");
+	                    $('.id_space').css("display","none"); 
+	                    target.disabled = false;
 	                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
 	                	$('.id_already').css("display","inline-block");
 	                    $('.id_ok').css("display", "none");
+	                    $('.id_space').css("display","none"); 
+	                    target.disabled = true;
 	                }
 			console.log("cnt >> " + cnt);
             },
@@ -58,26 +79,62 @@
     	})
     }
     
+    
+    function checkNick(obj){
+    	const target = document.getElementById('target_btn');
+    	var str_space = /\s/; 
+    	
+    	if(str_space.exec(obj)){
+    		target.disabled = true;
+    	}else{
+    		target.disabled = false;
+    	}
+    	
+    	
+    }
+    
     function checkPw(){
     	let memPw = $('#memPw').val();
     	let memPwCheck = $('#memPwCheck').val();
+    	 const target = document.getElementById('target_btn');
     	
-    	console.log("memPw"+memPw);
-    	console.log("memPwCheck"+memPwCheck);
-    	
-    	if(memPw != '' && memPwCheck != ''){
+    	var str_space = /\s/; 
+    	if(memPw != '' && memPwCheck != '' && !str_space.exec(memPw) && !str_space.exec(memPwCheck) ){
     		if(memPw != memPwCheck){
-    			  document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
-                  document.getElementById('check').style.color='red';
+    			  document.getElementById('checkPw').innerHTML='비밀번호가 일치하지 않습니다.';
+                  document.getElementById('checkPw').style.color='red';
+                  target.disabled = true;
     		}else{
-    		     document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
-                 document.getElementById('check').style.color='blue';
+    		     document.getElementById('checkPw').innerHTML='비밀번호가 일치합니다.';
+                 document.getElementById('checkPw').style.color='blue';
+                 target.disabled = false;
     		}
+    	}else if(str_space.exec(memPw) || str_space.exec(memPwCheck)){
+    		document.getElementById('checkPw').innerHTML='공백은 사용할 수 없습니다';
+    		  document.getElementById('checkPw').style.color='red';
+    		  target.disabled = true;
     	}else{
-    		document.getElementById('check').innerHTML=' ';
-
+    		document.getElementById('checkPw').innerHTML=' ';
+    		target.disabled = true;
     	}
     	
+    }
+    
+    function regist(){
+    	let joinForm = document.joinForm;
+    	
+    	let memId = $('#memId').val().trim();
+    	let memNick = $('#memNick').val().trim();
+    	let memPw = $('#memPw').val().trim();
+    	let memPwCheck = $('#memPwCheck').val().trim();
+    	
+    	
+    	if(!memId || !memNick || !memPw || !memPwCheck){
+    		alert("전부 입력해주세요");
+    	}else{
+    		joinForm.submit();
+    	}
+	
     }
     
    
@@ -92,16 +149,19 @@
 				<input type="text" id = "memId" name="memId" placeholder="아이디"   class="form-control" oninput = "checkId()" />
 				<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
 				<span class="id_ok">사용 가능한 아이디입니다.</span>
+				<span class="id_space" style="display:none;">공백은 사용할 수 없습니다.</span>
         	</div>     
         </div>
-            <input type="text" name="memNick" class="form-control" placeholder="닉네임" autocomplete="off" />
+            <input type="text" id="memNick" name="memNick" class="form-control" placeholder="닉네임" autocomplete="off" onchange="checkNick(this)">
+            
             <input type="password" id= "memPw" name="memPw" class="form-control" placeholder="비밀번호" autocomplete="off" onchange="checkPw()"/>
             <input type="password" id="memPwCheck" name="memPwCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" onchange="checkPw()"/>
-            <span id="check"></span>
+            <span id="checkPw"></span>
             <font id="chkNotice" size="2"></font>
             <div class="col-12">
             	<div class="btn-group">
-             	<input type="submit" value="등록"> 
+             	<!-- <input type="submit" value="등록"> -->
+             	<input type="button" id="target_btn" onclick="regist()" value="등록"> 
                 <a th:href="@{/loginForm}"><button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">Back</button></a>
             </div>
             </div>
