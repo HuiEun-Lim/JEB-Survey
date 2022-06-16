@@ -27,7 +27,7 @@
 		   <input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 		       <tr>
 		           <td class="form-tbl-col">제목</td>
-		           <td><input id="survTitle" type="text" placeholder="제목을 입력해주세요(최대20자)" /></td>
+		           <td><input id="survTitle" type="text" placeholder="제목을 입력해주세요(최대30자)" /></td>
 		           <td class="form-tbl-col">등록자</td>
 		           <td th:text="${memNick}"></td>
 		       </tr>
@@ -50,7 +50,7 @@
 		<!-- 설문지 소개 START -->
 		<div class="form-table-intro-container">
 		<table id="quest-table" class="form-tbl">
-		   <caption class="form-tbl-caption">설문지 소개</caption>
+		   <caption class="form-tbl-caption"><span>설문지 소개</span></caption>
 		   <tr>
 		       <td class="form-tbl-col">소개</td>
 		       <td><textarea id="survDesc" style="width:100%;"></textarea></td>
@@ -75,10 +75,10 @@
 	       <tbody>
 	         <tr class="item1">
 	            <td style="text-align:center;">
-	                <button id="delQuestRow" onclick="delQuest(this);">삭제</button>
+	                <button id="delQuestRow" onclick="delQuest(this);">🗑️</button>
 	            </td>
 	            <td id="qustNo" class="questNo">질문1</td>
-	            <td>
+	            <td> 
 	                <select name="qustType" id="qustType" onchange="showQuest(this)">
 	                    <option value="short">단답형</option>
 	                    <option value="long">장문형</option>
@@ -89,27 +89,7 @@
 	            </td>
 	            <td>
 	                <div class="surv_opt_box">
-	                    <input id="qustCont" type="text"  placeholder="질문을 입력해주세요">
-	                </div>
-	            </td>
-	         </tr>
-	         <tr class="item2">
-	            <td style="text-align:center;">
-	                <button id="delQuestRow" onclick="delQuest(this);">삭제</button>
-	            </td>
-	            <td class="questNo">질문2</td>
-	            <td>
-	                <select name="qustType" id="qustType" onchange="showQuest(this)">
-	                    <option value="short">단답형</option>
-	                    <option value="long">장문형</option>
-	                    <option value="select">드롭다운형</option>
-	                    <option value="radio">라디오버튼형</option>
-	                    <option value="check">체크박스형</option>
-	                </select>
-	            </td>
-	            <td>
-	                <div class="surv_opt_box">
-	                    <input id="short" type="text" placeholder="질문을 입력해주세요">
+	                    <input id="qustCont" type="text" placeholder="질문을 입력해주세요">
 	                </div>
 	            </td>
 	         </tr>

@@ -71,21 +71,18 @@ public class RegSurvServiceImpl implements RegSurvService {
 	
 		
 		for(SurvqustDto dto:survqustList) {
-			System.out.println("survqustList 반복문 START");
 			System.out.println("SurvqustDto ==>  "+dto);
+			
 			int qustNo = dto.getQustNo();
 			List<QustoptDto> qustoptList = regSurvMapper.getQustoptList(qustNo);
 			System.out.println("qustoptList ==> "+qustoptList);
-			for(QustoptDto vo:qustoptList) {
-				System.out.println("qustoptList 반복문 START");
+			
+			for(QustoptDto vo:qustoptList) {		
 				System.out.println("qustoptDto ==>  "+vo);
-				System.out.println("qustoptList 반복문 END");
-				
 			}
 			
 			dto.setQustoptList(qustoptList);
 		}
-		System.out.println("survqustList 반복문 END");
 		
 		System.out.println("===getSurvey ServiceImpl END===");
 		
@@ -93,11 +90,26 @@ public class RegSurvServiceImpl implements RegSurvService {
 	}
 
 	@Override
-	public void delSurvey(int survNo) {
+	public void delOneSurvey(int survNo) {
 		System.out.println("delSurvey Service START");
-		regSurvMapper.delSurvey(survNo);
+		
+		regSurvMapper.delOneSurvey(survNo);
+		
 		System.out.println("delSurvey Service END");
 		
 	}
+
+	@Override
+	public void delOldSurvey(int survNo) {
+		System.out.println("delOldSurv Service START");
+		
+		regSurvMapper.delQustopt(survNo);
+		regSurvMapper.delSurvqust(survNo);
+		regSurvMapper.delSurvey(survNo);
+				
+		System.out.println("delOldSurv Service END");
+		
+	}
+
 
 }

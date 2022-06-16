@@ -10,6 +10,9 @@ public interface RegSurvService {
 	//설문 수정에서 기존정보 불러오기
 	public SurveyDto getSurvey(int survNo);
 	//설문 삭제하기
-	public void delSurvey(int survNo);
+	public void delOneSurvey(int survNo);
+	
+	//설문 수정 전 내용 삭제하기
+	public void delOldSurvey(int survNo);
 
 }
