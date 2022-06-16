@@ -55,7 +55,7 @@
 			<th:block th:if="${survList} != null">
 			<tr th:each="surv : ${survList}">
 					<td class="survno" th:text="${surv.survNo}"></td>
-					<td class="survtitle"><a th:text="${surv.survTitle}" href="#"></a></td>
+					<td class="survtitle"><a th:text="${surv.survTitle}" href="#" th:onclick="resForm([[${surv.survNo}]])"></a></td>
 					<td class="memNick" th:text="${surv.memNick}"></td>
 					<td class="regdate" th:text="${#dates.format(surv.regDate, 'yyyy-MM-dd HH:mm')}"></td>
 					<td class="moddate" th:text="${#dates.format(surv.modDate, 'yyyy-MM-dd HH:mm')}"></td>

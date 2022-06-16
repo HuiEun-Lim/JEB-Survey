@@ -39,3 +39,11 @@ function searchKw() {
 function searchReset() {
 	location.href="/survList";
 }
+
+/*작성자 : Bonnie 리스트 응답 폼 보여주기 */
+function resForm(survNo){
+	let url = "/resForm";
+	url = url+"?survNo="+survNo;
+	
+	location.href= url;
+}

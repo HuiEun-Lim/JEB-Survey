@@ -23,15 +23,16 @@
     		loginForm.submit();
     	}
     	
-    	function showJoin(){
-    		
+    	function movJoin(){
+    		location.href="/joinForm";
     	}
     	
 
     </script>
 
 
-	 <body class="text-center">
+	 <body >
+	 <div class="text-center">
  		<form name="loginForm" id="loginForm" action="/loginForm" th:object="${MemberDto}" method="post"> <!-- 요청 보내기-->
      		<img src="img/logo_name_black.png" style="width:400px; height:150px;">
      		<input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
@@ -44,11 +45,13 @@
 	 	
 			<div class="col-12">
 				<div class="btn-group btn-group-lg">
-         			<button type="submit" class="btn btn-dark btn-large form-control" >로그인</button>
-         			<a th:href="@{/joinForm}"><button type="button" class="btn btn-secondary btn-large form-control" id="btn_loginForm">회원가입</button></a>
+         			<button type="submit" class="btn btn-dark "  >로그인</button>
+         			<button type="button" class="btn" style="background-color:#6C757D; color:white;" onclick="movJoin()">회원가입</button>
+         			
  				</div> 	    
 			</div>
  	</form>
+ 	</div>
 </th:block>
 
 </html>
