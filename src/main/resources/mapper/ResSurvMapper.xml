@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.JEB.survey.repository.ResSurvMapper">
+
+	<!-- 설문 응답하기 -->
+	<insert id="insertAnswer" parameterType="com.JEB.survey.model.AnswerDto">
+		insert into answer(
+			answ_no as answNo,
+			qust_no as qustNo,
+			answ_cont as answCont,
+			answ_long as answLong,
+			mem_id  as memId,
+			answ_date as answDate
+		)values(
+			#{answNo},
+			#{qustNo}, <!--설문질묹번호 -->
+			<if test=""></if>
+			#{answCont},
+			#{answLong},
+			#{memId},
+			now()
+		)
+	</insert>
+
+</mapper>
