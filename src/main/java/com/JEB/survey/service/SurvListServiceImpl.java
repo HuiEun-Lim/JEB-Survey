@@ -45,10 +45,12 @@ public class SurvListServiceImpl implements SurvListService{
 		if(surveyDto.getSurvDesc() != null)
 			surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n", "<br>"));
 		
+		// 설문 질문 리스트
 		List<SurvqustDto> survqust = survListMapper.getSurvQust(survNo);
 		
+		// 설문 질문마다 응답한 결과 리스트 삽입
 		for(SurvqustDto qust : survqust) {
-			if("q_long".equals(qust.getQustType())) {
+			if("long".equals(qust.getQustType())) {
 				List<AnswerDto> answer = survListMapper.getLongAnswer(qust.getQustNo());
 				
 				// 개행 마크업 변경하여 출력

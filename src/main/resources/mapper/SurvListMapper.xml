@@ -8,15 +8,15 @@
 			<choose>
 				<when test="'all'.equals(srchTyp)">
 					(
-						surv_title LIKE CONCAT('%', #{keyword}, '%')
-						OR reg_id LIKE CONCAT('%', #{keyword}, '%')
+						s.surv_title LIKE CONCAT('%', #{keyword}, '%')
+						OR m.mem_nick LIKE CONCAT('%', #{keyword}, '%')
 					)
 				</when>
 				<when test="'title'.equals(srchTyp)">
-					surv_title LIKE CONCAT('%', #{keyword}, '%')
+					s.surv_title LIKE CONCAT('%', #{keyword}, '%')
 				</when>
 				<when test="'regid'.equals(srchTyp)">
-					reg_id LIKE CONCAT('%', #{keyword}, '%')
+					m.mem_nick LIKE CONCAT('%', #{keyword}, '%')
 				</when>
 			</choose>
 		</if>
@@ -67,9 +67,11 @@
 	
 	<select id="getListCnt" parameterType="com.JEB.survey.model.SearchVo" resultType="Integer">
 		SELECT 	
-			count(*)
+			count(s.surv_no)
 		FROM	
-			Survey
+			Survey as s
+			LEFT JOIN MEMBER as m
+			ON s.reg_id = m.mem_id
 		WHERE 	
 			useYn = 'Y'
 			AND delYn = 'N'

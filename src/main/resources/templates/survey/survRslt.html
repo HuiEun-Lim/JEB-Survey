@@ -3,12 +3,17 @@
 		  xmlns:th="http://www.thymeleaf.org"
 		  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 		  layout:decorate="~{layout/main_layout}">
-  	<head>
+	<head>
   		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
+  		<script type="text/javascript" src="./js/survRslt.js"></script>
   		<link rel="stylesheet" type="text/css" href="./css/survRslt.css">
 		<title>설문 결과</title>
-  </head>
-  <th:block layout:fragment="contents">
+	</head>
+<th:block layout:fragment="contents">
+	<script th:inline="javascript">
+		    let qustList =  /*[[${survey.survqustList}]]*/ null;
+	</script>
 	<body>
 	<h2>📋 설문 결과</h2>
 	<br>
@@ -47,28 +52,31 @@
 	<table id="rslt">
 		<th:block th:each="qust : ${survey.survqustList}">
 			<tr>
-				<th colspan="2" th:text="${qust.qustCont}"></th>
+				<th th:text="${qust.qustCont}"></th>
 			</tr>
-			<th:block th:if="${#strings.equals(qust.qustType, 'q_long')}">
+			<th:block th:if="${#strings.equals(qust.qustType, 'long')}">
 			<tr>
-				<td colspan="2" >
-				<div class="answLong">
-				<th:block th:each="answ : ${qust.answerList}">
-				<p th:utext="${answ?.answLong}"></p>
-				</th:block>
-				</div>
+				<td>
+					<div class="answLong">
+					<th:block th:each="answ : ${qust.answerList}">
+					<p th:utext="${answ?.answLong}"></p>
+					</th:block>
+					</div>
 				</td>
 			</tr>
 			</th:block>
-			<th:block th:unless="${#strings.equals(qust.qustType, 'q_long')}">
-			<tr th:each="answ : ${qust.answerList}">
-				<td>응답 수 : <span th:text="${answ.count}"></span></td>
-				<td th:text="${answ.answCont}"></td>
+			<th:block th:unless="${#strings.equals(qust.qustType, 'long')}">
+			<tr>
+				<td>
+					<div>
+						<canvas th:id="${qust.qustNo}"></canvas>
+					</div>
+				</td>
 			</tr>
 			</th:block>
 		</th:block>
 	</table>
-
+	<canvas id="myChart" width="400" height="400"></canvas>
 	</body>
   </th:block>
 </html>
