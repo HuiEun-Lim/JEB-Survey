@@ -37,9 +37,9 @@ public class Pagination {
             cntPerPage = 10;
         }
         // 하단 페이지 갯수 10개로 제한
-        if (pageSize != 10) {
-            pageSize = 10;
-        }
+//        if (pageSize != 10) {
+//            pageSize = 10;
+//        }
         this.currentPage = currentPage;
         this.cntPerPage = cntPerPage;
         this.pageSize = pageSize;

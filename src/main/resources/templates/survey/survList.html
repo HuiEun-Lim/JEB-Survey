@@ -74,7 +74,7 @@
     <div class="paginate">
         <div class="paging">
         <!-- 이전 표시 -->
-        <th:block th:if="${pagination.currentPage != 1}">
+        <th:block th:if="${pagination.hasPreviousPage == true}">
         <a class="direction prev" href="#"
         	th:attr="onclick=|movePage(1, '${pagination.cntPerPage}', '${pagination.pageSize}')|">&lt;&lt;</a>
         <a class="direction prev" href="#"
@@ -96,11 +96,11 @@
         </th:block>
         
         <!-- 다음 표시 -->
-        <th:block th:if="${pagination?.currentPage != pagination?.lastPage}">
+        <th:block th:if="${pagination.hasNextPage == true}">
         <a class="direction next" href="#"
         	th:attr="onclick=|movePage('${pagination.currentPage + 1}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&gt;</a>
         <a class="direction next" href="#"
-        	th:attr="onclick=|movePage('${pagination.lastPage}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&gt;&gt;</a>
+        	th:attr="onclick=|movePage('${pagination.totalRecordCount}', '${pagination.cntPerPage}', '${pagination.pageSize}')|">&gt;&gt;</a>
         </th:block>
         </div>
     </div>
