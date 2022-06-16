@@ -57,11 +57,33 @@
             }
     	})
     }
+    
+    function checkPw(){
+    	let memPw = $('#memPw').val();
+    	let memPwCheck = $('#memPwCheck').val();
+    	
+    	console.log("memPw"+memPw);
+    	console.log("memPwCheck"+memPwCheck);
+    	
+    	if(memPw != '' && memPwCheck != ''){
+    		if(memPw != memPwCheck){
+    			  document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+                  document.getElementById('check').style.color='red';
+    		}else{
+    		     document.getElementById('check').innerHTML='비밀번호가 일치합니다.';
+                 document.getElementById('check').style.color='blue';
+    		}
+    	}else{
+    		document.getElementById('check').innerHTML=' ';
+
+    	}
+    	
+    }
+    
+   
     		
 
     </script>
-
-	
     <div class="login_wrapper text-center">
         <form name="joinForm" id="joinForm" action="/member/join" th:object="${MemberDto}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}"  th:value="${_csrf.token}"/>
@@ -73,8 +95,10 @@
         	</div>     
         </div>
             <input type="text" name="memNick" class="form-control" placeholder="닉네임" autocomplete="off" />
-            <input type="password" name="memPw" class="form-control" placeholder="비밀번호" autocomplete="off" />
-            <input type="password" name="memPwCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" />
+            <input type="password" id= "memPw" name="memPw" class="form-control" placeholder="비밀번호" autocomplete="off" onchange="checkPw()"/>
+            <input type="password" id="memPwCheck" name="memPwCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" onchange="checkPw()"/>
+            <span id="check"></span>
+            <font id="chkNotice" size="2"></font>
             <div class="col-12">
             	<div class="btn-group">
              	<input type="submit" value="등록"> 
