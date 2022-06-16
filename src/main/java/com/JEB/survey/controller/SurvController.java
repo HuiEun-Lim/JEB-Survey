@@ -118,10 +118,10 @@ public class SurvController {
 	public String resForm(@RequestParam(value="survNo") Integer survNo
 			, @AuthenticationPrincipal UserDetails userInfo
 			 , Model model) {
-		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
 		SurveyDto surveyDto = regSurvService.getSurvey(survNo);
+		String memNick = regSurvService.getUserInfo(surveyDto.getRegId());
 		surveyDto.setMemNick(memNick);
-		model.addAttribute("surveyDto",surveyDto);		
+		model.addAttribute("surveyDto",surveyDto);
 		return "/survey/resSurv";
 	}
 }

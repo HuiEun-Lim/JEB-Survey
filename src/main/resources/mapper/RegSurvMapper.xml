@@ -61,6 +61,7 @@
 		SELECT surv_no AS survNo
 			 , surv_title AS survTitle
 			 , surv_desc AS survDesc
+			 , reg_id AS regId
 			 , useYn
 			 , reg_date AS regDate
 			 , mod_date AS modDate
