@@ -13,13 +13,16 @@
     </head>
     <th:block layout:fragment="contents">
 	    <body>
+	      <h2>✏️ 설문 수정하기</h2>
 	      <div class="surv-container">
 	    	<!-- 설문 기본정보 START -->
 			<div class="form-table-title-continer">
 			   <table class="form-tbl">
-			   <caption class="form-tbl-caption">설문 기본정보</caption>
-			   <button id="uptSurvBtn">수정하기</button>
-			   <button id="delSurvBtn">삭제하기</button>
+			   <caption class="form-tbl-caption">
+			   		<span>설문 기본정보</span>
+			  		<button id="uptSurvBtn">수정하기</button>
+			  		<button id="delSurvBtn">삭제하기</button>
+			   </caption>
 			   <input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			       <tr>
 			           <td class="form-tbl-col">제목</td>
@@ -44,7 +47,9 @@
 			<!-- 설문지 소개 START -->
 			<div class="form-table-intro-container">
 			<table id="quest-table" class="form-tbl">
-			   <caption class="form-tbl-caption">설문지 소개</caption>
+			   <caption class="form-tbl-caption">
+			   		<span>설문지 소개</span>
+			   </caption>
 			   <tr>
 			       <td class="form-tbl-col">소개</td>
 			       <td><textarea id="survDesc" style="width:100%;" th:text=${surveyDto.survDesc}></textarea></td>
@@ -54,8 +59,10 @@
 			<!-- 설문지 소개 END -->
 			<div>
 			<table id="surv_quests_tbl" class="form-tbl">
-		       <caption class="form-tbl-caption">설문지 질문</caption>
-		       <button id="addQuestRow">추가</button>
+		       <caption class="form-tbl-caption">
+		       		<span>설문지 질문</span>
+		       		<button id="addQuestRow">추가</button>
+		       </caption>
 		       <thead>
 		            <th class="form-tbl-col"></th>
 		            <th class="form-tbl-col">질문번호</th>
@@ -65,7 +72,7 @@
 		       <tbody>
 		         <tr th:each="qust : ${surveyDto.survqustList}" th:classappend="item+${qust.qustSeq}">
 		         	<td style="text-align:center;">
-	                	<button id="delQuestRow" onclick="delQuest(this);">삭제</button>
+	                	<button id="delQuestRow" onclick="delQuest(this);">🗑️</button>
 	            	</td>
 	            	<td id="qustNo" class="questNo" th:text="질문+${qust.qustSeq}"></td>
 	            	<td>
@@ -84,7 +91,7 @@
 	            </td>
 	            <td th:if="${qust.qustType}=='long'">
 	                <div class="surv_opt_box">
-	                    <textarea id="long" type="text" th:text=${qust.qustCont} placeholder="질문을 입력해주세요"></textarea>
+	                    <textarea id="qustCont" type="text" th:text=${qust.qustCont} placeholder="질문을 입력해주세요"></textarea>
 	                </div>
 	            </td>
 	            <td th:if="${qust.qustType}=='select'">
@@ -93,7 +100,7 @@
 	                	<ol id="select-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
 	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
-	                			<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt('select',this);">X<br></span>
+	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('select',this);">❌<br></span>
 	                		</li>
 	                	</ol>
 	                	<span name="addOptionBtn" style="text-decoration:underline;" onclick="addOption('select',this);">옵션추가</span>
@@ -105,7 +112,7 @@
 	                	<ol id="radio-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
 	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
-	                			<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt('radio',this);">X<br></span>
+	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('radio',this);">❌<br></span>
 	                		</li>
 	                	</ol>
 	                	<span name="addOptionBtn" style="text-decoration:underline;" onclick="addOption('radio',this);">옵션추가</span>
@@ -117,7 +124,7 @@
 	                	<ol id="check-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
 	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
-	                			<span name="opt_delete" style="padding-left:40px;display:none;" onclick="deleteOpt('check',this);">X<br></span>
+	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('check',this);">❌<br></span>
 	                		</li>
 	                	</ol>
 	                	<span name="addOptionBtn" style="text-decoration:underline;" onclick="addOption('check',this);">옵션추가</span>

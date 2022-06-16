@@ -86,16 +86,29 @@ public class SurvController {
 		
 		int survNo = Integer.parseInt(param.get("survNo"));
 		
-		System.out.println("survNo ==> "+survNo);
 		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
-		System.out.println("==memNick ==> "+memNick);
-		
-		regSurvService.delSurvey(survNo);
-		
-		System.out.println("delSurv Controller END");
+		System.out.println("survNo : "+survNo+"  memNick : "+memNick);
+
+		regSurvService.delOneSurvey(survNo);
 		
 		return "redirect:myList";
-
+	}
+	
+	/*
+	 * 설문 수정하기
+	 */
+	@RequestMapping("/updateSurv")
+	@ResponseBody
+	public void updateSurv(@AuthenticationPrincipal UserDetails userInfo
+						  ,@RequestBody SurveyDto surveyDto) {
+		System.out.println("updateSurv controller START");
+		surveyDto.setRegId(userInfo.getUsername());
+		
+		int survNo = surveyDto.getSurvNo();
+		regSurvService.delOldSurvey(survNo);
+		regSurvService.insertSurv(surveyDto);
+		
+		System.out.println("updateSurv controller END");
 	}
 	
 	/*

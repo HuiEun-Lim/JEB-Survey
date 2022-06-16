@@ -90,11 +90,33 @@
 		 ;
 	</select>
 	
-	<update id="delSurvey" parameterType="int">
+	<update id="delOneSurvey" parameterType="int">
 		UPDATE SURVEY
 		   SET delYn = 'Y'
 		     , useYn = 'N'
 		 WHERE surv_no = #{survNo}
 		 ;
 	</update>
+	
+	<delete id="delSurvey" parameterType="int">
+		DELETE
+		  FROM SURVEY
+		 WHERE surv_no=#{survNo}
+		;
+	</delete>
+	<delete id="delSurvqust" parameterType="int">
+		DELETE
+		  FROM SURVQUST
+		 WHERE surv_no=#{survNo}
+		;
+	</delete>
+	<delete id="delQustopt" parameterType="int">
+		DELETE
+		  FROM QUSTOPT
+		 WHERE qust_no in (SELECT qust_no
+							 FROM SURVQUST
+							WHERE surv_no=#{surv_no}
+		 				  )
+		;
+	</delete>
 </mapper>

@@ -4,19 +4,39 @@
 }*/
 h2 {
 	margin-top:5px;
-	margin-bottom:20px;
+	margin-bottom:30px;
 }
+table,th,td {
+	border: 2px solid #d4d2d2;
+	border-collapse: collapse;
+	padding: 10px;
+}
+.form-table-title-continer .form-tbl-col{
+	width:15%;
+}
+.form-table-title-continer td {
+	width:40%;
+}
+.form-table-intro-container .form-tbl-col{
+	width:15%;
+}
+#survTitle, #useYn{
+	width:97%;
+}
+
 /*설문 기본정보 테이블 caption*/
 .surv-container body{
 	font-size:small;
 }
-.form-tbl-caption span{
+.form-tbl-caption {
 	caption-side: top;
-    text-align: left;
-    font-size:small;
+}
+.form-tbl-caption span{
+    font-weight:bold;
 }
 .form-tbl-caption button {
-	caption-side:top;
+	width:7%;
+	float:right;
 	border-width: 1px;
 	margin:0;
 	font-size: small;
@@ -26,20 +46,45 @@ h2 {
 	margin-top: 20px;
 	width:100%;
 	padding: 20px;
-	
     border-collapse: collapse;
 }
 /*설문 기본정보 테이블 td*/
 .form-tbl td {
-    border: 1px solid;
+    padding: 2px;
+    cellpadding:7px;
 }
 /*설문 기본정보 테이블 컬럼*/
 .form-tbl-col {
     text-align: center;
     background-color: #EEEEEE;
     font-weight:bold;
-    font-size:90%;
-    border: 1px solid;
+   
+}
+.form-tbl textarea {
+	overflow:auto;
+	max-height:100px;
+}
+[class*='item'] td:nth-child(1) {
+	text-align:center;
+	width:5%;
+}
+[class*='item'] td:nth-child(2) {
+	width:15%;
+}
+[class*='item'] td:nth-child(3) {
+	width:25%;
+}
+[class*='item'] td:nth-child(4) {
+	width:50%;
+}
+[class*='item'] select{
+	box-sizing:content-box;
+	width:97%;
+}
+[class*='item'] #qustCont{
+	box-sizing:content-box;
+	width:97%;
+	margin-bottom:3%;
 }
 /*질문내용 td 안 내용*/
 .surv_opt_box {
@@ -51,12 +96,36 @@ h2 {
 .questNo {
 	text-align:center;
 }
+[name=multi-opt] {
+	width:85%;
+}
+[name=opt_delete] {
+	padding-left:6%;
 
- button {
-	border-width: 1px;
-	font-size: small;
 }
 
+#addQuestRow, #regSurvBtn, #uptSurvBtn, #delSurvBtn{
+ 	height:7%;
+ 	width:10%;
+ 	border: 2px solid #d4d2d2;
+	border-collapse: collapse;
+	font-size: small;
+	font-weight: bold;
+	margin-right:5px;
+}
+.surv-container button:hover {
+	background-color:black;
+	color:white;
+}
+#delQuestRow {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent; 
+  border: none;
+  font-size:large;
+  
+}
 /*설문 소개보 테이블의 div
 .form-table-intro-container{
 

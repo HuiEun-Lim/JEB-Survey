@@ -26,7 +26,14 @@ public interface RegSurvMapper {
 	public List<QustoptDto> getQustoptList(int qustNo);
 
 	//설문 삭제하기
+	public void delOneSurvey(int survNo);
+	
+	//설문 수정 전 내용 delete
 	public void delSurvey(int survNo);
+	public void delSurvqust(int survNo);
+	public void delQustopt(int survNo);
+	
+	
 	
 	
 }
