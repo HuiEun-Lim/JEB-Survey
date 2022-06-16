@@ -2,20 +2,32 @@
 .form-table-title-continer {
 
 }*/
+h2 {
+	margin-top:5px;
+	margin-bottom:20px;
+}
 /*설문 기본정보 테이블 caption*/
 .surv-container body{
-	font-size:90%;
+	font-size:small;
 }
-.form-tbl-caption {
+.form-tbl-caption span{
 	caption-side: top;
     text-align: left;
-    font-size:13px;
+    font-size:small;
+}
+.form-tbl-caption button {
+	caption-side:top;
+	border-width: 1px;
+	margin:0;
+	font-size: small;
 }
 /*설문 기본정보 테이블*/
 .form-tbl {
-	width:90%;
-	border: 1px solid;
-	border-collapse: collapse;
+	margin-top: 20px;
+	width:100%;
+	padding: 20px;
+	
+    border-collapse: collapse;
 }
 /*설문 기본정보 테이블 td*/
 .form-tbl td {
@@ -24,10 +36,10 @@
 /*설문 기본정보 테이블 컬럼*/
 .form-tbl-col {
     text-align: center;
-    background-color:#bebebe;
+    background-color: #EEEEEE;
     font-weight:bold;
     font-size:90%;
-    border: 2px solid;
+    border: 1px solid;
 }
 /*질문내용 td 안 내용*/
 .surv_opt_box {
@@ -39,9 +51,12 @@
 .questNo {
 	text-align:center;
 }
-button {
+
+ button {
 	border-width: 1px;
+	font-size: small;
 }
+
 /*설문 소개보 테이블의 div
 .form-table-intro-container{
 

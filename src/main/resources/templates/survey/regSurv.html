@@ -15,12 +15,15 @@
 	
 	
 	<body>
+	  <h2>✏️ 설문 만들기</h2>
 	  <div class="surv-container">
 	    <!-- 설문 기본정보 START -->
 		<div class="form-table-title-continer">
 		   <table class="form-tbl">
-		   <caption class="form-tbl-caption">설문 기본정보</caption>
-		   <button id="regSurvBtn">등록</button>
+		   <caption class="form-tbl-caption">
+		   	  <span>설문 기본정보</span>
+		   	  <button id="regSurvBtn">등록</button>
+		   </caption>
 		   <input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 		       <tr>
 		           <td class="form-tbl-col">제목</td>
@@ -58,8 +61,11 @@
 		<!-- 설문지 질문 START -->
 		<div>
 		<table id="surv_quests_tbl" class="form-tbl">
-	       <caption class="form-tbl-caption">설문지 질문</caption>
-	       <button id="addQuestRow">추가</button>
+	       <caption class="form-tbl-caption">
+	       		<span>설문지 질문</span>
+	       		<button id="addQuestRow">추가</button>
+	       </caption>
+	       
 	       <thead>
 	            <th class="form-tbl-col"></th>
 	            <th class="form-tbl-col">질문번호</th>
