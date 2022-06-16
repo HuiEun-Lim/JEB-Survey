@@ -49,7 +49,9 @@ $(document).ready(function(){
 				            y: {
 				                beginAtZero: true,
 				                ticks: {
-									stepSize : 1,
+				                	/*stepSize : 1,*/
+				                	// y축 간격을 정수로
+				                	callback: function(value) {if (value % 1 === 0) {return value;}}
 								}
 				            },
 				        }
@@ -99,5 +101,15 @@ $(document).ready(function(){
 				
 			} // 질문 유형에 따라 chart 그리는 if문
 		} // 장문/단답 확인용 if문
+		
+		if(qustType != "long") {
+			let total = 0;
+			for(let answ in qust.answerList) {
+				total += qust.answerList[answ].count;
+			}
+			const count = document.getElementById(qustList[idx].qustNo + "total");
+			count.innerHTML = total;
+		}
+		
 	} // qustList
 }); // $(document).ready

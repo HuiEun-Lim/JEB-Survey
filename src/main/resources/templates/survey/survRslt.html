@@ -56,6 +56,9 @@
 			</tr>
 			<th:block th:if="${#strings.equals(qust.qustType, 'long')}">
 			<tr>
+				<td>응답 <span th:text="${#lists.size(qust.answerList)}"></span>개</td>
+			</tr>
+			<tr>
 				<td>
 					<div class="answLong">
 					<th:block th:each="answ : ${qust.answerList}">
@@ -66,6 +69,9 @@
 			</tr>
 			</th:block>
 			<th:block th:if="${#strings.equals(qust.qustType, 'short')}">
+			<tr>
+				<td>응답 <span th:id="${qust.qustNo}+total"></span>개</td>
+			</tr>
 			<tr>
 				<td>
 					<div class="answShort">
@@ -80,6 +86,9 @@
 			</tr>
 			</th:block>
 			<th:block th:unless="${#strings.equals(qust.qustType, 'long')} or ${#strings.equals(qust.qustType, 'short')} ">
+			<tr>
+				<td>응답 <span th:id="${qust.qustNo}+total"></span>개</td>
+			</tr>
 			<tr>
 				<td>
 					<div>
