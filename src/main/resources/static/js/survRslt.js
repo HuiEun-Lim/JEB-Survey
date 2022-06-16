@@ -4,8 +4,20 @@ $(document).ready(function(){
 		let qust = qustList[idx];
 		let qustType = qust.qustType;
 		
-		if(qustType != "long" && qustType != "short") {
-			const ctx = document.getElementById(qustList[idx].qustNo).getContext('2d');
+		// 응답 수
+		let total = 0;
+		
+		if(qustType != "long") {
+			for(let answ in qust.answerList) {
+				total += qust.answerList[answ].count;
+			}
+			const count = document.getElementById(qust.qustNo + "total");
+			count.innerHTML = total;
+		}
+		
+		// 차트 그리기
+		if(qustType != "long" && qustType != "short" && total != 0) {
+			const ctx = document.getElementById(qust.qustNo).getContext('2d');
 			
 			let labels = [];
 			let data = [];
@@ -14,7 +26,8 @@ $(document).ready(function(){
 				labels.push(qust.answerList[answ].answCont);
 				data.push(qust.answerList[answ].count);
 			}
-
+			
+			// 체크박스일 경우 막대그래프
 			if(qustType == "check") {
 				const barChart = new Chart(ctx, {
 				    type: 'bar',
@@ -57,6 +70,8 @@ $(document).ready(function(){
 				        }
 				    }
 				});
+				
+			// 드롭다운 / 라디오(객관식)일 경우 파이 그래프 
 			} else if(qustType == "select" || qustType == "radio") {
 				const pieChart = new Chart(ctx, {
 				    type: 'pie',
@@ -101,15 +116,5 @@ $(document).ready(function(){
 				
 			} // 질문 유형에 따라 chart 그리는 if문
 		} // 장문/단답 확인용 if문
-		
-		if(qustType != "long") {
-			let total = 0;
-			for(let answ in qust.answerList) {
-				total += qust.answerList[answ].count;
-			}
-			const count = document.getElementById(qustList[idx].qustNo + "total");
-			count.innerHTML = total;
-		}
-		
 	} // qustList
 }); // $(document).ready
