@@ -97,5 +97,18 @@ public class SurvController {
 		return "redirect:myList";
 
 	}
-
+	
+	/*
+	 * 작성자 : Bonnie 리스트 응답 폼 보여주기 View
+	 * */
+	@RequestMapping("/resForm")
+	public String resForm(@RequestParam(value="survNo") Integer survNo
+			, @AuthenticationPrincipal UserDetails userInfo
+			 , Model model) {
+		String memNick = regSurvService.getUserInfo(userInfo.getUsername());
+		SurveyDto surveyDto = regSurvService.getSurvey(survNo);
+		surveyDto.setMemNick(memNick);
+		model.addAttribute("surveyDto",surveyDto);		
+		return "/survey/resSurv";
+	}
 }
