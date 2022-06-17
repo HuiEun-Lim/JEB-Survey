@@ -26,16 +26,16 @@
 			   <input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 			       <tr>
 			           <td class="form-tbl-col">제목</td>
-			           <td><input id="survTitle" type="text" placeholder="제목을 입력해주세요(최대20자)" th:value=${surveyDto.survTitle} /></td>
+			           <td><input id="survTitle" type="text" placeholder="제목을 입력해주세요(최대30자)" th:value="${surveyDto.survTitle}"/></td>
 			           <td class="form-tbl-col" >등록자</td>
 			           <td th:text="${surveyDto.memNick}"></td>
 			       </tr>
 			       <tr>
 		               <td class="form-tbl-col">등록일자</td>
-		               <td><span id="regDate" th:text=${surveyDto.regDate}></span></td>
+		               <td><span id="regDate" th:text="${surveyDto.regDate}"></span></td>
 		               <td class="form-tbl-col">사용여부</td>
 		               <td>
-							<select id="useYn" th:value=${surveyDto.useYn}>
+							<select id="useYn" th:value="${surveyDto.useYn}">
 								<option value="Y" th:selected="${surveyDto.useYn}=='Y'">예</option>
 								<option value="N" th:selected="${surveyDto.useYn}=='N'">아니오</option>
 							</select>
@@ -52,7 +52,7 @@
 			   </caption>
 			   <tr>
 			       <td class="form-tbl-col">소개</td>
-			       <td><textarea id="survDesc" style="width:100%;" th:text=${surveyDto.survDesc}></textarea></td>
+			       <td><textarea id="survDesc" style="width:100%;" th:text="${surveyDto.survDesc}"></textarea></td>
 			   </tr>
 			</table>
 			</div>
@@ -86,20 +86,20 @@
 	            </td>
 	            <td th:if="${qust.qustType}=='short'">
 	                <div class="surv_opt_box">
-	                    <input id="qustCont" type="text" th:value=${qust.qustCont} placeholder="질문을 입력해주세요">
+	                    <input id="qustCont" type="text" th:value="${qust.qustCont}" placeholder="질문을 입력해주세요">
 	                </div>
 	            </td>
 	            <td th:if="${qust.qustType}=='long'">
 	                <div class="surv_opt_box">
-	                    <textarea id="qustCont" type="text" th:text=${qust.qustCont} placeholder="질문을 입력해주세요"></textarea>
+	                    <textarea id="qustCont" type="text" th:text="${qust.qustCont}" placeholder="질문을 입력해주세요"></textarea>
 	                </div>
 	            </td>
 	            <td th:if="${qust.qustType}=='select'">
 	                <div class="surv_opt_box">
-	                    <input id="qustCont" type="text" th:value=${qust.qustCont} placeholder="질문을 입력해주세요">
+	                    <input id="qustCont" type="text" th:value="${qust.qustCont}" placeholder="질문을 입력해주세요">
 	                	<ol id="select-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
-	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
+	                			<input name="multi-opt" th:value="${opt.optCont}" placeholder="옵션" ></input>
 	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('select',this);">❌<br></span>
 	                		</li>
 	                	</ol>
@@ -108,10 +108,10 @@
 	            </td>
 	            <td th:if="${qust.qustType}=='radio'">
 	                <div class="surv_opt_box">
-	                    <input id="qustCont" type="text" th:value=${qust.qustCont} placeholder="질문을 입력해주세요">
+	                    <input id="qustCont" type="text" th:value="${qust.qustCont}" placeholder="질문을 입력해주세요">
 	                	<ol id="radio-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
-	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
+	                			<input name="multi-opt" th:value="${opt.optCont}" placeholder="옵션" ></input>
 	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('radio',this);">❌<br></span>
 	                		</li>
 	                	</ol>
@@ -120,10 +120,10 @@
 	            </td>
 	            <td th:if="${qust.qustType}=='check'">
 	                <div class="surv_opt_box">
-	                    <input id="qustCont" type="text" th:value=${qust.qustCont} placeholder="질문을 입력해주세요">
+	                    <input id="qustCont" type="text" th:value="${qust.qustCont}" placeholder="질문을 입력해주세요">
 	                	<ol id="check-multi-opt" name="multi-opt" style="list-style-type:decimal" start="1">
 	                		<li th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}">
-	                			<input name="multi-opt" th:value=${opt.optCont} placeholder="옵션" ></input>
+	                			<input name="multi-opt" th:value="${opt.optCont}" placeholder="옵션" ></input>
 	                			<span name="opt_delete" style="display:none;" onclick="deleteOpt('check',this);">❌<br></span>
 	                		</li>
 	                	</ol>

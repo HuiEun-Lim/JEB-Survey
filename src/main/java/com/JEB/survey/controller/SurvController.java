@@ -111,7 +111,7 @@ public class SurvController {
 		
 		int survNo = surveyDto.getSurvNo();
 		regSurvService.delOldSurvey(survNo);
-		regSurvService.insertSurv(surveyDto);
+		regSurvService.insertNewSurv(surveyDto);
 		
 		System.out.println("updateSurv controller END");
 	}

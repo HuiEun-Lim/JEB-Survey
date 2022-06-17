@@ -98,13 +98,7 @@
 		 WHERE surv_no = #{survNo}
 		 ;
 	</update>
-	
-	<delete id="delSurvey" parameterType="int">
-		DELETE
-		  FROM SURVEY
-		 WHERE surv_no=#{survNo}
-		;
-	</delete>
+
 	<delete id="delSurvqust" parameterType="int">
 		DELETE
 		  FROM SURVQUST
@@ -120,4 +114,26 @@
 		 				  )
 		;
 	</delete>
+	<update id="updateNewSurv" parameterType="com.JEB.survey.model.SurveyDto">
+		UPDATE SURVEY
+		   SET surv_title = #{survTitle}
+		   	 , surv_desc = #{survDesc}
+		   	 , mod_date = GETDATE()
+		   	 , useYn = #{useYn}
+		 WHERE surv_no = #{survNo}
+		 ;                    	
+    </update>
+    <insert id="insertNewSurvqust" parameterType="com.JEB.survey.model.SurvqustDto">
+    	 INSERT INTO SURVQUST( surv_no
+                           ,qust_seq
+                           ,qust_cont
+                           ,qust_type
+                          )
+                    VALUES ( #{survNo}
+                    		, #{qustSeq}
+                    		, #{qustCont}
+                    		, #{qustType}
+                    		)
+    </insert>
+
 </mapper>
