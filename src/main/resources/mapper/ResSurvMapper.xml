@@ -18,5 +18,29 @@
 			 GETDATE()
 		)
 	</insert>
+	
+	<!-- 접속 회원 설문 응답 여부 확인 -->
+	<select id="resSurvYn" parameterType="com.JEB.survey.model.SurveyDto" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			(SELECT
+				qust_no
+			FROM
+				SURVQUST
+			WHERE
+				surv_no = #{survNo}
+			) AS qust
+			INNER JOIN 
+			(SELECT
+				qust_no
+			FROM
+				ANSWER
+			WHERE
+				mem_id = #{memId}
+			) AS answ
+			ON qust.qust_no = answ.qust_no
+		;
+	</select>
 
 </mapper>

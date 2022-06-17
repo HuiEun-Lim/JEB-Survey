@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.JEB.survey.model.AnswerDto;
+import com.JEB.survey.model.SurveyDto;
 import com.JEB.survey.repository.ResSurvMapper;
 
 @Service
@@ -23,6 +24,11 @@ public class ResSurvServiceImpl implements ResSurvService{
 			resSurvMapper.insertAnswer(answer);
 		}
 		
+	}
+
+	@Override
+	public int resSurvYn(SurveyDto surveyDto) {
+		return resSurvMapper.resSurvYn(surveyDto);
 	}
 
 }

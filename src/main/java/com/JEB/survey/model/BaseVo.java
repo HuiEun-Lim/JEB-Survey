@@ -8,6 +8,8 @@ import lombok.Data;
 public class BaseVo {
 	// 등록자 ID
 	private String regId;
+	// 회원 ID
+	private String memId;
 	// 회원 닉네임
 	private String memNick;
 	// 등록 날짜
