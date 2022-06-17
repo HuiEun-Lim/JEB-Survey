@@ -32,7 +32,7 @@
 	<span style="font-weight:bold;">총 설문 수 : <span th:text="${total}"></span></span>
 	<div class="right">
 	<select id="cntSelectBox" name="cntSelectBox"
-		th:onchange="changeSelectBox([[${pagination.currentPage}]],[[${pagination.cntPerPage}]],[[${pagination.pageSize}]]);"
+		th:onchange="changeSelectBox([[${pagination.currentPage}]],[[${pagination.pageSize}]]);"
 		th:value="${pagination.cntPerPage}" th:field="${pagination.cntPerPage}">
 		<option th:value="10">10개씩</option>
 		<option th:value="20">20개씩</option>

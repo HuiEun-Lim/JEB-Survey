@@ -1,5 +1,5 @@
 //10,20,30개씩 selectBox 클릭 이벤트
-function changeSelectBox(currentPage, cntPerPage, pageSize){
+function changeSelectBox(currentPage, pageSize){
     var selectValue = $("#cntSelectBox").children("option:selected").val();
     movePage(currentPage, selectValue, pageSize); 
 }
@@ -40,9 +40,18 @@ function searchReset() {
 	location.href="/myList";
 }
 
-function viewRslt(survNo) {
+function viewRslt(survNo, currentPage, pageSize) {
+	let srchTyp = $('#srchTyp').val();
+	let keyword = $('#keyword').val().trim();
+	let cntPerPage = $("#cntSelectBox").children("option:selected").val();
+	
 	let url = "/survRslt";
 	url = url + "?survNo=" + survNo;
+	url = url + "&currentPage="+currentPage;
+	url = url + "&cntPerPage=" + cntPerPage;
+    url = url + "&pageSize=" + pageSize;
+	url = url + "&srchTyp=" + srchTyp;
+	url = url + "&keyword=" + keyword;
 	
 	location.href = url;
 }

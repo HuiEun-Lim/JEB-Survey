@@ -46,6 +46,10 @@
 			<td colspan="6" class="descNull" th:unless="${survey.survDesc} != null">[설문 설명 없음]</td>
 		</tr>
 	</table>
+	<div style="float:right;">
+	<button id="list" th:onclick="goList([[${pagination.currentPage}]], [[${pagination.cntPerPage}]],[[${pagination.pageSize}]],
+		[[${pagination.srchTyp}]], [[${pagination.keyword}]])">목록 보기</button>
+	</div>
 	<br>
 	<h3>📊 응답 결과</h3>
 	

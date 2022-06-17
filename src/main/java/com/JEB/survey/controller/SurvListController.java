@@ -99,9 +99,19 @@ public class SurvListController {
 	}
 	
 	@RequestMapping("/survRslt")
-	public ModelAndView survRslt(@RequestParam(value = "survNo") int survNo) {	
+	public ModelAndView survRslt(@RequestParam(value = "survNo") int survNo,
+			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+            HttpServletRequest request) {	
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("survey/survRslt");
+		
+		SearchVo searchVo = new SearchVo(currentPage, cntPerPage, pageSize);
+		searchVo.setKeyword(request.getParameter("keyword"));
+		searchVo.setSrchTyp(request.getParameter("srchTyp"));
+		mv.addObject("pagination", searchVo);
 		
 		SurveyDto surveyDto = survListService.getSurvRslt(survNo);
 		

@@ -87,3 +87,30 @@ h3 {
 	max-height: 500px;
 	padding: 30px;
 }
+
+#list {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	margin:10px;
+	padding: 0.5rem 1rem;
+	
+	font-size: 1rem;
+	font-weight: 400;
+	text-align: center;
+	text-decoration: none;
+	
+	display: inline-block;
+	width: auto;
+	
+	border: none;
+	border-radius: 4px;
+	
+	
+}
+
+#list:hover {
+	background-color:black;
+	color:white;
+}

@@ -118,3 +118,14 @@ $(document).ready(function(){
 		} // 장문/단답 확인용 if문
 	} // qustList
 }); // $(document).ready
+
+function goList(currentPage, cntPerPage, pageSize, srchTyp, keyword) {
+	let url = "/myList";
+	url = url + "?currentPage=" + currentPage;
+	url = url + "&cntPerPage=" + cntPerPage;
+	url = url + "&pageSize=" + pageSize;
+    url = url + "&srchTyp=" + srchTyp;
+ 	url = url + "&keyword=" + keyword;
+	 	
+	location.href=url;
+}

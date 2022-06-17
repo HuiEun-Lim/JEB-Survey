@@ -1,5 +1,5 @@
 //10,20,30개씩 selectBox 클릭 이벤트
-function changeSelectBox(currentPage, cntPerPage, pageSize){
+function changeSelectBox(currentPage, pageSize){
     var selectValue = $("#cntSelectBox").children("option:selected").val();
     movePage(currentPage, selectValue, pageSize); 
 }
