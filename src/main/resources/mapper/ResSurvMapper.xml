@@ -5,20 +5,17 @@
 	<!-- 설문 응답하기 -->
 	<insert id="insertAnswer" parameterType="com.JEB.survey.model.AnswerDto">
 		insert into answer(
-			answ_no as answNo,
-			qust_no as qustNo,
-			answ_cont as answCont,
-			answ_long as answLong,
-			mem_id  as memId,
-			answ_date as answDate
+			qust_no ,
+			answ_cont,
+			answ_long,
+			mem_id,
+			answ_date
 		)values(
-			#{answNo},
 			#{qustNo}, <!--설문질묹번호 -->
-			<if test=""></if>
 			#{answCont},
 			#{answLong},
 			#{memId},
-			now()
+			 GETDATE()
 		)
 	</insert>
 

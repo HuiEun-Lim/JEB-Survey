@@ -1,5 +1,6 @@
 package com.JEB.survey.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,19 +12,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.JEB.survey.model.AnswerDto;
 import com.JEB.survey.model.SurveyDto;
 import com.JEB.survey.model.SurvqustDto;
 import com.JEB.survey.service.RegSurvService;
-import com.JEB.survey.service.RegSurvServiceImpl;
+import com.JEB.survey.service.ResSurvService;
 
 @Controller
 public class SurvController {
 	
 	@Autowired
 	private RegSurvService regSurvService;
+	
+	@Autowired
+	private ResSurvService resSurvService;
 	
 	/*
 	 * 설문 만들기 View
@@ -121,8 +124,29 @@ public class SurvController {
 		SurveyDto surveyDto = regSurvService.getSurvey(survNo);
 		String memNick = regSurvService.getUserInfo(surveyDto.getRegId());
 		surveyDto.setMemNick(memNick);
+		surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n","<br>"));
 		model.addAttribute("surveyDto",surveyDto);
 		model.addAttribute("memId", userInfo.getUsername());
 		return "survey/resSurv";
 	}
+	
+	/*
+	 * 작성자 : Bonnie 응답하기 
+	 * */ 
+	
+	@RequestMapping("/resSurv")
+	@ResponseBody
+	public String resSurv(@RequestBody SurvqustDto qustDto
+			,Model model) {
+		
+		
+		List<AnswerDto> answerList = qustDto.getAnswerList();
+		
+		System.out.println(answerList);
+		resSurvService.insertAnswer(answerList);
+		
+		return "redirect:/survList";
+	}
+	
+	
 }

@@ -23,7 +23,9 @@
 					
 					answerObj = {
 						qustNo : qust.qustNo,
-						memId : memId
+						memId : memId,
+						answCont : "",
+						answLong : ""
 					};
 					
 					if(qustType == "long") {
@@ -36,7 +38,9 @@
 							if(check[i].checked == true) {
 								let obj = {
 									qustNo : qust.qustNo,
-									memId : memId
+									memId : memId,
+									answCont : "",
+									answLong : ""
 								};
 								obj.answCont = check[i].value;
 								answerList.push(obj);
@@ -54,7 +58,33 @@
 				} // qustList for문
 				
 				console.log(answerList);
+				
+				let header = $("meta[name='_csrf_header']").attr('content');
+				let token = $("meta[name='_csrf']").attr('content');
+				
+				let param = {};
+				param.answerList = answerList;
 	   			
+				$.ajax({
+					url:"/resSurv",
+					type:"POST",
+					contentType : "application/json; charset=utf-8",
+					data: JSON.stringify(param),
+					beforeSend: function(xhr){
+			        xhr.setRequestHeader(header, token);
+				},
+				success: function() {
+					alert('등록 완료');
+				},
+				error: function(e) {
+					alert("등록 실패!!");
+					console.log(e);
+				}
+				
+				});
+				
+				
+				
 	   		}
 	   
 	   </script>
@@ -130,7 +160,6 @@
 		                <br/>
 		                 <br/>
 		                <select th:id="${qust.qustNo}" th:name="${qust.qustNo}" >
-							<option value="select">==카테고리 선택==</option>
 							<option th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></option>					
 						</select>
 		                </div>
