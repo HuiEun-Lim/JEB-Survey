@@ -81,10 +81,18 @@
 					console.log(e);
 				}
 				
-				});
-				
-				
-				
+				});		
+	   		}
+	   		
+	   		function backList(currentPage, cntPerPage, pageSize, srchTyp, keyword){
+	   			
+	   			let url = "/survList";
+	   			url += "?currentPage="+currentPage;
+	   			url += "&srchTyp="+srchTyp;
+	   			url += "&keyword="+keyword;
+	   			
+	   			location.href = url;
+	   			
 	   		}
 	   
 	   </script>
@@ -191,7 +199,12 @@
 		    </div>
 			</div>
 			<!-- <button type="submit" class="btn btn-dark " >제출하기</button> -->
+			
+
+			<!-- currentPage, cntPerPage, pageSize, srchTyp, keyword -->
 			  <input type="button" onclick="response()" value="제출하기">
+			  <!-- <a th:href="@{/survList(currentPage=${current)}"><button>목록</button></a> -->
+			  <!-- <a th:href="@{/survList(currentPage=${currentPage}, srchTyp=${srchTyp}, keyword=${keyword}))"><button>목록</button></a> -->
 			<!-- 설문지 질문 END -->
 	    </body>
     </th:block>

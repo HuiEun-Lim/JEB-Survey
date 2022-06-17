@@ -41,9 +41,18 @@ function searchReset() {
 }
 
 /*작성자 : Bonnie 리스트 응답 폼 보여주기 */
-function resForm(survNo){
-	let url = "/resForm";
-	url = url+"?survNo="+survNo;
+function resForm(survNo, currentPage,pageSize){
+	let srchTyp = $('#srchTyp').val();
+	let keyword = $('#keyword').val().trim();
+	let selectValue = $("#cntSelectBox").children("option:selected").val();
 	
-	location.href= url;
+	let url = "/resForm";
+	url += "?survNo="+survNo;
+	url += "&currentPage="+currentPage;
+	url += "&cntPerPage="+selectValue;
+	url += "&pageSize="+pageSize;
+	url += "&srchTyp="+srchTyp;
+	url += "&keyword="+keyword;
+	
+	location.href = url;
 }
