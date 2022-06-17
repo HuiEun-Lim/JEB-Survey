@@ -124,7 +124,7 @@
     </head>
     <th:block layout:fragment="contents">
 	    <body>
-	    	<h2>설문 응답하기</h2>
+	    	<h2>📝 설문 응답하기</h2>
 			
 	      		<input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
 	      		<input type="hidden"  id="memId" th:value="${memId}"/>
@@ -169,7 +169,7 @@
 	            	<!-- 단답형 -->
 	            	<td th:if="${qust.qustType}=='short'" th:classappend="${qust.qustType}">
 	            	 	<div class="surv_opt_box">
-		            		<span th:text=${qust.qustCont}></span>
+		            		<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		            		<br/>
 		            		<br/>
 		            		<input th:name="${qust.qustNo}" th:id="${qust.qustNo}" size="137" >
@@ -179,7 +179,7 @@
 	            	<!-- 장문형 -->
 		            <td th:if="${qust.qustType}=='long'" >
 		                <div class="surv_opt_box">
-		                	<span th:text=${qust.qustCont}></span>
+		                	<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		                	<br/>
 		                	<br/>
 		                	<textarea th:id="${qust.qustNo}" th:name="${qust.qustNo}" cols="140" rows="7" style="resize:none"></textarea>
@@ -189,7 +189,7 @@
 		            <!-- 셀릭트 형 -->
 	            	<td th:if="${qust.qustType}=='select'">
 		                <div class="surv_opt_box">		
-		                <span th:text=${qust.qustCont}></span>       
+		                <span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>       
 		                <br/>
 		                 <br/>
 		                <select th:id="${qust.qustNo}" th:name="${qust.qustNo}" >
@@ -201,7 +201,7 @@
 	            	<!-- 라디오 -->
 		            <td th:if="${qust.qustType}=='radio'">
 		                <div class="surv_opt_box">
-		                	<span th:text=${qust.qustCont}></span>
+		                	<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		                	<br/>
 		                	<br/>
 		                    <input type="radio"   th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></input>  	
@@ -211,7 +211,7 @@
 		            <!-- 체크박스 -->
 		            <td th:if="${qust.qustType}=='check'">
 		                <div class="surv_opt_box">
-		                	<span th:text=${qust.qustCont}></span>
+		                	<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		                	<br/>
 		                	<br/>
 		                	<input type="checkbox" th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont} >
