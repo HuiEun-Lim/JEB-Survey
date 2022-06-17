@@ -55,6 +55,7 @@ function resForm(survNo, currentPage,pageSize){
 		type:'post',
 		url:'/checkRes',
 		data:{
+				"memId" : memId,
 				"survNo" : survNo
 			},
 		beforeSend : function(xhr){

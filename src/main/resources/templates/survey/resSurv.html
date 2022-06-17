@@ -164,7 +164,7 @@
 				 </tr>
 			</thead>
 		    <tbody>
-		         <tr th:each="qust : ${surveyDto.survqustList}" th:classappend="item+${qust.qustSeq}">
+		         <tr th:each="qust : ${surveyDto.survqustList}">
 	            	
 	            	<!-- 단답형 -->
 	            	<td th:if="${qust.qustType}=='short'" th:classappend="${qust.qustType}">

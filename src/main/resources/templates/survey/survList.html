@@ -9,6 +9,9 @@
   		<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	    <link rel="stylesheet" type="text/css" href="./css/survList.css">
 	    <script type="text/javascript" src="./js/survList.js"></script>
+	    <script th:inline="javascript">
+		    let memId =  /*[[${memId}]]*/ null;
+		</script>
 		<title>설문 리스트</title>
   </head>
   <th:block layout:fragment="contents">
