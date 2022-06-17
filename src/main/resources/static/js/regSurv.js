@@ -55,72 +55,94 @@ $(function () {
     });
     
     
-    let isSubmitted=false;
+    let isSubmitted=false; //ajax 전송 상태
+    let changed = false; //내용 변화 상태
+    let param;
+    
+    $(document).on("propertychange change keyup paste input","input, textarea", function(){
+		changed=true;
+		isSubmitted=false;
+		$("#regSurvBtn").removeAttr('disabled');
+		console.log("changed => "+changed);
+	});
+
+
     $("#regSurvBtn").click(function() {
 		
 		let chkValidate = chkFields()==true? true:false;
 	
 		if(chkValidate) {
-		
-			let survqustList=[]; //질문1개 1개 모아놓은 거
-			
-			$("#surv_quests_tbl>tbody tr").each(function() {
-				let survQustObj = new Object (); //질문1개
-				let qustOptArr = [];
+			if (!isSubmitted && changed) {
+				isSubmitted = true;
+				console.log("isSubmitted => "+isSubmitted);                  
+				$("#regSurvBtn").attr('disabled','disabled');
 				
-				let qustType = $(this).find("td:eq(2) select option:selected").val();
-				survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
-				survQustObj.qustType = qustType;
+				let survqustList=[]; //질문1개 1개 모아놓은 거
 				
-				if(qustType=='short') {				
-				survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
-				} else if(qustType=="long") {
-				survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
-				} else {
-					survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+				$("#surv_quests_tbl>tbody tr").each(function() {
+					let survQustObj = new Object (); //질문1개
+					let qustOptArr = [];
 					
-					$(this).find('ol[name="multi-opt"] li').each(function(index, item) {
-						let optObj = new Object(); //옵션 1개의 객체
+					let qustType = $(this).find("td:eq(2) select option:selected").val();
+					survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
+					survQustObj.qustType = qustType;
+					
+					if(qustType=='short') {				
+					survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+					} else if(qustType=="long") {
+					survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
+					} else {
+						survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
 						
-						optObj.optSeq = index+1;
-						optObj.optCont = $(item).find("input").val();
-						qustOptArr.push(optObj);
+						$(this).find('ol[name="multi-opt"] li').each(function(index, item) {
+							let optObj = new Object(); //옵션 1개의 객체
+							
+							optObj.optSeq = index+1;
+							optObj.optCont = $(item).find("input").val();
+							qustOptArr.push(optObj);
+						});
+						survQustObj.qustoptList = qustOptArr;
+					}
+					survqustList.push(survQustObj);
+					
+				});
+				
+				  param = {
+						"survTitle" : $("#survTitle").val(),
+						"regDate" : $("#regDate").text(),
+						"useYn" : $("#useYn").val(),		
+						"survDesc" : $("#survDesc").val(),
+						"survqustList" : survqustList,
+					};
+					
+				console.log("param ==> " + JSON.stringify(param));
+				
+				let chkChangedRslt = chkChanged(param)==true?true:false;
+				
+				if(chkChangedRslt) {
+				
+				    $.ajax({
+						url:'/regSurv',
+						type: 'POST',
+						contentType : "application/json; charset=utf-8",
+						data: JSON.stringify(param),
+						beforeSend: function(xhr){
+				        xhr.setRequestHeader(header, token);
+				    },	
+						success: function() {
+							alert('등록 완료');
+						},
+						error: function(e) {
+							alert("등록 실패!!");
+							isSubmitted = false;
+							console.log("isSubmitted => "+isSubmitted);
+							console.log(e);
+						}
 					});
-					survQustObj.qustoptList = qustOptArr;
+				} else {
+					("이미 등록된 설문입니다.");
 				}
-				survqustList.push(survQustObj);
-				
-			});
-			
-			 var param = {
-					"survTitle" : $("#survTitle").val(),
-					"regDate" : $("#regDate").text(),
-					"useYn" : $("#useYn").val(),		
-					"survDesc" : $("#survDesc").val(),
-					"survqustList" : survqustList,
-				};
-				
-			console.log("param ==> " + JSON.stringify(param));
-			
-		    $.ajax({
-				url:'/regSurv',
-				type: 'POST',
-				contentType : "application/json; charset=utf-8",
-				data: JSON.stringify(param),
-				beforeSend: function(xhr){
-		        xhr.setRequestHeader(header, token);
-		    },
-		    	beforeSend:function() {
-					ajax_last_num = ajax_last_num + 1;			
-			},
-				success: function() {
-					alert('등록 완료');
-				},
-				error: function(e) {
-					alert("등록 실패!!");
-					console.log(e);
-				}
-			});
+			}
 		} else {
 			alert("값을 입력해주세요!!");
 		}
@@ -342,6 +364,9 @@ function addOption(optType, data) {
 }
 
 function deleteOpt(optType, data) {
+ changed=true;
+ isSubmitted=false;
+ $("#regSurvBtn").removeAttr('disabled');
   var idx = $(data).closest('tr').index();
   let optCnt = $(data).closest('ol').find("li").length;
 
@@ -403,4 +428,53 @@ function chkFields() {
 	} else {
 		return false;
 	}
+}
+
+function chkChanged(param) {
+	let newParam;
+	let survqustList=[]; //질문1개 1개 모아놓은 거
+				
+				$("#surv_quests_tbl>tbody tr").each(function() {
+					let survQustObj = new Object (); //질문1개
+					let qustOptArr = [];
+					
+					let qustType = $(this).find("td:eq(2) select option:selected").val();
+					survQustObj.qustSeq = $(this).find("td:eq(1)").text().substr(2);
+					survQustObj.qustType = qustType;
+					
+					if(qustType=='short') {				
+					survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+					} else if(qustType=="long") {
+					survQustObj.qustCont = $(this).find("td:eq(3) textarea").val().trim();
+					} else {
+						survQustObj.qustCont = $(this).find("td:eq(3) input").val().trim();
+						
+						$(this).find('ol[name="multi-opt"] li').each(function(index, item) {
+							let optObj = new Object(); //옵션 1개의 객체
+							
+							optObj.optSeq = index+1;
+							optObj.optCont = $(item).find("input").val();
+							qustOptArr.push(optObj);
+						});
+						survQustObj.qustoptList = qustOptArr;
+					}
+					survqustList.push(survQustObj);
+					
+				});
+				
+				  newParam = {
+						"survTitle" : $("#survTitle").val(),
+						"regDate" : $("#regDate").text(),
+						"useYn" : $("#useYn").val(),		
+						"survDesc" : $("#survDesc").val(),
+						"survqustList" : survqustList,
+					};
+					
+			if (JSON.stringify(param) === JSON.stringify(newParam)) {
+				console.log("param === newParam");
+				return true;
+			} else {
+				console.log("param != newParam");
+				return false;
+			}
 }
