@@ -10,6 +10,19 @@
 	    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	   <!--  <script type="text/javascript" src="./js/regSurv.js"></script> -->
 	   <script type="text/javascript"  th:inline="javascript">
+	   let url = "/survList";
+				let currentPage = /*[[${currentPage}]]*/ null;
+				let cntPerPage = /*[[${cntPerPage}]]*/ null;
+				let pageSize = /*[[${pageSize}]]*/ null;
+				let keyword = /*[[${keyword}]]*/ null;
+				let srchTyp = /*[[${srchTyp}]]*/ null;
+				
+				url += "? currentPage=" +  currentPage
+					+ "&cntPerPage=" + cntPerPage
+					+ "&pageSize=" + pageSize
+					+ "&keyword=" + keyword
+					+ "&srchTyp=" + srchTyp;
+					
 	   		function response(){
 				let memId = $("#memId").val(); // 응답한 회원 ID
 				let qustList =  /*[[${surveyDto.survqustList}]]*/ null;
@@ -81,7 +94,7 @@
 				
 				let param = {};
 				param.answerList = answerList;
-	   			
+				
 				$.ajax({
 					url:"/resSurv",
 					type:"POST",
@@ -92,6 +105,7 @@
 				},
 				success: function() {
 					alert('등록 완료');
+					location.href = url;
 				},
 				error: function(e) {
 					alert("등록 실패!!");
@@ -101,13 +115,7 @@
 				});		
 	   		}
 	   		
-	   		function backList(currentPage, cntPerPage, pageSize, srchTyp, keyword){
-	   			
-	   			let url = "/survList";
-	   			url += "?currentPage="+currentPage;
-	   			url += "&srchTyp="+srchTyp;
-	   			url += "&keyword="+keyword;
-	   			
+	   		function backList(){
 	   			location.href = url;
 	   			
 	   		}
@@ -220,6 +228,7 @@
 
 			<!-- currentPage, cntPerPage, pageSize, srchTyp, keyword -->
 			  <input type="button" onclick="response()" value="제출하기">
+			  <input type="button" onclick="backList();" value="목록 보기">
 			  <!-- <a th:href="@{/survList(currentPage=${current)}"><button>목록</button></a> -->
 			  <!-- <a th:href="@{/survList(currentPage=${currentPage}, srchTyp=${srchTyp}, keyword=${keyword}))"><button>목록</button></a> -->
 			<!-- 설문지 질문 END -->
