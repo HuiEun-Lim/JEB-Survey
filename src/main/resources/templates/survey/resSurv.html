@@ -11,30 +11,49 @@
 	   <!--  <script type="text/javascript" src="./js/regSurv.js"></script> -->
 	   <script type="text/javascript"  th:inline="javascript">
 	   		function response(){
-	   			let answerList=[]; //응답 모아 놓을 곳
-	   			let answerObj = new Object();
-	   			$("#surv_quests_tbl>tbody tr").each(function(){
-	   				
-	   				let qustType =  $(".qustType").val();
-	   				
-	   				
-	   				let qustNo =  $("#qustNo").val();
-	   				console.log(qustType+"질문번호"+qustNo);
-	   				answerObj ={
-	   						"qustNo" : $("#qustNo").val(), //질문번호 가져와
-	   						"memId": /*[[${memId}]]*/ null
-	   				};
-	   				
-	   				
-	   				
-	   				
-	   				
-	   			});
-	   			
-	   			
-	   		
-	   			
-	   			
+				let memId = $("#memId").val(); // 응답한 회원 ID
+				let qustList =  /*[[${surveyDto.survqustList}]]*/ null;
+				
+	   			let answerList = []; //응답 모아 놓을 곳
+				
+				for(let idx in qustList) {
+		   			let answerObj = {};
+					let qust = qustList[idx];
+					let qustType = qust.qustType;
+					
+					answerObj = {
+						qustNo : qust.qustNo,
+						memId : memId
+					};
+					
+					if(qustType == "long") {
+						const answLong = document.getElementById(qust.qustNo);
+						answerObj.answLong = answLong.value;
+						answerList.push(answerObj);
+					} else if (qustType == "check" || qustType == "radio") {
+						const check = document.getElementsByName(qust.qustNo);
+						for(i=0;i<check.length;i++) {
+							if(check[i].checked == true) {
+								let obj = {
+									qustNo : qust.qustNo,
+									memId : memId
+								};
+								obj.answCont = check[i].value;
+								answerList.push(obj);
+							}
+						}
+					} else if (qustType == "short") {
+						answerObj.answCont = document.getElementById(qust.qustNo).value;
+						answerList.push(answerObj);
+					} else if (qustType == "select") {
+						const drop = document.getElementById(qust.qustNo);
+						answerObj.answCont = drop.options[drop.selectedIndex].value;
+						answerList.push(answerObj);
+					}
+					
+				} // qustList for문
+				
+				console.log(answerList);
 	   			
 	   		}
 	   
@@ -45,6 +64,7 @@
 	    	<h2>설문 응답하기</h2>
 			
 	      		<input type="hidden"  name="${_csrf.parameterName }" value="${_csrf.token }"/>
+	      		<input type="hidden"  id="memId" th:value="${memId}"/>
 	      		<div class="surv-container">
 		    	<!-- 설문 기본정보 START -->
 				<div class="form-table-title-continer">
@@ -87,10 +107,9 @@
 	            	<td th:if="${qust.qustType}=='short'" th:classappend="${qust.qustType}">
 	            	 	<div class="surv_opt_box">
 		            		<span th:text=${qust.qustCont}></span>
-		            		<input type="hidden"  id="qustNo" th:value ="${qust.qustNo}">
 		            		<br/>
 		            		<br/>
-		            		<input name="answCont" id="answCont" size="137" >
+		            		<input th:name="${qust.qustNo}" th:id="${qust.qustNo}" size="137" >
 	            		</div>
 	            	</td>
 	            	
@@ -98,23 +117,21 @@
 		            <td th:if="${qust.qustType}=='long'" >
 		                <div class="surv_opt_box">
 		                	<span th:text=${qust.qustCont}></span>
-		                	<input type="hidden"  id="qustNo" th:value ="${qust.qustNo}">
 		                	<br/>
 		                	<br/>
-		                	<textarea id="answLong" name="answLong" cols="140" rows="7" style="resize:none"></textarea>
+		                	<textarea th:id="${qust.qustNo}" th:name="${qust.qustNo}" cols="140" rows="7" style="resize:none"></textarea>
 		                </div>
 		            </td>
 		            
 		            <!-- 셀릭트 형 -->
 	            	<td th:if="${qust.qustType}=='select'">
 		                <div class="surv_opt_box">		
-		                <span th:text=${qust.qustCont}></span>      
-		                <input type="hidden" id="qustNo" th:value ="${qust.qustNo}">    
+		                <span th:text=${qust.qustCont}></span>       
 		                <br/>
 		                 <br/>
-		                <select name="answCont" id="answCont" >
+		                <select th:id="${qust.qustNo}" th:name="${qust.qustNo}" >
 							<option value="select">==카테고리 선택==</option>
-							<option th:each="opt : ${qust.qustoptList}"    th:attr="id='opt'+${opt.optSeq}" th:value=${opt.optCont} th:utext=${opt.optCont}></option>					
+							<option th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></option>					
 						</select>
 		                </div>
 	            	</td>
@@ -123,10 +140,9 @@
 		            <td th:if="${qust.qustType}=='radio'">
 		                <div class="surv_opt_box">
 		                	<span th:text=${qust.qustCont}></span>
-		                	<input type="hidden" th:value ="${qust.qustNo}" id="qustNo">
 		                	<br/>
 		                	<br/>
-		                    <input type="radio"   id="answCont"  name="answCont" th:each="opt : ${qust.qustoptList}" th:attr="id='opt'+${opt.optSeq}" th:value=${opt.optCont} th:utext=${opt.optCont}></input>  	
+		                    <input type="radio"   th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></input>  	
 		                </div>
 		            </td>
 		            
@@ -134,10 +150,9 @@
 		            <td th:if="${qust.qustType}=='check'">
 		                <div class="surv_opt_box">
 		                	<span th:text=${qust.qustCont}></span>
-		                	<input type="hidden" th:value ="${qust.qustNo}" id="qustNo">
 		                	<br/>
 		                	<br/>
-		                	<input type="checkbox" id="answCont" name= "answCont" th:each="opt : ${qust.qustoptList}"  th:attr="id='opt'+${opt.optSeq}" th:value=${opt.optCont} th:utext=${opt.optCont} >
+		                	<input type="checkbox" th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont} >
 		                </div>
 		            </td>
 		         </tr>

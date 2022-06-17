@@ -122,6 +122,7 @@ public class SurvController {
 		String memNick = regSurvService.getUserInfo(surveyDto.getRegId());
 		surveyDto.setMemNick(memNick);
 		model.addAttribute("surveyDto",surveyDto);
-		return "/survey/resSurv";
+		model.addAttribute("memId", userInfo.getUsername());
+		return "survey/resSurv";
 	}
 }
