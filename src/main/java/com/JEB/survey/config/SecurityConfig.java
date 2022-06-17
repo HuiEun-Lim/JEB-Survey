@@ -53,7 +53,7 @@ public class SecurityConfig{
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{	
 		return http
 				.authorizeRequests() //권한 검증 설정
-				  .antMatchers("/main","/joinForm/**","/survList","/loginForm/**").permitAll()
+				  .antMatchers("/main","/joinForm/**","/loginForm/**").permitAll()
 				  .antMatchers("/member/**").permitAll()
 				//.antMatchers("/**").permitAll()
 				.anyRequest().authenticated() //어떤 URL로 접근하던지 인증이 필요
