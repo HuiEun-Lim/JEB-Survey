@@ -57,13 +57,19 @@ $(function () {
     
     let isSubmitted=false; //ajax 전송 상태
     let changed = false; //내용 변화 상태
-    let param;
+    let oldParam;
     
     $(document).on("propertychange change keyup paste input","input, textarea", function(){
 		changed=true;
 		isSubmitted=false;
 		$("#regSurvBtn").removeAttr('disabled');
 		console.log("changed => "+changed);
+	});
+	
+	$("#useYn").on("change",function() {
+		changed=true;
+		isSubmitted=false;
+		$("#regSurvBtn").removeAttr('disabled');
 	});
 
 
@@ -107,7 +113,7 @@ $(function () {
 					
 				});
 				
-				  param = {
+				let param = {
 						"survTitle" : $("#survTitle").val(),
 						"regDate" : $("#regDate").text(),
 						"useYn" : $("#useYn").val(),		
@@ -117,7 +123,7 @@ $(function () {
 					
 				console.log("param ==> " + JSON.stringify(param));
 				
-				let chkChangedRslt = chkChanged(param)==true?true:false;
+				let chkChangedRslt = chkChanged(oldParam)==true?true:false;
 				
 				if(chkChangedRslt) {
 				
@@ -131,16 +137,23 @@ $(function () {
 				    },	
 						success: function() {
 							alert('등록 완료');
+							oldParam = param;
+							
+							if(confirm("My Survey에서 확인할까요?")) {
+  					 			location.href = "myList?";
+							}
 						},
 						error: function(e) {
 							alert("등록 실패!!");
-							isSubmitted = false;
 							console.log("isSubmitted => "+isSubmitted);
 							console.log(e);
+						},
+						complete: function() {
+							isSubmitted = false;
 						}
 					});
 				} else {
-					("이미 등록된 설문입니다.");
+					alert("이미 등록된 설문입니다.");
 				}
 			}
 		} else {
@@ -187,10 +200,10 @@ $(function () {
 			
 			 var param = {
 					"survNo" : survNo,
-					"survTitle" : $("#survTitle").val(),
+					"survTitle" : $("#survTitle").val().trim(),
 					"regDate" : $("#regDate").text(),
 					"useYn" : $("#useYn").val(),		
-					"survDesc" : $("#survDesc").val(),
+					"survDesc" : $("#survDesc").val().trim(),
 					"survqustList" : survqustList,
 				};
 				
@@ -206,6 +219,11 @@ $(function () {
 		    },
 				success: function() {
 					alert('수정 완료!!');
+					let query = window.location.search;
+  					 let param = new URLSearchParams(query);
+
+ 					 param.delete("survNo");
+  					 location.href = "myList?" + param;
 				},
 				error: function(e) {
 					alert("수정 실패!!");
@@ -430,7 +448,7 @@ function chkFields() {
 	}
 }
 
-function chkChanged(param) {
+function chkChanged(oldParam) {
 	let newParam;
 	let survqustList=[]; //질문1개 1개 모아놓은 거
 				
@@ -463,18 +481,20 @@ function chkChanged(param) {
 				});
 				
 				  newParam = {
-						"survTitle" : $("#survTitle").val(),
+						"survTitle" : $("#survTitle").val().trim(),
 						"regDate" : $("#regDate").text(),
 						"useYn" : $("#useYn").val(),		
-						"survDesc" : $("#survDesc").val(),
+						"survDesc" : $("#survDesc").val().trim(),
 						"survqustList" : survqustList,
 					};
 					
-			if (JSON.stringify(param) === JSON.stringify(newParam)) {
-				console.log("param === newParam");
-				return true;
-			} else {
-				console.log("param != newParam");
-				return false;
-			}
+	console.log("oldParam => "+JSON.stringify(oldParam));
+	console.log("newParam => "+JSON.stringify(newParam));
+	if (JSON.stringify(oldParam) === JSON.stringify(newParam)) {
+		console.log("oldParam === newParam");
+		return false;
+	} else {
+		console.log("oldParam != newParam");
+		return true;
+	}
 }

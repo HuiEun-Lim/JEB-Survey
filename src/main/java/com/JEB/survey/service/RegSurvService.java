@@ -14,5 +14,8 @@ public interface RegSurvService {
 	
 	//설문 수정 전 내용 삭제하기
 	public void delOldSurvey(int survNo);
+	
+	//설문 수정 후 내용 insert하기
+	public void insertNewSurv(SurveyDto surveyDto);
 
 }

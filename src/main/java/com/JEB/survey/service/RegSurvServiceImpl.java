@@ -105,9 +105,51 @@ public class RegSurvServiceImpl implements RegSurvService {
 		
 		regSurvMapper.delQustopt(survNo);
 		regSurvMapper.delSurvqust(survNo);
-		regSurvMapper.delSurvey(survNo);
 				
 		System.out.println("delOldSurv Service END");
+		
+	}
+
+	@Override
+	public void insertNewSurv(SurveyDto surveyDto) {
+		System.out.println("===insertNewSurv ServiceImpl START===");
+		
+		regSurvMapper.updateNewSurv(surveyDto);
+		System.out.println("surveyDto update완료!!");
+		System.out.println("=> "+surveyDto.toString());
+		
+		List<SurvqustDto> survqustList = surveyDto.getSurvqustList();
+		
+		if (survqustList.isEmpty()) {
+			System.out.println("survqustList  EMPTY!!");
+		} else {
+			System.out.println("survqustList  NOT EMPTY!!");
+			
+			for(SurvqustDto vo : survqustList) {
+				vo.setSurvNo(surveyDto.getSurvNo());
+				System.out.println("새로 insert할 SurvqustDto vo => "+vo);
+				regSurvMapper.insertNewSurvqust(vo);
+				System.out.println("새로 insert할 SurvqustDto vo insert 완료!!");
+				
+				List<QustoptDto> qustoptList = vo.getQustoptList();
+				
+				if(qustoptList==null || qustoptList.isEmpty()) {
+					System.out.println("qustoptList EMPTY!!");
+				} else {
+					System.out.println("qustoptList NOT EMPTY!!");
+					
+					for(QustoptDto qo : qustoptList) {
+						System.out.println("새로 insert할 QustoptDto qo => "+qo);
+						regSurvMapper.insertQustopt(qo);
+						System.out.println("새로 insert할 QustoptDto qo insert 완료!!");
+					}
+				}
+				
+			}
+			
+		}
+		
+		System.out.println("===insertNewSurv ServiceImpl END===");
 		
 	}
 
