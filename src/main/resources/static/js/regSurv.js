@@ -71,6 +71,11 @@ $(function () {
 		isSubmitted=false;
 		$("#regSurvBtn").removeAttr('disabled');
 	});
+	
+	if ($("#useYn").val()=='N') {
+		$("#uptSurvBtn").attr('disabled','disabled');
+		alert('수정할 수 없는 설문입니다!');
+	}
 
 
     $("#regSurvBtn").click(function() {

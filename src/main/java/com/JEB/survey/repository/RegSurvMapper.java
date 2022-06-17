@@ -31,6 +31,7 @@ public interface RegSurvMapper {
 	//설문 수정 전 내용 delete
 	public void delSurvqust(int survNo);
 	public void delQustopt(int survNo);
+	public void delAnswer(int survNo);
 	
 	//설문 수정 후 insert
 	public void updateNewSurv(SurveyDto surveyDto);

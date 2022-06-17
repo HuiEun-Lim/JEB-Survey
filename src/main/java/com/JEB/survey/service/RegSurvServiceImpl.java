@@ -104,6 +104,7 @@ public class RegSurvServiceImpl implements RegSurvService {
 		System.out.println("delOldSurv Service START");
 		
 		regSurvMapper.delQustopt(survNo);
+		regSurvMapper.delAnswer(survNo);
 		regSurvMapper.delSurvqust(survNo);
 				
 		System.out.println("delOldSurv Service END");
