@@ -114,6 +114,15 @@
 		 				  )
 		;
 	</delete>
+	<delete id="delAnswer" parameterType="int">
+		DELETE
+		  FROM Answer
+		 WHERE qust_no in (SELECT qust_no
+							 FROM SURVQUST
+							WHERE surv_no=#{surv_no}
+		 				  )
+		;
+	</delete>
 	<update id="updateNewSurv" parameterType="com.JEB.survey.model.SurveyDto">
 		UPDATE SURVEY
 		   SET surv_title = #{survTitle}
