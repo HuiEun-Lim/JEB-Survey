@@ -27,6 +27,7 @@
                 <option th:value="'all'">전체</option>
                 <option th:value="'title'">제목</option>
                 <option th:value="'regid'">등록자</option>
+                <option th:value="'survNo'">설문 번호</option>
             </select>
             <input type="text" id="keyword" name="keyword" placeholder="검색어를 입력하세요" th:value="${pagination.keyword}" style="width: 300px; border:2px solid #6C757D">
             <button type="button" id="srchBtn" onclick="searchKw();">검색 🔍</button>

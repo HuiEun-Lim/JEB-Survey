@@ -10,6 +10,7 @@
 					(
 						s.surv_title LIKE CONCAT('%', #{keyword}, '%')
 						OR m.mem_nick LIKE CONCAT('%', #{keyword}, '%')
+						OR s.surv_no = #{keyword}
 					)
 				</when>
 				<when test="'title'.equals(srchTyp)">
@@ -17,6 +18,9 @@
 				</when>
 				<when test="'regid'.equals(srchTyp)">
 					m.mem_nick LIKE CONCAT('%', #{keyword}, '%')
+				</when>
+				<when test="'survNo'.equals(srchTyp)">
+					s.surv_no = #{keyword}
 				</when>
 			</choose>
 		</if>
