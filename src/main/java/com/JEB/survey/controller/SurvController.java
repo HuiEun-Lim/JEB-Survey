@@ -128,7 +128,10 @@ public class SurvController {
 		String memNick = regSurvService.getUserInfo(surveyDto.getRegId());
 		
 		surveyDto.setMemNick(memNick);
-		surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n","<br>"));
+		if(surveyDto.getSurvDesc() != null) {
+			surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n","<br>"));
+		}
+		
 		model.addAttribute("surveyDto",surveyDto);
 		model.addAttribute("memId", userInfo.getUsername());
 		model.addAttribute("currentPage",request.getParameter("currentPage"));
