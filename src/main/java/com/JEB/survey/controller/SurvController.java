@@ -3,6 +3,8 @@ package com.JEB.survey.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -115,34 +117,41 @@ public class SurvController {
 	}
 	
 	/*
-	 * 작성자 : Bonnie 리스트 응답 폼 보여주기 View
+	 * 작성자 : Bonnie 
+	 * 리스트 응답 폼 보여주기 View
 	 * */
 	@RequestMapping("/resForm")
 	public String resForm(@RequestParam(value="survNo") Integer survNo
-			, @AuthenticationPrincipal UserDetails userInfo
-			 , Model model) {
+			, @AuthenticationPrincipal UserDetails userInfo,
+			HttpServletRequest request , Model model) {
 		SurveyDto surveyDto = regSurvService.getSurvey(survNo);
 		String memNick = regSurvService.getUserInfo(surveyDto.getRegId());
+		
 		surveyDto.setMemNick(memNick);
 		surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n","<br>"));
 		model.addAttribute("surveyDto",surveyDto);
 		model.addAttribute("memId", userInfo.getUsername());
+		model.addAttribute("currentPage",request.getParameter("currentPage"));
+		model.addAttribute("cntPerPage",request.getParameter("cntPerPage"));
+		model.addAttribute("pageSize",request.getParameter("pageSize"));
+		model.addAttribute("srchTyp",request.getParameter("srchTyp"));
+		model.addAttribute("keyword",request.getParameter("keyword"));
+		
 		return "survey/resSurv";
 	}
 	
 	/*
-	 * 작성자 : Bonnie 응답하기 
+	 * 작성자 : Bonnie 
+	 * 응답하기 
 	 * */ 
 	
 	@RequestMapping("/resSurv")
 	@ResponseBody
-	public String resSurv(@RequestBody SurvqustDto qustDto
-			,Model model) {
-		
-		
+	public String resSurv(@RequestBody SurvqustDto qustDto) {	
 		List<AnswerDto> answerList = qustDto.getAnswerList();
 		
 		System.out.println(answerList);
+		
 		resSurvService.insertAnswer(answerList);
 		
 		return "redirect:/survList";
