@@ -13,6 +13,7 @@
 	   		function response(){
 				let memId = $("#memId").val(); // 응답한 회원 ID
 				let qustList =  /*[[${surveyDto.survqustList}]]*/ null;
+				let empty = false;
 				
 	   			let answerList = []; //응답 모아 놓을 곳
 				
@@ -30,9 +31,13 @@
 					
 					if(qustType == "long") {
 						const answLong = document.getElementById(qust.qustNo);
-						answerObj.answLong = answLong.value;
+						if(answLong.value.trim() == "") {
+							empty = true;
+						}
+						answerObj.answLong = answLong.value.trim();
 						answerList.push(answerObj);
 					} else if (qustType == "check" || qustType == "radio") {
+						let count = 0;
 						const check = document.getElementsByName(qust.qustNo);
 						for(i=0;i<check.length;i++) {
 							if(check[i].checked == true) {
@@ -44,10 +49,17 @@
 								};
 								obj.answCont = check[i].value;
 								answerList.push(obj);
+								count++;
 							}
 						}
+						if(count == 0) {
+							empty = true;
+						}
 					} else if (qustType == "short") {
-						answerObj.answCont = document.getElementById(qust.qustNo).value;
+						answerObj.answCont = document.getElementById(qust.qustNo).value.trim();
+						if(answerObj.answCont == "") {
+							empty = true;
+						}
 						answerList.push(answerObj);
 					} else if (qustType == "select") {
 						const drop = document.getElementById(qust.qustNo);
@@ -58,6 +70,11 @@
 				} // qustList for문
 				
 				console.log(answerList);
+				
+				if(empty) {
+					alert("모든 문항에 응답 바랍니다.");
+					return;
+				}
 				
 				let header = $("meta[name='_csrf_header']").attr('content');
 				let token = $("meta[name='_csrf']").attr('content');
