@@ -4,9 +4,9 @@
 2021년 하반기 입사 동기 Jetty, Esther, Bonnie가 본사 대기일 때 개발 능력 향상을 위해 설문조사 토이 프로젝트를 협업하여 만듭니다.<br>
 팀명 [JEB]은 각자의 닉네임 앞글자를 따왔습니다.
 
-Jetty : HuiEun-Lim [heyho930@gmail.com]
-Esther : indiaesther [indiaesther@naver.com]
-Bonnie : Taehyeon130 [taehyeongim59@gmail.com]
+Jetty : HuiEun-Lim / heyho930@gmail.com
+Esther : indiaesther / indiaesther@naver.com
+Bonnie : Taehyeon130 / taehyeongim59@gmail.com
 
 ### 목표
 * 직접 필요한 기능들을 분석하고 설계한다.
