@@ -9,6 +9,34 @@
 	    <link rel="stylesheet" type="text/css" href="./css/survForm.css">
 	    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	   <!--  <script type="text/javascript" src="./js/regSurv.js"></script> -->
+	   <style>
+		  button {
+			  -webkit-appearance: none;
+			  -moz-appearance: none;
+			  appearance: none;
+			  
+			  margin:10px;
+			  margin-left:0;
+			  padding: 0.5rem 1rem;
+			
+			  font-size: 1rem;
+			  font-weight: 400;
+			  text-align: center;
+			  text-decoration: none;
+			
+			  display: inline-block;
+			  width: auto;
+			
+			  border: none;
+			  border-radius: 4px;
+		  
+		}
+		  
+		button:hover {
+			background-color:black;
+			color:white;
+		}
+	   </style>
 	   <script type="text/javascript"  th:inline="javascript">
 	   let url = "/survList";
 				let currentPage = /*[[${currentPage}]]*/ null;
@@ -192,7 +220,7 @@
 		                <span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>       
 		                <br/>
 		                 <br/>
-		                <select th:id="${qust.qustNo}" th:name="${qust.qustNo}" >
+		                <select th:id="${qust.qustNo}" th:name="${qust.qustNo}" style="min-width:100px;">
 							<option th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></option>					
 						</select>
 		                </div>
@@ -204,7 +232,10 @@
 		                	<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		                	<br/>
 		                	<br/>
-		                    <input type="radio"   th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont}></input>  	
+		                	<th:block th:id="${qust.qustNo}" th:each="opt : ${qust.qustoptList}">
+		                    	<input type="radio" th:name="${qust.qustNo}" th:value=${opt.optCont} th:utext=${opt.optCont} style="margin-right:10px;"></input>  
+		                    <br>
+		                	</th:block>	
 		                </div>
 		            </td>
 		            
@@ -214,7 +245,10 @@
 		                	<span>📌 </span><span class="qustCont" th:text=${qust.qustCont}></span>
 		                	<br/>
 		                	<br/>
-		                	<input type="checkbox" th:id="${qust.qustNo}" th:name="${qust.qustNo}" th:each="opt : ${qust.qustoptList}" th:value=${opt.optCont} th:utext=${opt.optCont} >
+		                	<th:block th:id="${qust.qustNo}" th:each="opt : ${qust.qustoptList}">
+		                		<input type="checkbox" th:name="${qust.qustNo}" th:value=${opt.optCont} th:utext=${opt.optCont} style="margin-right:10px;" />
+		                		<br>
+		                	</th:block>
 		                </div>
 		            </td>
 		         </tr>
@@ -223,12 +257,13 @@
 		    </table>
 		    </div>
 			</div>
+			<br>
 			<!-- <button type="submit" class="btn btn-dark " >제출하기</button> -->
 			
 
 			<!-- currentPage, cntPerPage, pageSize, srchTyp, keyword -->
-			  <input type="button" onclick="response()" value="제출하기">
-			  <input type="button" onclick="backList();" value="목록 보기">
+			  <button onclick="response()">제출하기</button>
+			  <button onclick="backList()">목록 보기</button>
 			  <!-- <a th:href="@{/survList(currentPage=${current)}"><button>목록</button></a> -->
 			  <!-- <a th:href="@{/survList(currentPage=${currentPage}, srchTyp=${srchTyp}, keyword=${keyword}))"><button>목록</button></a> -->
 			<!-- 설문지 질문 END -->
