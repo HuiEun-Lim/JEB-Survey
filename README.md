@@ -4,8 +4,8 @@
 2021년 하반기 입사 동기 Jetty, Esther, Bonnie가 본사 대기일 때 개발 능력 향상을 위해 설문조사 토이 프로젝트를 협업하여 만듭니다.<br>
 팀명 [JEB]은 각자의 닉네임 앞글자를 따왔습니다.
 
-Jetty : HuiEun-Lim / heyho930@gmail.com
-Esther : indiaesther / indiaesther@naver.com
+Jetty : HuiEun-Lim / heyho930@gmail.com <br>
+Esther : indiaesther / indiaesther@naver.com <br>
 Bonnie : Taehyeon130 / taehyeongim59@gmail.com
 
 ### 목표
@@ -29,3 +29,13 @@ Bonnie : Taehyeon130 / taehyeongim59@gmail.com
 * DataBase : MSSQL
 * Template Engine : Thymeleaf
 * Lombok
+
+### 역할 분담
+#### Jetty
+프로젝트 총괄, 프로젝트 설계 및 환경 세팅, 로고 디자인, 설문 리스트, My Survey, chart.js를 이용한 설문 결과 페이지, 설문 응답 여부 체크, 설문 응답, 메인 화면, Esther와 Bonnie에게 들이대며 각종 오류 잡기
+
+#### Esther
+동적 테이블을 이용한 설문지 생성/수정, 설문 삭제, 설문지 CSS, 화면 설계
+
+#### Bonnie
+Spring Security를 이용한 로그인/회원가입/권한 설정, 패스워드 암호화, 설문 응답, 공통 네비게이션 바, 화면 설계
