@@ -36,7 +36,6 @@ public class SurvListController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
             @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
             @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-            @AuthenticationPrincipal  UserDetails userInfo,
             HttpServletRequest request) throws UnsupportedEncodingException {
 		ModelAndView mv = new ModelAndView();
 		
@@ -63,8 +62,6 @@ public class SurvListController {
 			mv.addObject("survList", null);
 		}
 		mv.addObject("pagination", searchVo);
-		
-		mv.addObject("memId", userInfo.getUsername());
 		
 		mv.setViewName("survey/survList");
 		
@@ -134,12 +131,38 @@ public class SurvListController {
 	}
 	
 	// 해당 설문 응답 여부 확인
-		@PostMapping(value="/checkRes")
-		@ResponseBody
-		public int checkRes(SurveyDto surveyDto) { 
-			System.out.println(surveyDto);
-			int cnt = resSurvService.resSurvYn(surveyDto);
-			return cnt;
+	@PostMapping(value="/checkRes")
+	@ResponseBody
+	public int checkRes(SurveyDto surveyDto) { 
+		System.out.println(surveyDto);
+		int cnt = resSurvService.resSurvYn(surveyDto);
+		return cnt;
+	}
+		
+	// 설문 리스트 접속
+		@RequestMapping(value = "/survInfo", method=RequestMethod.GET)
+		public ModelAndView survInfo(
+				@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage,
+	            @RequestParam(value = "cntPerPage", required = false, defaultValue = "10") int cntPerPage,
+	            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
+	            @RequestParam(value = "survNo") int survNo,
+	            @AuthenticationPrincipal  UserDetails userInfo,
+	            HttpServletRequest request) throws UnsupportedEncodingException {
+			ModelAndView mv = new ModelAndView();
+			
+			SearchVo searchVo = new SearchVo(currentPage, cntPerPage, pageSize);
+			searchVo.setKeyword(request.getParameter("keyword"));
+			searchVo.setSrchTyp(request.getParameter("srchTyp"));
+			mv.addObject("pagination", searchVo);
+			
+			SurveyDto surveyDto = survListService.getOneSurvey(survNo);
+			
+			mv.addObject("survey", surveyDto);
+			mv.addObject("memId", userInfo.getUsername());
+			
+			mv.setViewName("survey/survInfo");
+			
+			return mv;
 		}
 
 }

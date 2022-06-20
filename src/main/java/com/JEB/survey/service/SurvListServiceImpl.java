@@ -68,4 +68,9 @@ public class SurvListServiceImpl implements SurvListService{
 		return surveyDto;
 	}
 
+	@Override
+	public SurveyDto getOneSurvey(int survNo) {
+		return survListMapper.getOneSurv(survNo);
+	}
+
 }
