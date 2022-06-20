@@ -125,6 +125,7 @@
 			surv_no as survNo,
 			surv_title as survTitle,
 			surv_desc as survDesc,
+			reg_id as regId,
 			useYn,
 			delYn,
 			reg_date as regDate,
@@ -169,6 +170,19 @@
 		WHERE 	
 			qust_no = #{qustNo}
 		;	
+	</select>
+	
+	<select id="getRegNick" parameterType="com.JEB.survey.model.SurveyDto" resultType="String">
+		SELECT 	
+				m.mem_nick as memNick
+			FROM	
+				Survey as s
+				LEFT JOIN MEMBER as m
+				ON s.reg_id = m.mem_id
+			WHERE
+				s.reg_id = #{regId}
+				AND s.surv_no = #{survNo}
+		;
 	</select>
 
 

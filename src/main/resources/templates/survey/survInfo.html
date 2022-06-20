@@ -28,9 +28,13 @@
 
 	<div class="table">
 		<table id="survInfo">
-			<tr>
+		<tr>
 			<th>설문 제목</th>
 			<td colspan="3" class="survtitle" th:text="${survey.survTitle}"></td>
+		</tr>
+		<tr>
+			<th>등록자</th>
+			<td colspan="3" class="survtitle" th:text="${survey.memNick}"></td>
 		</tr>
 		<tr>
 			<th>등록 날짜</th>

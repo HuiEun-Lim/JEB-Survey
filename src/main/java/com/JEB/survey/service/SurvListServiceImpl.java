@@ -70,7 +70,10 @@ public class SurvListServiceImpl implements SurvListService{
 
 	@Override
 	public SurveyDto getOneSurvey(int survNo) {
-		return survListMapper.getOneSurv(survNo);
+		SurveyDto surveyDto = survListMapper.getOneSurv(survNo);
+		surveyDto.setMemNick(survListMapper.getRegNick(surveyDto));
+		
+		return surveyDto;
 	}
 
 }

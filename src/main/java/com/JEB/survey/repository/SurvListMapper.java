@@ -26,5 +26,7 @@ public interface SurvListMapper {
 	public List<AnswerDto> getAnswer(int qustNo);
 	
 	public List<AnswerDto> getLongAnswer(int qustNo);
+	
+	public String getRegNick(SurveyDto surveyDto);
 
 }

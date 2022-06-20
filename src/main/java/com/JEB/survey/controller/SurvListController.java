@@ -157,6 +157,8 @@ public class SurvListController {
 			
 			SurveyDto surveyDto = survListService.getOneSurvey(survNo);
 			
+			surveyDto.setSurvDesc(surveyDto.getSurvDesc().replace("\n", "<br>"));
+			
 			mv.addObject("survey", surveyDto);
 			mv.addObject("memId", userInfo.getUsername());
 			
