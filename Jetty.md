@@ -1,8 +1,24 @@
 # Jetty 
 
-## 담당 역할
-프로젝트 총괄, 프로젝트 설계 및 환경 세팅, 로고 디자인, 설문 리스트, My Survey, chart.js를 이용한 설문 결과 페이지, 설문 응답 여부 체크, 설문 응답, 메인 화면, Esther와 Bonnie에게 들이대며 각종 오류 잡기
+> ### velog
+> 📌 https://velog.io/@hi_potato/JEB-Survey-%EC%84%A4%EB%AC%B8-%EC%A1%B0%EC%82%AC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 
+## 프로젝트 기간
+2022.05.26. ~ 2022.06.20. (4주)
+
+## 담당 역할
+* 프로젝트 총괄
+* 프로젝트 설계 및 환경 세팅,
+* 로고 디자인
+* 설문 리스트
+* My Survey
+* chart.js를 이용한 설문 결과 페이지
+* 설문 응답 여부 체크
+* 설문 응답
+* 메인 화면
+* Esther와 Bonnie에게 들이대며 각종 오류 잡기
+
+<hr>
 
 ## 1. 프로젝트 구상
 본격적인 프로젝트에 앞서 구글 문서에 대략적인 프로젝트 구상을 하고 동기들에게 공유를 했습니다.
@@ -91,8 +107,4 @@ My Survey에서 결과 보기 버튼을 클릭하면 설문 조사의 결과를 
 ![logo_name_black](https://user-images.githubusercontent.com/81278806/174561138-783b4ce5-bc1e-43bc-aef9-abe252de3974.png)
 
 ![main_logo](https://user-images.githubusercontent.com/81278806/174561122-810c25cc-f150-4e7b-8466-801a8a4b014b.png)
-
-
-
-
 
